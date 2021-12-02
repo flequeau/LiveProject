@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Remplacement</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h3 class="text-center">ANNEXE CALENDAIRE AU CONTRAT DE REMPLACEMENT</h3>
+        <br><br>
+        <table class="table table-bordered">
+            <tbody>
+            <tr class="text-center">
+                <td>
+                    ORDRE DES MEDECINS<br>
+                    CONSEIL DEPARTEMENTAL<br>
+                    DES HAUTS DE SEINE
+                    <br>
+                    51, RUE BAUDIN<br>
+                    92593 LEVALLOIS PERRET CEDEX<br>
+                    TÉL: 0147334747 * FAX: 0147913868
+                </td>
+                <td style="color: white">
+                    ORDRE DES MEDECINS<br>
+                    CONSEIL DEPARTEMENTAL<br>
+                    DES HAUTS DE SEINE
+                    <br>
+                    51, RUE BAUDIN<br>
+                    92593 LEVALLOIS PERRET CEDEX<br>
+                    TÉL: 0147334747 * FAX: 0147913868
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <p> {{ hop.town|upper }} le &ensp; {{ date|slice:"10" }}</p>
+        <br><br><br>
+
+    </div>
+    <div class="row">
+        <p class="font-weight-bold">
+            Signée entre le Docteur {{ are.forname|title }} {{ are.name|upper }} - N° d'inscription: {{ are.numco }}
+        </p>
+        <p class="font-weight-bold">
+            exerçant: {{ hop.name|upper }} {{ hop.adress1 }}
+            {% if hop.adress2 %}{{ hop.adress2 }}{% endif %} {{ hop.postalcode }} {{ hop.town }}
+        </p>
+    </div>
+    <div class="row">
+        <p class="font-weight-bold">
+            Et {{ rpt.forname|title }} {{ rpt.name|upper }}
+        </p>
+        <br><br><br>
+        <p>
+            Remplacements et tours de garde: &ensp; {{ date }}
+        </p>
+        <br><br><br><br><br><br><br><br>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Signature du médecin remplacé</th>
+                <th scope="col">Signature du remplaçant</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center">
+                <!--<td><br><img src='{{ signpath }}' width="50%"><br></td>-->
+                <td><br><br></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>

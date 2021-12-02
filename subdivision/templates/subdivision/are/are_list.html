@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Liste des Anesthésistes{% endblock %}
+{% block titre %}Liste des Anesthésistes{% endblock %}>
+{% block extrahead %}
+    <link href="{% static 'css/datatables/datatables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="card  mt-5">
+            <div class="card-header font-weight-bold">Liste des Anesthésistes
+                <a href="{% url 'are_create' %}" class="btn btn-info pull-right"
+                   role="button">Nouveau</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Tél. mob.</th>
+                            <th>Tél. perso.</th>
+                            <th>Tél. hôp.</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for are in object_list %}
+                            <tr>
+                                <td>{{ are.name|upper }}</td>
+                                <td>{{ are.forname|capfirst }}</td>
+                                <td>{% if are.telmob %}<a href="tel:{{ are.telmob }}">{% endif %}{{ are.telmob|default_if_none:"-" }}</a></td>
+                                <td>{% if are.telmob %}<a href="tel:{{ are.tel2 }}">{% endif %}{{ are.tel2|default_if_none:"-" }}</a></td>
+                                <td>{{ are.phone_hop|default_if_none:"-" }}</td>
+                                <td>{% if are.telmob %}<a href="mailto:{{ are.email }}">{% endif %}{{ are.email|default_if_none:"-" }}</a></td>
+                                <td>
+                                    <a class="btn btn-info btn-sm btn-secondary fa fa-address-card"
+                                       href="{% url 'are_detail' are.id %}"></a>
+                                    <a class="btn btn-success btn-sm btn-secondary fa fa-edit"
+                                       href="{% url 'are_update' are.id %}"></a>
+                                    <a class="btn btn-danger btn-sm btn-secondary fa fa-trash"
+                                       href="{% url 'are_delete' are.id %}"></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+
+                "scrollY": "500px",
+                "scrollCollapse": true,
+                "paging": false,
+                "language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"},
+                "date_euro": {"url": "//cdn.datatables.net/plug-ins/1.10.20/sorting/date-euro.js"},
+                autowidth: false,
+                pageLength: 200,
+                responsive: true,
+                order: [[0, "asc"]],
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: "Masquer",
+                        postfixButtons: ['colvisRestore']
+                    },
+                    {
+                        extend: 'csv',
+                    },
+                    {
+                        extend: 'excel',
+                    },
+                    {
+                        extend: 'pdf',
+                    },
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '12px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+            });
+            $('a.toggle-vis').on('click', function (e) {
+                e.preventDefault();
+
+                // Get the column API object
+                var column = table.column($(this).attr('data-column'));
+
+                // Toggle the visibility
+                column.visible(!column.visible());
+            });
+        });
+    </script>
+{% endblock %}
+

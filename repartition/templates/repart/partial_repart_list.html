@@ -1,0 +1,33 @@
+
+    {% for repart in reparts %}
+        <tr>
+            <td>{{ repart.start|date:"d/m/Y" }}</td>
+            <td>{{ repart.duty }}</td>
+            <td>{{ repart.sspi }}</td>
+            <td>{{ repart.description }}</td>
+            <td><!-- Read Repart buttons -->
+                <button type="button" class="view-repart btn btn-sm btn-primary small js-view-repart"
+                        data-url="{% url 'repartupdate' repart.id %}">
+                    <span class="fa fa-eye"></span>
+                </button>
+                <!-- LineRepart buttons -->
+                <button type="button" class="btn btn-sm btn-primary">
+                        <a href="{% url 'repdetail' repart.id %}">
+                            <span class="fa fa-bars text-white"></span></a>
+                </button>
+                <!-- Export Repart buttons -->
+                <button type="button" class="upload-repart btn btn-sm btn-primary js-upload-repart"
+                        data-url="#">
+                    <span class="fa fa-upload"></span>
+                </button>
+                <span class="badge bg-info text-white"></span>
+                <!-- Delete Repart buttons -->
+                <button type="button" class="delete-repart btn btn-sm btn-danger js-delete-repart"
+                        data-url="">
+                    <span class="fa fa-trash"></span>
+                </button>
+            </td>
+        </tr>
+    {% empty %}
+        <p>Pas de répartition à afficher</p>
+    {% endfor %}

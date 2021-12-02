@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+{{ form.media }}
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Accueil{% endblock %}</title>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/fontawesome/css/all.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/datatables/datatables.css' %}" rel="stylesheet">
+    <!-- Full Calendar -->
+    <link href="{% static 'css/fullcalendar/fullcalendar.css' %}" rel='stylesheet'/>
+    <link href="{% static 'css/fullcalendar/fullcalendar.print.min.css' %}" rel='stylesheet' media='print'/>
+
+    <!-- DateTimePicker -->
+    <link href="{% static 'css/datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+
+    {% block extrahead %}
+    {% endblock %}
+</head>
+
+<body id="page-top">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #483D8B;">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">SUBDIVISION</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="{% url 'dashboard' %}" class="nav-link fa fa-home">&ensp;Accueil</a>
+                </li>
+                <li class="nav-item active ml-3">
+                    <a href="{% url 'admin:index' %}" class="nav-link  fa fa-cog">&ensp;Console</a>
+                </li>
+                <li class="nav-item dropdown active ml-3">
+                    <a class="nav-link dropdown-toggle fa fa-exchange" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        &ensp;Remplacements</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item fa fa-calendar" href="{% url 'rempla' %}">&ensp;Calendrier</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item fa fa-list" href="{% url 'event_list' %}">&ensp;Liste
+                            remplacements</a>
+                        <a class="dropdown-item fa fa-calendar-o" href="{% url 'searchrptmonth' %}">&ensp;Mois &
+                            Remplaçant</a>
+                        <a class="dropdown-item fa fa-calendar-o"
+                           href="{% url 'searchMonth' "Editions des contrats et Annexes" %}">&ensp;Mois</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item fa fa-user-md" href="{% url 'are_list' %}">&ensp;Anesthésistes</a>
+                        <a class="dropdown-item fa fa-user" href="{% url 'rpt_list' %}">&ensp;Remplaçants</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle ml-3 fa fa-chevron-circle-down" href="#" id="navbarDropdown"
+                       role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        &ensp;Répartitions</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item  fa fa-calendar" href="{% url 'repart' %}">&ensp;Calendrier</a>
+                        <a class="dropdown-item fa fa-edit" href="#">&ensp;Dernière Répart.</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item  fa fa-user-md" href="{% url 'are_list' %}">&ensp;Anesthésistes</a>
+                        <a class="dropdown-item  fa fa-user" href="">&ensp;IADEs</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown active ml-5">
+                    <a class="nav-link dropdown-toggle fa fa-user" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ensp;Utilisateur</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'login' %}">Se connecter</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
+                           href="#">Se déconnecter</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}
+
+{% endblock %}
+
+{% block modal %}
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Prêt à nous quitter ?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Sélectionnez "Déconnexion" ci-dessous pour mettre fin à votre cession.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="knowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">En savoir plus... ?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Vous êtes trop curieux, vous n'en saurez pas plus...</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock modal %}
+<script src="{% static 'js/jquery/moment.min.js' %}"></script>
+<script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- Full Calendar JavaScript -->
+<script src="{% static 'js/fullcalendar/fullcalendar.min.js' %}"></script>
+<script src="{% static 'js/fullcalendar/locale-all.js' %}"></script>
+<!-- DateTimePicker JavaScript -->
+<script src="{% static 'js/datetimepicker/jquery.datetimepicker.full.js' %}"></script>
+
+<script src="{% static 'js/datatables/moment.min.js' %}"></script>
+<script src="{% static 'js/datatables/datatables.min.js' %}"></script>
+<script src="{% static 'js/datatables/datetime-moment.js' %}"></script>
+<script src="{% static 'js/datatables/buttons.colVis.js' %}"></script>
+<!-- Block Extra JavaScript -->
+{% block script %}
+{% endblock script %}
+<footer class="fixed-bottom text-center">
+    <small>©Atheinas 2021 - Tous droits réservés</small>
+</footer>
+</body>
+
+</html>

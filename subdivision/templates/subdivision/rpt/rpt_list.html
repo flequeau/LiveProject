@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Liste des remplaçants{% endblock %}
+{% block titre %}Liste des remplaçants{% endblock %}>
+{% block extrahead %}
+    <link href="{% static 'css/datatables/datatables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="card  mt-5">
+            <div class="card-header font-weight-bold">Liste des remplaçants
+                <a href="{% url 'rpt_create' %}" class="btn btn-info pull-right"
+                   role="button">Nouveau</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Téléphone</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rpt in object_list %}
+                            <tr>
+                                <td>{{ rpt.name|upper }}</td>
+                                <td>{{ rpt.forname|capfirst }}</td>
+                                <td><a href="tel:{{ rpt.telmob }}">{{ rpt.telmob }}</a></td>
+                                <td><a href="mailto:{{ rpt.email }}">{{ rpt.email }}</a></td>
+                                <td>
+                                    <a class="btn btn-info btn-secondary btn-sm fa fa-address-card"
+                                       href="{% url 'rpt_detail' rpt.id %}"></a>
+                                    <a class="btn btn-success btn-secondary btn-sm fa fa-edit"
+                                       href="{% url 'rpt_update' rpt.id %}"></a>
+                                    <a class="btn btn-danger btn-secondary btn-sm fa fa-trash"
+                                       href="{% url 'rpt_delete' rpt.id %}"></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+
+                "scrollY": "500px",
+                "scrollCollapse": true,
+                "paging": false,
+                "language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"},
+                "date_euro": {"url": "//cdn.datatables.net/plug-ins/1.10.20/sorting/date-euro.js"},
+                autowidth: false,
+                pageLength: 200,
+                responsive: true,
+                order: [[0, "asc"]],
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: "Masquer",
+                        postfixButtons: ['colvisRestore']
+                    },
+                    {
+                        extend: 'csv',
+                    },
+                    {
+                        extend: 'excel',
+                    },
+                    {
+                        extend: 'pdf',
+                    },
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '12px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+            });
+            $('a.toggle-vis').on('click', function (e) {
+                e.preventDefault();
+
+                // Get the column API object
+                var column = table.column($(this).attr('data-column'));
+
+                // Toggle the visibility
+                column.visible(!column.visible());
+            });
+        });
+    </script>
+{% endblock %}
+
