@@ -90,7 +90,7 @@ def edit_pdf(request, id):
     date = event.start.strftime('%d/%m%/%Y')
     hop = HopParam.objects.get(pk=1)
     css = [
-        settings.STATIC_ROOT + '/new/css/bootstrapv4.css',
+        settings.STATIC_ROOT + '/css/bootstrap.css',
     ]
 
     # if settings.STATIC_ROOT + event.are.signature.url:
@@ -122,7 +122,7 @@ def edit_pdf(request, id):
 def pdf_month(request, annee, mois, items):
     hop = HopParam.objects.get(pk=1)
     css = [
-        settings.STATIC_ROOT + '/new/css/bootstrapv4.css',
+        settings.STATIC_ROOT + '/css/bootstrap.css',
     ]
     message = ''
     listcouple = []

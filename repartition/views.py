@@ -15,12 +15,11 @@ from .models import RepartEvent, RepartLine, Room, RepartCs, DeskRoom
 from .forms import EventFormRepart, RepartLineForm, CsLineForm
 
 
-class export(TemplateView):
+class export(LoginRequiredMixin, TemplateView):
     template_name = 'repart/export.html'
 
 
-
-
+@login_required()
 def repartview(request):
     repart_list = RepartEvent.objects.all().order_by('-start')
     paginator = Paginator(repart_list, 5)
@@ -29,7 +28,7 @@ def repartview(request):
     return render(request, 'repart/repart.html', {'reparts': reparts})
 
 
-
+@login_required()
 def repartadd(request):
     if request.method == 'POST':
         form = EventFormRepart(request.POST)
@@ -41,7 +40,7 @@ def repartadd(request):
     return render(request, 'repart/repevent.html', {'form': form})
 
 
-class RepartList(ListView):
+class RepartList(LoginRequiredMixin, ListView):
     model = RepartEvent
     template_name = 'repart/repevent_list.html'
     pass
@@ -70,11 +69,11 @@ def events_json(request):
                                  content_type='application/json')
 
 
-
 def repartdelete(request):
     return None
 
 
+@login_required()
 def repartcreate(request, start, end):
     start_event = start[4:8] + '-' + start[2:4] + '-' + start[:2]
     start_event = datetime.strptime(start_event, '%Y-%m-%d')
@@ -102,13 +101,13 @@ def repartcreate(request, start, end):
     return render(request, 'repart/repevent.html', {'form': form})
 
 
-class RepartUpdate(UpdateView):
+class RepartUpdate(LoginRequiredMixin, UpdateView):
     model = RepartEvent
     fields = ['start', 'duty', 'sspi', 'title', 'description']
     template_name = 'repart/repevent_update.html'
 
 
-class RepartDetail(DetailView):
+class RepartDetail(LoginRequiredMixin, DetailView):
     model = RepartEvent
     template_name = 'repart/repevent_detail.html'
 
@@ -122,7 +121,7 @@ class RepartDetail(DetailView):
         return context
 
 
-
+@login_required()
 def LineRepartCreate(request, pk):
     repart = RepartEvent.objects.get(pk=pk)
     rooms = Room.objects.all()
