@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Détail d'un remplaçant{% endblock %}
+{% block extrahead %}
+{% endblock %}
+{% block titre %}Fiche de {{ object.forname|title }} {{ object.name|upper }}{% endblock %}>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5 text-left">
+                <div class="card  mt-5">
+                    <div class="card-header font-weight-bold">Détail
+                        de {{ object.forname|title }} {{ object.name|upper }}
+                        <span class="ml-5">Actif : {{ object.active }}</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Nom : {{ object.name|upper }}</p>
+                        <p>Prénom : {{ object.forname|title }}</p>
+                        <p>Mobile : {{ object.telmob }}</p>
+                        <p>Email : <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 text-left">
+                <div class="card  mt-5">
+                    <div class="card-header font-weight-bold">Statut : {{ object.status|title }}
+                    </div>
+                    <div class="card-body">
+                        <p>Adresse : {{ object.adress1|title }}</p>
+                        <p>Complément : {% if object.adress2 %}{{ object.adress2|title }}{% else %}-{% endif %}</p>
+                        <p>Code postal : {{ object.postalcode }}</p>
+                        <p>Ville : {{ object.town }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 text-left">
+                <div class="card  mt-2">
+                    <div class="card-header font-weight-bold">Conseil de l'Ordre</div>
+                    <div class="card-body">
+                        <p>Num. CO : {{ object.conum }}</p>
+                        <p>Département CO : {{ object.codepartname|title }}</p>
+                        <p>Code : {{ object.codepartnum }}</p>
+                        <p>Date expiration licence : {{ object.licence_exp_date|date:'d/m/Y' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <a href="{% url 'rpt_list' %}" class="btn btn-primary pull-left mt-5"
+                           role="button">Retour</a>
+    </div>
+{% endblock %}
+{% block script %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% load widget_tweaks %}
+<div class="form-group{% if form.errors %} has-error{% endif %}">
+    <label for="{{ form.id_deskroom }}">Bureau</label>
+    {{ form.deskroom|append_attr:"readonly:readonly"|attr:"class:form-control" }}
+    <label class="mt-2" for="{{ form.id_are }}">Anesthésiste</label>
+    {{ form.are|attr:"class:form-control" }}
+    {% for error in form.errors %}
+        <p class="help-block">{{ error }}</p>
+    {% endfor %}
+</div>
+

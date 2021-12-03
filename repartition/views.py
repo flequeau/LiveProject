@@ -14,7 +14,13 @@ from datetime import timedelta
 from .models import RepartEvent, RepartLine, Room, RepartCs, DeskRoom
 from .forms import EventFormRepart, RepartLineForm, CsLineForm
 
-@login_required
+
+class export(TemplateView):
+    template_name = 'repart/export.html'
+
+
+
+
 def repartview(request):
     repart_list = RepartEvent.objects.all().order_by('-start')
     paginator = Paginator(repart_list, 5)
@@ -23,7 +29,7 @@ def repartview(request):
     return render(request, 'repart/repart.html', {'reparts': reparts})
 
 
-@login_required
+
 def repartadd(request):
     if request.method == 'POST':
         form = EventFormRepart(request.POST)
@@ -35,7 +41,7 @@ def repartadd(request):
     return render(request, 'repart/repevent.html', {'form': form})
 
 
-class RepartList(LoginRequiredMixin, ListView):
+class RepartList(ListView):
     model = RepartEvent
     template_name = 'repart/repevent_list.html'
     pass
@@ -64,12 +70,11 @@ def events_json(request):
                                  content_type='application/json')
 
 
-@login_required
+
 def repartdelete(request):
     return None
 
 
-@login_required
 def repartcreate(request, start, end):
     start_event = start[4:8] + '-' + start[2:4] + '-' + start[:2]
     start_event = datetime.strptime(start_event, '%Y-%m-%d')
@@ -97,13 +102,13 @@ def repartcreate(request, start, end):
     return render(request, 'repart/repevent.html', {'form': form})
 
 
-class RepartUpdate(LoginRequiredMixin, UpdateView):
+class RepartUpdate(UpdateView):
     model = RepartEvent
     fields = ['start', 'duty', 'sspi', 'title', 'description']
     template_name = 'repart/repevent_update.html'
 
 
-class RepartDetail(LoginRequiredMixin, DetailView):
+class RepartDetail(DetailView):
     model = RepartEvent
     template_name = 'repart/repevent_detail.html'
 
@@ -116,7 +121,8 @@ class RepartDetail(LoginRequiredMixin, DetailView):
         context['form'] = CsLineForm()
         return context
 
-@login_required
+
+
 def LineRepartCreate(request, pk):
     repart = RepartEvent.objects.get(pk=pk)
     rooms = Room.objects.all()
@@ -136,8 +142,8 @@ def LineRepartCreate(request, pk):
     linerepart_list_apm = linereparts.filter(repart_id=pk, period__contains='Apm')
     return render(request, 'repart/repevent_detail.html', {'linerepart_list_matin': linerepart_list_matin,
                                                            'linerepart_list_apm': linerepart_list_apm,
-                                                           'csrepart_list_matin':csrepart_list_matin,
-                                                           'csrepart_list_apm':csrepart_list_apm,
+                                                           'csrepart_list_matin': csrepart_list_matin,
+                                                           'csrepart_list_apm': csrepart_list_apm,
                                                            'object': repart})
 
 
@@ -238,7 +244,7 @@ def save_cs_matin_form(request, form, template_name, repart):
             data['form_is_valid'] = True
             csrepart_list_matin = RepartCs.objects.all().filter(repart=repart, period="Matin")
             data['html_cs_list'] = render_to_string('cs/partial_cs_matin_list.html',
-                                                        {'csrepart_list_matin': csrepart_list_matin})
+                                                    {'csrepart_list_matin': csrepart_list_matin})
         else:
             data['form_is_valid'] = False
     context = {'form': form}
@@ -266,7 +272,7 @@ def save_cs_apm_form(request, form, template_name, repart):
             data['form_is_valid'] = True
             csrepart_list_apm = RepartCs.objects.all().filter(repart=repart, period="Apm")
             data['html_cs_list'] = render_to_string('cs/partial_cs_apm_list.html',
-                                                        {'csrepart_list_apm': csrepart_list_apm})
+                                                    {'csrepart_list_apm': csrepart_list_apm})
         else:
             data['form_is_valid'] = False
     context = {'form': form}

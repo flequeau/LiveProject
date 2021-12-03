@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-v0_2!+3!*14yv_!#^ecq-2y@n=mn3o8gpz*7*dg!_ws-o5#oc6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.25']
 
 # Application definition
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -116,7 +117,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATE_INPUT_FORMATS = ('%d/%m/%Y', '%Y-%m-%d')
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -128,7 +128,7 @@ STATICFILES_FINDERS = [
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR, 'static']
-STATIC_ROOT = BASE_DIR / 'static_root'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_ROOT = [BASE_DIR, "static"]
 MEDIA_URL = 'img/'
@@ -146,3 +146,5 @@ GERANT = 'Docteur Franck Le Quéau'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 10000
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

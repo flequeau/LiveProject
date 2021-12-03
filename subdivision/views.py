@@ -78,7 +78,7 @@ class DeleteCrudRpt(LoginRequiredMixin, View):
 
 
 ####### PDF EDIT ################# PDF EDIT ################# PDF EDIT ##########
-@login_required
+
 def edit_pdf(request, id):
     event = Event.objects.get(pk=id)
     y = event.start.year
@@ -99,10 +99,10 @@ def edit_pdf(request, id):
     # signpathare = ''
 
     if event.calendrier_id == 1:
-        p = 'static_root/img/contrat/' + str(y) + '/' + str(m) + '/'
+        p = 'staticfiles/img/contrat/' + str(y) + '/' + str(m) + '/'
         url = 'subdivision/contrat.html'
     else:
-        p = 'static_root/img/annexe/' + str(y) + '/' + str(m) + '/'
+        p = 'staticfiles/img/annexe/' + str(y) + '/' + str(m) + '/'
         url = 'subdivision/annexe.html'
     os.makedirs(p, exist_ok=True)
     contrat = render_to_string(url, {'are': event.are,
@@ -118,7 +118,7 @@ def edit_pdf(request, id):
     return FileResponse(open(path, 'rb'), content_type='application/pdf')
 
 
-@login_required
+
 def pdf_month(request, annee, mois, items):
     hop = HopParam.objects.get(pk=1)
     css = [
@@ -146,10 +146,10 @@ def pdf_month(request, annee, mois, items):
                         d = d + ' au ' + fd
                     datecouple.append(d)
                     if event.calendrier_id == 1:
-                        p = 'static_root/img/contrat/' + str(annee) + '/' + str(mois) + '/'
+                        p = 'staticfiles/img/contrat/' + str(annee) + '/' + str(mois) + '/'
                         url = 'subdivision/contrat.html'
                     else:
-                        p = 'static_root/img/annexe/' + str(annee) + '/' + str(mois) + '/'
+                        p = 'staticfiles/img/annexe/' + str(annee) + '/' + str(mois) + '/'
                         url = 'subdivision/annexe.html'
 
                     os.makedirs(p, exist_ok=True)
@@ -175,7 +175,7 @@ MOIS = {'NC', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 
         'Novembre', 'Décembre'}
 
 
-@login_required
+
 def searchrptmonth(request):
     today = datetime.now()
     anneeprev = today - timedelta(weeks=52)
@@ -259,7 +259,7 @@ class EventDetail(LoginRequiredMixin, DetailView):
     template_name = 'subdivision/event/event_detail.html'
 
 
-@login_required
+
 def add_event(request):
     """
     Formulaire de création d'un nouvel évenement. Les heures sont pré-remplies par 00:00
@@ -276,7 +276,7 @@ def add_event(request):
     return render(request, 'subdivision/event/event.html', {'form': form})
 
 
-@login_required
+
 def events_json(request):
     """
     Crée le fichier json qui est lu pour être affiché sur le calendrier
@@ -310,7 +310,7 @@ def events_json(request):
                                  content_type='application/json')
 
 
-@login_required
+
 def update(request, id):
     """
     Récupère l'id d'un event pour updater celui-ci
@@ -354,7 +354,7 @@ def update(request, id):
                                                                        })
 
 
-@login_required
+
 def delete(request, id):
     """
     Recupere l'id d'un event pour supprimer celui-ci
@@ -367,7 +367,7 @@ def delete(request, id):
     return redirect('rempla')
 
 
-@login_required
+
 def create(request, start, end):
     """
     Creation d'un event lors d'un click dans une case du calendrier
@@ -405,7 +405,7 @@ def create(request, start, end):
         return render(request, 'subdivision/event/event.html', {'form': form, 'idems': idems})
 
 
-@login_required
+
 def resize(request, id, end):
     """
     Modifie un event lors d'une modification de sa duree dans le calendrier
@@ -431,7 +431,7 @@ def resize(request, id, end):
     return redirect('rempla')
 
 
-@login_required
+
 def drop(request, id, start, end):
     """
     Modifie un event lors d'un deplacement par drop
@@ -463,7 +463,7 @@ def drop(request, id, start, end):
     return redirect('rempla')
 
 
-@login_required
+
 def searchMonth(request, message):
     if request.method == 'POST':
         form = SearchMonthForm(request.POST)

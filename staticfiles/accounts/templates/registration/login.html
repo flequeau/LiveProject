@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-header font-weight-bold">Authentification</div>
+            <div class="card-body text-center">
+                {% if form.errors %}
+                    <p>L'identifiant et le mot de passe ne correspondent pas.
+                        Merci de recommencer
+                    </p>
+                {% else %}
+                    <h3>Bienvenue</h3>
+                    <p>Merci de vous identifier</p>
+                {% endif %}
+                <form class="m-t" role="form" action="{% url 'login' %}" method='post'>
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                        <div class="fieldWrapper">
+                            {{ field.errors }}
+                            <br>
+                            {{ field.label_tag }}
+                            <br>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                            <br>
+                        </div>
+                    {% endfor %}
+                    <br>
+
+                    <p><input type="submit" class="btn btn-primary block full-width m-b" value="Soumettre"></p>
+                    <a href="#"><small>Mot de passe oublié ?</small></a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

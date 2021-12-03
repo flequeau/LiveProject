@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Détail d'un Anesthésiste{% endblock %}
+{% block extrahead %}
+{% endblock %}
+{% block titre %}Fiche de {{ object.forname|title }} {{ object.name|upper }}{% endblock %}>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5 text-left">
+                <div class="card  mt-5">
+                    <div class="card-header font-weight-bold">Détail
+                        de {{ object.forname|title }} {{ object.name|upper }}
+                    </div>
+                    <div class="card-body">
+                        <p>Nom : {{ object.name|upper }}</p>
+                        <p>Prénom : {{ object.forname|title }}</p>
+                        <p>Mobile : {{ object.telmob }}</p>
+                        <p>Email : <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 text-left">
+                <div class="card  mt-5">
+                    <div class="card-body">
+                        <p>Adresse : {{ object.adress1|title }}</p>
+                        <p>Complément : {% if object.adress2 %}{{ object.adress2|title }}{% else %}-{% endif %}</p>
+                        <p>Code postal : {{ object.postalcode }}</p>
+                        <p>Ville : {{ object.town }}</p>
+                        <p>Tél. mobile : {{ object.telmob }}</p>
+                        <p>Tél. travail : {{ object.phone_hop }}</p>
+                        <p>Secteur : {{ object.secteur }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 text-left">
+                <div class="card  mt-2">
+                    <div class="card-header font-weight-bold">Conseil de l'Ordre</div>
+                    <div class="card-body">
+                        <p>Num. CO : {{ object.conum }}</p>
+                        <p>Rpps: {{ object.rpps }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'are_list' %}" class="btn btn-primary pull-left mt-5"
+           role="button">Retour</a>
+    </div>
+{% endblock %}
+{% block script %}
+{% endblock %}
