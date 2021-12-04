@@ -15,8 +15,13 @@ from .models import RepartEvent, RepartLine, Room, RepartCs, DeskRoom
 from .forms import EventFormRepart, RepartLineForm, CsLineForm
 
 
-class export(LoginRequiredMixin, TemplateView):
-    template_name = 'repart/export.html'
+def export(request, pk):
+    repart = get_object_or_404(RepartEvent, pk=pk)
+    matin_lines = RepartLine.objects.all().filter(repart=repart, period='Matin').order_by('room__exportnum')
+    apm_lines = RepartLine.objects.all().filter(repart=repart, period='Apm').order_by('room__exportnum')
+    return render(request, 'repart/export.html', {'matin_lines': matin_lines,
+                                                  'apm_lines': apm_lines,
+                                                  'repart': repart})
 
 
 @login_required()

@@ -16,9 +16,10 @@
                             <span class="fa fa-bars text-white"></span></a>
                 </button>
                 <!-- Export Repart buttons -->
-                <button type="button" class="upload-repart btn btn-sm btn-primary js-upload-repart"
-                        data-url="#">
-                    <span class="fa fa-upload"></span>
+                <button type="button" class="upload-repart btn btn-sm btn-primary">
+                    <a href="{% url 'export' repart.id %}">
+
+                    <span class="fa fa-upload text-white"></span></a>
                 </button>
                 <span class="badge bg-info text-white"></span>
                 <!-- Delete Repart buttons -->

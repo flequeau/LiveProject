@@ -36,6 +36,7 @@ class Room(models.Model):
     number = models.CharField(max_length=10, blank=True, null=True)
     sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
     sortnum = models.IntegerField(null=True, blank=True, unique=True)
+    exportnum = models.IntegerField(null=True, blank=True, unique=True)
 
     def __str__(self):
         return '{}'.format(self.number)

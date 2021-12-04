@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('export', views.export.as_view(), name='export'),
+    path('export/<int:pk>', views.export, name='export'),
     path('addrepart', views.repartadd, name='repartadd'),
     path('view', views.repartview, name='repart'),
     path('listrepart', views.RepartList.as_view, name='repartlist'),

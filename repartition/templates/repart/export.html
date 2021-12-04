@@ -1,63 +1,38 @@
 {% extends 'base.html' %}
-{% block title %}Export{% endblock %}
 {% block content %}
     <div class="container">
-        <!--- Salles 17 - 21 --->
-        <div class="row mt-5">
-            <div class="col-3">
-                <div class="card" style="width: 15rem;">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        Salle 18 <span class="badge bg-danger ml-5">07:45</span>
-                    </div>
-                    <ul class="list-group list-group-flush h6">
-                        <li class="list-group-item">Chirurgien</li>
-                        <li class="list-group-item">Anesthésiste</li>
-                        <li class="list-group-item">IADE</li>
-                        <li class="list-group-item">Interne</li>
-                    </ul>
-                </div>
+        <div class="alert alert-primary mt-1" role="alert">
+            <strong>Salles NORD MATIN</strong>
+        </div>
+
+        {% for matin_line in matin_lines %}
+            {% if forloop.counter == 1 and forloop.counter < 6 %}
+                <div class="row">{% endif %}
+            {% if forloop.counter == 2 %}
+                <div class="col-2 offset-2">
+            {% elif forloop.counter == 6 %}
+                <div class="row mt-2">
+                <div class="col-2">
+            {% else %}
+                <div class="col-2">
+            {% endif %}
+        <div class="card" style="width: 10rem;">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                {{ matin_line.room }} <span
+                    class="badge bg-danger ml-5">{{ matin_line.start_time }}</span>
             </div>
-            <div class="col-3">
-                <div class="card" style="width: 15rem;">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        Salle 20 <span class="badge bg-success ml-5">08:00</span>
-                    </div>
-                    <ul class="list-group list-group-flush h6">
-                        <li class="list-group-item">Chirurgien</li>
-                        <li class="list-group-item">Anesthésiste</li>
-                        <li class="list-group-item">IADE</li>
-                        <li class="list-group-item">Interne</li>
-                    </ul>
-                </div>
+            <div class="card-body">
+                <span>{{ matin_line.operator.name }}</span><br>
+                <span>{{ matin_line.are.name }}</span><br>
+                <span>{{ matin_line.iade|default_if_none:"" }}</span><br>
+                <span>{{ matin_line.interne|default_if_none:"" }}</span>
             </div>
         </div>
-        <div class="row mt-1">
-            <div class="col-3">
-                <div class="card" style="width: 15rem;">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        Salle 17 <span class="badge bg-danger ml-5">07:45</span>
-                    </div>
-                    <ul class="list-group list-group-flush h6">
-                        <li class="list-group-item">Chirurgien</li>
-                        <li class="list-group-item">Anesthésiste</li>
-                        <li class="list-group-item">IADE</li>
-                        <li class="list-group-item">Interne</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card" style="width: 15rem;">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        Salle 21 <span class="badge bg-success ml-5">08:00</span>
-                    </div>
-                    <ul class="list-group list-group-flush h6">
-                        <li class="list-group-item">Chirurgien</li>
-                        <li class="list-group-item">Anesthésiste</li>
-                        <li class="list-group-item">IADE</li>
-                        <li class="list-group-item">Interne</li>
-                    </ul>
-                </div>
-            </div>
+        </div>
+        {% endfor %}
+        </div>
+        </div>
+        </div>
         </div>
     </div>
 {% endblock content %}
