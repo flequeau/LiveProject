@@ -1,38 +1,129 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
         <div class="alert alert-primary mt-1" role="alert">
             <strong>Salles NORD MATIN</strong>
         </div>
+        <!--- Salles 14 - 18 --->
 
         {% for matin_line in matin_lines %}
-            {% if forloop.counter == 1 and forloop.counter < 6 %}
-                <div class="row">{% endif %}
-            {% if forloop.counter == 2 %}
+
+            {% if forloop.counter == 1 %}
+
+                <div class="row">
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        </div>
+                        <div class="card-body">
+                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            {% elif forloop.counter == 2 %}
+
                 <div class="col-2 offset-2">
-            {% elif forloop.counter == 6 %}
-                <div class="row mt-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        </div>
+                        <div class="card-body">
+                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            {% elif forloop.counter > 2 and forloop.counter < 6 %}
+
                 <div class="col-2">
-            {% else %}
-                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        </div>
+                        <div class="card-body">
+                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
-        <div class="card" style="width: 10rem;">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                {{ matin_line.room }} <span
-                    class="badge bg-danger ml-5">{{ matin_line.start_time }}</span>
-            </div>
-            <div class="card-body">
-                <span>{{ matin_line.operator.name }}</span><br>
-                <span>{{ matin_line.are.name }}</span><br>
-                <span>{{ matin_line.iade|default_if_none:"" }}</span><br>
-                <span>{{ matin_line.interne|default_if_none:"" }}</span>
-            </div>
-        </div>
-        </div>
         {% endfor %}
         </div>
-        </div>
-        </div>
+
+        {% for matin_line in matin_lines %}
+
+            {% if forloop.counter == 6 %}
+
+                <div class="row">
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        </div>
+                        <div class="card-body">
+                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% elif forloop.counter > 6 and forloop.counter < 9 %}
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        </div>
+                        <div class="card-body">
+                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% elif forloop.counter == 9 %}
+                <div class="col-2 offset-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        </div>
+                        <div class="card-body">
+                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% elif forloop.counter == 10 %}
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        </div>
+                        <div class="card-body">
+                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
         </div>
     </div>
-{% endblock content %}
+
+
+{% endblock %}
