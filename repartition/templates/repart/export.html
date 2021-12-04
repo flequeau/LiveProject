@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="container mt-3">
         <div class="alert alert-primary mt-1" role="alert">
-            <strong>Salles NORD MATIN</strong>
+            <strong>Salles NORD MATIN du {{ repart.start }} - Garde : {{ repart.duty }} - SSPI : {{ repart.sspi }}</strong>
+            <a href="{% url 'repart' %}" role="button" class="btn btn-sm btn-primary float-right">Retour</a>
         </div>
-        <!--- Salles 14 - 18 --->
 
         {% for matin_line in matin_lines %}
 
@@ -13,13 +13,16 @@
                 <div class="row">
                 <div class="col-2">
                     <div class="card" style="width: 10rem;">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
-                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
-                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span class="text-primary">{% if  matin_line.operator.name %}
+                                Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  matin_line.are.name %}
+                                Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
                             <span>{{ matin_line.interne|default_if_none:'' }}</span>
                         </div>
                     </div>
@@ -29,14 +32,19 @@
 
                 <div class="col-2 offset-2">
                     <div class="card" style="width: 10rem;">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
-                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
-                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+
+                            <span class="text-primary">{% if  matin_line.operator.name %}
+                                Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  matin_line.are.name %}
+                                Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
                             <span>{{ matin_line.interne|default_if_none:'' }}</span>
+
                         </div>
                     </div>
                 </div>
@@ -45,14 +53,19 @@
 
                 <div class="col-2">
                     <div class="card" style="width: 10rem;">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
-                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
-                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+
+                            <span class="text-primary">{% if  matin_line.operator.name %}
+                                Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  matin_line.are.name %}
+                                Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
                             <span>{{ matin_line.interne|default_if_none:'' }}</span>
+
                         </div>
                     </div>
                 </div>
@@ -67,55 +80,71 @@
                 <div class="row">
                 <div class="col-2">
                     <div class="card" style="width: 10rem;">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
-                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
-                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+
+                            <span class="text-primary">{% if  matin_line.operator.name %}
+                                Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  matin_line.are.name %}
+                                Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
                             <span>{{ matin_line.interne|default_if_none:'' }}</span>
+
                         </div>
                     </div>
                 </div>
-                {% elif forloop.counter > 6 and forloop.counter < 9 %}
+            {% elif forloop.counter > 6 and forloop.counter < 9 %}
                 <div class="col-2">
                     <div class="card" style="width: 10rem;">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
-                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
-                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+
+                            <span class="text-primary">{% if  matin_line.operator.name %}
+                                Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  matin_line.are.name %}
+                                Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
                             <span>{{ matin_line.interne|default_if_none:'' }}</span>
+
                         </div>
                     </div>
                 </div>
-                {% elif forloop.counter == 9 %}
+            {% elif forloop.counter == 9 %}
                 <div class="col-2 offset-2">
                     <div class="card" style="width: 10rem;">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
-                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
-                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span class="text-primary">{% if  matin_line.operator.name %}
+                                Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  matin_line.are.name %}
+                                Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
                             <span>{{ matin_line.interne|default_if_none:'' }}</span>
                         </div>
                     </div>
                 </div>
-                {% elif forloop.counter == 10 %}
+            {% elif forloop.counter == 10 %}
                 <div class="col-2">
                     <div class="card" style="width: 10rem;">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            S{{ matin_line.room }} <span class="badge bg-danger ml-5">{{ matin_line.start_time}}</span>
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ matin_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-                            <span>Dr {{ matin_line.operator.name|default_if_none:'' }}</span><br>
-                            <span>Dr {{ matin_line.are.name|default_if_none:'' }}</span><br>
-                            <span>{{ matin_line.iade|default_if_none:'' }}</span><br>
+                            <span class="text-primary">{% if  matin_line.operator.name %}
+                                Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  matin_line.are.name %}
+                                Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
                             <span>{{ matin_line.interne|default_if_none:'' }}</span>
                         </div>
                     </div>
@@ -124,6 +153,158 @@
         {% endfor %}
         </div>
     </div>
+    <!--- SALLES NORD APM --->
+    <div class="container mt-3">
+        <div class="alert alert-primary mt-1" role="alert">
+            <strong>Salles NORD APRÈS-MIDI</strong>
+        </div>
 
+        {% for apm_line in apm_lines %}
+
+            {% if forloop.counter == 1 %}
+
+                <div class="row">
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ apm_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="text-primary">{% if  apm_line.operator.name %}
+                                Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  apm_line.are.name %}
+                                Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            {% elif forloop.counter == 2 %}
+
+                <div class="col-2 offset-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ apm_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
+                        </div>
+                        <div class="card-body">
+
+                            <span class="text-primary">{% if  apm_line.operator.name %}
+                                Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  apm_line.are.name %}
+                                Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% elif forloop.counter > 2 and forloop.counter < 6 %}
+
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ apm_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
+                        </div>
+                        <div class="card-body">
+
+                            <span class="text-primary">{% if  apm_line.operator.name %}
+                                Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  apm_line.are.name %}
+                                Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+        {% for apm_line in apm_lines %}
+
+            {% if forloop.counter == 6 %}
+
+                <div class="row">
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ apm_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
+                        </div>
+                        <div class="card-body">
+
+                            <span class="text-primary">{% if  apm_line.operator.name %}
+                                Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  apm_line.are.name %}
+                                Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+
+                        </div>
+                    </div>
+                </div>
+            {% elif forloop.counter > 6 and forloop.counter < 9 %}
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ apm_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
+                        </div>
+                        <div class="card-body">
+
+                            <span class="text-primary">{% if  apm_line.operator.name %}
+                                Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  apm_line.are.name %}
+                                Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+
+                        </div>
+                    </div>
+                </div>
+            {% elif forloop.counter == 9 %}
+                <div class="col-2 offset-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ apm_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="text-primary">{% if  apm_line.operator.name %}
+                                Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  apm_line.are.name %}
+                                Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% elif forloop.counter == 10 %}
+                <div class="col-2">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                            S{{ apm_line.room }} <span
+                                class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="text-primary">{% if  apm_line.operator.name %}
+                                Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
+                            <span class="text-success">{% if  apm_line.are.name %}
+                                Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
+                            <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
