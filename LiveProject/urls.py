@@ -21,4 +21,5 @@ urlpatterns = [
     path('sub/', include('subdivision.urls')),
     path('', include('accounts.urls')),
     path('rep/', include('repartition.urls')),
+    path('calc/', include('calculs.urls')),
 ]

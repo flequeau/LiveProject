@@ -24,9 +24,11 @@
                             <span class="text-dark">{% if  matin_line.are.name %}
                                 Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
                             {% if matin_line.iade %}
-                                <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ matin_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                            {% if matin_line.interne %}
+                                <span>Int. {{ matin_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -40,16 +42,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  matin_line.operator.name %}
                                 Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  matin_line.are.name %}
                                 Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
                             {% if matin_line.iade %}
-                                <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ matin_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
-
+                            {% if matin_line.interne %}
+                                <span>Int. {{ matin_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -63,16 +65,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  matin_line.operator.name %}
                                 Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  matin_line.are.name %}
                                 Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
                             {% if matin_line.iade %}
-                                <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ matin_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
-
+                            {% if matin_line.interne %}
+                                <span>Int. {{ matin_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -92,16 +94,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  matin_line.operator.name %}
                                 Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  matin_line.are.name %}
                                 Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
                             {% if matin_line.iade %}
-                                <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ matin_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
-
+                            {% if matin_line.interne %}
+                                <span>Int. {{ matin_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -113,16 +115,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ matin_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  matin_line.operator.name %}
                                 Dr {% endif %}{{ matin_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  matin_line.are.name %}
                                 Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
                             {% if matin_line.iade %}
-                                <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ matin_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
-
+                            {% if matin_line.interne %}
+                                <span>Int. {{ matin_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -139,9 +141,11 @@
                             <span class="text-dark">{% if  matin_line.are.name %}
                                 Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
                             {% if matin_line.iade %}
-                                <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ matin_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                            {% if matin_line.interne %}
+                                <span>Int. {{ matin_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -158,9 +162,11 @@
                             <span class="text-dark">{% if  matin_line.are.name %}
                                 Dr {% endif %}{{ matin_line.are.name|default_if_none:'' }}</span><br>
                             {% if matin_line.iade %}
-                                <span class="text-info">{{ matin_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ matin_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ matin_line.interne|default_if_none:'' }}</span>
+                            {% if matin_line.interne %}
+                                <span>Int. {{ matin_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -191,9 +197,11 @@
                             <span class="text-dark">{% if  apm_line.are.name %}
                                 Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
                             {% if apm_line.iade %}
-                                <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ apm_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+                            {% if apm_line.interne %}
+                                <span>Int. {{ apm_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -207,16 +215,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  apm_line.operator.name %}
                                 Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  apm_line.are.name %}
                                 Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
                             {% if apm_line.iade %}
-                                <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ apm_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
-
+                            {% if apm_line.interne %}
+                                <span>Int. {{ apm_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -230,16 +238,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  apm_line.operator.name %}
                                 Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  apm_line.are.name %}
                                 Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
                             {% if apm_line.iade %}
-                                <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ apm_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
-
+                            {% if apm_line.interne %}
+                                <span>Int. {{ apm_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -259,16 +267,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  apm_line.operator.name %}
                                 Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  apm_line.are.name %}
                                 Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
                             {% if apm_line.iade %}
-                                <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ apm_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
-
+                            {% if apm_line.interne %}
+                                <span>Int. {{ apm_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -280,16 +288,16 @@
                                 class="badge ml-5 bg-warning text-dark">{{ apm_line.start_time|default_if_none:'-' }}</span>
                         </div>
                         <div class="card-body">
-
                             <span class="text-dark">{% if  apm_line.operator.name %}
                                 Dr {% endif %}{{ apm_line.operator.name|default_if_none:'' }}</span><br>
                             <span class="text-dark">{% if  apm_line.are.name %}
                                 Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
                             {% if apm_line.iade %}
-                                <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ apm_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
-
+                            {% if apm_line.interne %}
+                                <span>Int. {{ apm_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -306,9 +314,11 @@
                             <span class="text-dark">{% if  apm_line.are.name %}
                                 Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
                             {% if apm_line.iade %}
-                                <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ apm_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+                            {% if apm_line.interne %}
+                                <span>Int. {{ apm_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -325,9 +335,11 @@
                             <span class="text-dark">{% if  apm_line.are.name %}
                                 Dr {% endif %}{{ apm_line.are.name|default_if_none:'' }}</span><br>
                             {% if apm_line.iade %}
-                                <span class="text-info">{{ apm_line.iade|default_if_none:'' }}</span><br>
+                                <span class="text-dark">Iade {{ apm_line.iade|default_if_none:'' }}</span><br>
                             {% endif %}
-                            <span>{{ apm_line.interne|default_if_none:'' }}</span>
+                            {% if apm_line.interne %}
+                                <span>Int. {{ apm_line.interne|default_if_none:'' }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
