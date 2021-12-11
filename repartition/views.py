@@ -12,16 +12,24 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from datetime import timedelta
 from .models import RepartEvent, RepartLine, Room, RepartCs, DeskRoom
+from subdivision.models import Event
 from .forms import EventFormRepart, RepartLineForm, CsLineForm
 
 
 def export(request, pk):
     repart = get_object_or_404(RepartEvent, pk=pk)
-    matin_lines = RepartLine.objects.all().filter(repart=repart, period='Matin').order_by('room__exportnum')
-    apm_lines = RepartLine.objects.all().filter(repart=repart, period='Apm').order_by('room__exportnum')
+    matin_lines = RepartLine.objects.all().filter(repart=repart, period='Matin').order_by('room__sortnum')
+    apm_lines = RepartLine.objects.all().filter(repart=repart, period='Apm').order_by('room__sortnum')
+    matin_cs = RepartCs.objects.all().filter(repart=repart, period='Matin')
+    apm_cs = RepartCs.objects.all().filter(repart=repart, period='Apm')
+    remplas = Event.objects.all().filter(start=repart.start)
     return render(request, 'repart/export.html', {'matin_lines': matin_lines,
                                                   'apm_lines': apm_lines,
-                                                  'repart': repart})
+                                                  'repart': repart,
+                                                  'matin_cs': matin_cs,
+                                                  'apm_cs': apm_cs,
+                                                  'remplas': remplas
+                                                  })
 
 
 @login_required()
@@ -72,10 +80,6 @@ def events_json(request):
     else:
         return http.HttpResponse(json.dumps(event_list),
                                  content_type='application/json')
-
-
-def repartdelete(request):
-    return None
 
 
 @login_required()
@@ -171,6 +175,7 @@ def save_repart_form(request, form, template_name):
     return JsonResponse(data)
 
 
+@login_required()
 def repartupdate(request, pk):
     repart = get_object_or_404(RepartEvent, pk=pk)
     if request.method == 'POST':
@@ -178,6 +183,23 @@ def repartupdate(request, pk):
     else:
         form = EventFormRepart(instance=repart)
     return save_repart_form(request, form, 'repart/partial_repart_update.html')
+
+
+@login_required()
+def repartdelete(request, pk):
+    repart = get_object_or_404(RepartEvent, pk=pk)
+    data = dict()
+    if request.method == 'POST':
+        repart.delete()
+        data['form_is_valid'] = True
+        reparts = RepartEvent.objects.all()
+        data['html_repart_list'] = render_to_string('repart/partial_repart_list.html', {
+            'reparts': reparts
+        })
+    else:
+        context = {'repart': repart}
+        data['html_form'] = render_to_string('repart/partial_repart_delete.html', context, request=request)
+    return JsonResponse(data)
 
 
 # Modal CRUD Line Matin ##############################################################################
@@ -199,6 +221,7 @@ def save_line_form(request, form, template_name, repart):
     return JsonResponse(data)
 
 
+@login_required()
 def lineupdate(request, pk):
     line = get_object_or_404(RepartLine, pk=pk)
     repart = get_object_or_404(RepartEvent, pk=line.repart.pk)
@@ -228,6 +251,7 @@ def save_line_apm_form(request, form, template_name, repart):
     return JsonResponse(data)
 
 
+@login_required()
 def lineapmupdate(request, pk):
     line = get_object_or_404(RepartLine, pk=pk)
     repart = get_object_or_404(RepartEvent, pk=line.repart.pk)
@@ -256,6 +280,7 @@ def save_cs_matin_form(request, form, template_name, repart):
     return JsonResponse(data)
 
 
+@login_required()
 def csmatinupdate(request, pk):
     cs = get_object_or_404(RepartCs, pk=pk)
     repart = get_object_or_404(RepartEvent, pk=cs.repart.pk)
@@ -284,6 +309,7 @@ def save_cs_apm_form(request, form, template_name, repart):
     return JsonResponse(data)
 
 
+@login_required()
 def csapmupdate(request, pk):
     cs = get_object_or_404(RepartCs, pk=pk)
     repart = get_object_or_404(RepartEvent, pk=cs.repart.pk)
