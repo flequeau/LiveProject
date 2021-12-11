@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Nouveau remplaçant{% endblock %}
+{% block titre %}Mise à jour{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card  mt-5">
+                <div class="card-header font-weight-bold">Contact</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3 text-left">
+                            {{ form.name|attr:"class:form-control" }}
+                        </div>
+                        <div class="col-sm-3 text-left">
+                            {{ form.forname|attr:"class:form-control" }}
+                        </div>
+                        <div class="col-sm-3 text-left">
+                            {{ form.telmob|attr:"class:form-control" }}
+                        </div>
+                        <div class="col-sm-3 text-left">
+                            {{ form.email|attr:"class:form-control" }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card  mt-5">
+                    <div class="card-header font-weight-bold">Adresse</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3 text-left">
+                                {{ form.adress1|attr:"class:form-control" }}
+                                {{ form.adress2|attr:"class:form-control" }}
+                            </div>
+                            <div class="col-sm-3 text-left">
+                                {{ form.postalcode|attr:"class:form-control" }}
+                                {{ form.town|attr:"class:form-control" }}
+                            </div>
+                            <div class="col-sm-3 text-left">
+                                {{ form.tel2|attr:"class:form-control" }}
+                                {{ form.tel3|attr:"class:form-control" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card  mt-5">
+                    <div class="card-header font-weight-bold">Administration</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3 text-left">
+                                {{ form.status|attr:"class:form-control" }}
+                                {{ form.conum|attr:"class:form-control" }}
+                            </div>
+                            <div class="col-sm-3 text-left">
+                                {{ form.codepartname|attr:"class:form-control" }}
+                                {{ form.codepartnum|attr:"class:form-control" }}
+                            </div>
+                            <div class="col-sm-3 text-left">
+                                {{ form.rpps|attr:"class:form-control" }}
+                                {{ form.active|attr:"class:form-control" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div><input class="btn btn-success pull-left" type="submit" value="Envoyer"/></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div><a href="{% url 'rpt_list' %}" class="btn btn-info pull-left"
+                                        role="button">Annuler</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block script %}
+{% endblock %}

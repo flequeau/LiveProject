@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titre %}CRUD RPT{% endblock %}
+{% block extrahead %}
+    <link href="{% static 'css/datatables/datatables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mt-2">
+                    <div class="card-header font-weight-bold">Ajout d'un remplaçant</div>
+                    <div class="card-body">
+                        <form id="addRpt" action="">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="name" placeholder="Nom" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" name='forname' placeholder="Prénom" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="tel" name='tel' placeholder="Téléphone" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="email" name='email' placeholder="Email" required>
+                            </div>
+                            <button class="btn btn-primary form-control" type="submit">Envoyer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mt-2">
+                    <div class="card-header font-weight-bold">Remplaçants enregistrés</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Téléphone</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if rpts %}
+                                    {% for rpt in rpts %}
+                                        <tr id="rpt-{{ rpt.id }}">
+                                            <td class="rptName rptData" name="name" width="30%">{{ rpt.name }}</td>
+                                            <td class="rptForname rptData" name="forname">{{ rpt.forname }}</td>
+                                            <td class="rptTel rptData" name="tel">{{ rpt.telmob }}</td>
+                                            <td class="btn-group" role="group">
+                                                <a class="btn btn-outline-success btn-secondary form-control fa fa-edit"
+                                                   role="button"
+                                                   onclick="editRpt({{ rpt.id }})"
+                                                   data-toggle="modal" data-target="#myModal">
+                                                </a>
+                                                <a class="btn btn-outline-danger btn-secondary form-control fa fa-trash"
+                                                   role="button"
+                                                   onclick="deleteRpt({{ rpt.id }})">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td>
+                                            Aucun remplaçant trouvé
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <form id="updateRpt" action="">
+                        <div class="modal-body">
+                            <input class="form-control" id="form-id" type="hidden" name="formId">
+                            <label for="name">Nom</label>
+                            <input class="form-control" id="form-name" type="text" name="formName">
+                            <label type="forname">Prénom</label>
+                            <input class="form-control" id="form-forname" type="text" name="formForname">
+                            <label type="tel">Téléphone</label>
+                            <input class="form-control" id="form-tel" type="text" name="formTel">
+                            <label type="email">Email</label>
+                            <input class="form-control" id="form-email" type="text" name="formEmail">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "scrollY": "500px",
+                "scrollCollapse": true,
+                "paging": false,
+                "language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"},
+                "date_euro": {"url": "//cdn.datatables.net/plug-ins/1.10.20/sorting/date-euro.js"},
+                autowidth: false,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: "Masquer",
+                        postfixButtons: ['colvisRestore']
+                    },
+                    {
+                        extend: 'csv',
+                    },
+                    {
+                        extend: 'excel',
+                    },
+                    {
+                        extend: 'pdf',
+                    },
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '12px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+            });
+            $('a.toggle-vis').on('click', function (e) {
+                e.preventDefault();
+
+                // Get the column API object
+                var column = table.column($(this).attr('data-column'));
+
+                // Toggle the visibility
+                column.visible(!column.visible());
+            });
+        });
+    </script>
+    <script>
+        // Create Django Ajax Call
+        $("form#addRpt").submit(function () {
+            var nameInput = $('input[name="name"]').val().trim();
+            var fornameInput = $('input[name="forname"]').val().trim();
+            var telInput = $('input[name="tel"]').val().trim();
+            var emailInput = $('input[name="email"]').val().trim();
+            if (nameInput && fornameInput) {
+                // Create Ajax Call
+                $.ajax({
+                    url: '{% url "crud_ajax_create" %}',
+                    data: {
+                        'name': nameInput,
+                        'forname': fornameInput,
+                        'tel': telInput,
+                        'email': emailInput,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.rpt) {
+                            appendToRptTable(data.rpt);
+                        }
+                    }
+                });
+            } else {
+                alert("Tous les champs doivent être remplis.");
+            }
+            $('form#addRpt').trigger("reset");
+            return false;
+        });
+
+        // Update Django Ajax Call
+        function editRpt(id) {
+            if (id) {
+                tr_id = "#rpt-" + id;
+                name = $(tr_id).find(".rptName").text();
+                forname = $(tr_id).find(".rptForname").text();
+                tel = $(tr_id).find(".rptTel").text();
+                email = $(tr_id).find(".rptEmail").text();
+                $('#form-id').val(id);
+                $('#form-name').val(name);
+                $('#form-forname').val(forname);
+                $('#form-tel').val(tel);
+                $('#form-email').val(email);
+            }
+        }
+
+
+        // Delete Django Ajax Call
+        function deleteRpt(id) {
+            var action = confirm("Êtes-vous sûr de vouloir supprimer ce remplaçant ?");
+            if (action != false) {
+                $.ajax({
+                    url: '{% url "crud_ajax_delete" %}',
+                    data: {
+                        'id': id,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.deleted) {
+                            $("#dataTable #rpt-" + id).remove();
+                        }
+                    }
+                });
+            }
+        }
+
+
+        $("form#updateRpt").submit(function () {
+            var idInput = $('input[name="formId"]').val().trim();
+            var nameInput = $('input[name="formName"]').val().trim();
+            var fornameInput = $('input[name="formForname"]').val().trim();
+            var telInput = $('input[name="formTel"]').val().trim();
+            var emailInput = $('input[name="email"]').val().trim();
+            if (nameInput && fornameInput) {
+                // Create Ajax Call
+                $.ajax({
+                    url: '{% url "crud_ajax_update" %}',
+                    data: {
+                        'id': idInput,
+                        'name': nameInput,
+                        'forname': fornameInput,
+                        'tel': telInput,
+                        'email': emailInput,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.rpt) {
+                            updateToRptTable(data.rpt);
+                        }
+                    }
+                });
+
+            } else {
+                alert("Tous les champs doivent être remplis !");
+            }
+            $('form#updateRpt').trigger("reset");
+            $('#myModal').modal('hide');
+            return false;
+        });
+
+
+        function appendToRptTable(rpt) {
+            $("#dataTable > tbody:last-child").append(`
+        <tr id="rpt-${rpt.id}">
+            <td class="rptName rptData" name="name">${rpt.name}</td>
+            <td class="rptForname rptData" name="forname">${rpt.forname}</td>
+            <td class="rptTel rptData" name="tel">${rpt.tel}</td>
+            <td class="btn-group" role="group">
+                <a class="btn btn-outline-success btn-secondary form-control fa fa-edit" onClick="editRpt(${rpt.id})" data-toggle="modal" data-target="#myModal")"></a>
+                <a class="btn btn-outline-danger btn-secondary form-control fa fa-trash" onClick="deleteRpt(${rpt.id})"></a>
+            </td>
+        </tr>
+    `);
+        };
+
+        function updateToRptTable(rpt) {
+            $("#dataTable #rpt-" + rpt.id).children(".rptData").each(function () {
+                var attr = $(this).attr("name");
+                if (attr == "name") {
+                    $(this).text(rpt.name);
+                } else if (attr == "forname") {
+                    $(this).text(rpt.forname);
+                } else {
+                    $(this).text(rpt.tel);
+                }
+            });
+        }
+    </script>
+{% endblock %}

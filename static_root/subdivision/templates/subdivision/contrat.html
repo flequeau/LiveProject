@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Remplacement</title>
+    {% block extrahead %}
+
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="h6 mt-3 col-12 text-center">
+            CONTRAT DE REMPLACEMENT EN EXERCICE LIBERAL
+            <br>
+            (ARTICLES 65 ET 91 DU CODE DE DEONTOLOGIE)<br>
+            Remplacement par un médecin inscrit au tableau<br>
+            ENTRE
+        </div>
+    </div>
+</div>
+<div class="row ml-1 col-10 h6">
+    Le Docteur <strong>{{ are.forname }} {{ are.name }}</strong>,
+    exerçant {{ hop.name }} {{ hop.adress1 }} {{ hop.postalcode }} {{ hop.town }};
+    inscrit au Conseil Départemental de l’Ordre des Médecins du {{ are.codepartnum }} - {{ are.codepartname }} sous le
+    numéro {{ are.conum }}, et exerçant en ANESTHESIE - REANIMATION<br>
+    D’UNE PART
+</div>
+<div class="row ml-1 col-10 h6">
+    Et le Docteur <strong>{{ rpt.forname }} {{ rpt.name }}</strong>
+    {{ rpt.status }},
+    {{ rpt.codepartname }} {{ rpt.conum }} {{ rpt.licence.num }}
+    Conseil Départemental {{ rpt.codepartName }},<br>
+    Exerçant en ANESTHESIE - REANIMATION -
+    {% if rpt.urssaf %} Urssaf: {{ rpt.urssaf }} {% else %} Urssaf: En cours d'immatriculation{% endif %}
+    {% if rpt.siren %} - Siren: {{ rpt.siren }}{% else %} - Siren: En cours d'immatriculation <br>{% endif %}
+    D’AUTRE PART.
+</div>
+<div class="row>">
+    <div class="h6 col-12 mt-3 small">
+        <p>
+            PREAMBULE<br>
+            Face à l’obligation déontologique qui est la sienne d’assurer la permanence des soins et conformément
+            aux dispositions de l’Article 65 du Code de Déontologie, le Docteur {{ are.forname }} {{ are.name }}
+            a contacté le Docteur
+            {{ rpt.forname }} {{ rpt.name }} médecin remplaçant pour prendre en charge, lors de la cessation
+            temporaire de toute activité professionnelle habituelle, les patients qui feraient appel à lui.
+            Le médecin remplacé doit cesser toute activité médicale libérale durant la durée du
+            remplacement (Art. 65 du Code de Déontologie).
+            Pour permettre le bon déroulement de ce remplacement, le Docteur {{ are.forname }} {{ are.name }} met à
+            disposition du Docteur
+            {{ rpt.forname }} {{ rpt.name }} son cabinet
+            sis {{ hop.adress1 }} {{ hop.adress2 }} {{ hop.postalcode }} {{ hop.town }} et son secrétariat.
+            Le Docteur {{ rpt.forname }} {{ rpt.name }} assume de ce fait toutes les
+            obligations inscrites dans le Code de Déontologie. Il ne peut aliéner son indépendance professionnelle
+            sous quelque forme que ce soit.
+        </p>
+        <p>
+            IL A ETE CONVENU CE QUI SUIT :
+        </p>
+        <ul>
+            <li>ARTICLE 1:
+                Dans le souci de la permanence, Le Docteur {{ are.forname }} {{ are.name }} charge le
+                Docteur {{ rpt.forname }} {{ rpt.name }} qui accepte de le remplacer temporairement auprès des
+                patients qui feraient appel à lui.
+                Les patients devront être avertis, dès que possible, de la présence d’un médecin remplaçant et
+                notamment lors de toute demande de visite à domicile ou de rendez-vous au cabinet médical.
+                Le Docteur {{ rpt.forname }} {{ rpt.name }} devra consacrer à cette activité tout le temps
+                nécessaire selon les modalités qu’il fixera librement (1). Il pourra, avec l’accord préalable du
+                Docteur {{ are.forname }} {{ are.name }} exercer une autre activité médicale, y compris dans les
+                locaux du Docteur {{ are.forname }} {{ are.name }} (2)(3).
+                Il s’engage à donner, à tout malade faisant appel à lui, des soins consciencieux et attentifs dans
+                le respect des dispositions du Code de Déontologie.
+                Hors le cas d’urgence, le médecin remplaçant pourra, dans les conditions de l’article 47 du Code de
+                Déontologie, refuser ses soins pour des raisons professionnelles ou personnelles.
+            </li>
+            <li>
+                ARTICLE 2:
+                Le présent contrat de remplacement est prévu le(s) &ensp;{{ date }}
+
+            </li>
+            <li>
+                ARTICLE 3:
+                Pendant la durée du présent contrat de remplacement et pour les besoins de son exécution le
+                Docteur {{ rpt.forname }} {{ rpt.name }} aura l’usage des locaux professionnels, installations et
+                appareils que le Docteur {{ are.forname }} {{ are.name }} met à sa disposition. Il en fera bon
+                usage.
+                Compte tenu du caractère par nature provisoire de l’activité du remplaçant, celui-ci s’interdit
+                toute modification des lieux ou de leur destination.
+
+            </li>
+            <li>
+                ARTICLE 4:
+                Le Docteur {{ rpt.forname }} {{ rpt.name }} exerçant son art en toute indépendance sera seul
+                responsable vis à vis des patients et des tiers des conséquences de son exercice professionnel et
+                conservera seul la responsabilité de son activité professionnelle pour laquelle il s’assurera
+                personnellement à ses frais à une compagnie notoirement solvable. Il devra apporter la preuve de
+                cette assurance avant le début de son activité (4).
+            </li>
+            <li>
+                ARTICLE 5:
+                Le Docteur {{ rpt.forname }} {{ rpt.name }} utilisera conformément à la Convention Nationale les
+                ordonnances ainsi que les feuilles de soins et imprimés pré-identifiés du
+                Docteur {{ are.forname }} {{ are.name }} dans son activité relative aux seuls patients du
+                Docteur {{ are.forname }} {{ are.name }} .
+            </li>
+            <li>
+                ARTICLE 6:
+                Les deux co-contractants auront des déclarations fiscales et sociales indépendantes et supporteront
+                personnellement, chacun en ce qui les concerne, la totalité de leurs charges fiscales et sociales
+                afférentes au dit remplacement.
+            </li>
+            <li>
+                ARTICLE 7:
+                Le Docteur {{ rpt.forname }} {{ rpt.name }} devra remplir les obligations comptables normales et
+                habituelles qui lui sont imposées réglementairement.
+                Le Docteur {{ are.forname }} {{ are.name }} reversera au Docteur {{ rpt.forname }} {{ rpt.name }}
+                60% des honoraires perçus.
+                Conformément aux dispositions de l’article 66 du Code de Déontologie, le remplacement terminé, le
+                remplaçant cessera toute activité s’y rapportant et transmettra les informations nécessaires à la
+                continuité des soins.
+            </li>
+            <li>
+                ARTICLE 8:
+                Si au terme du remplacement prévu au présent contrat le Docteur {{ rpt.forname }} {{ rpt.name }} a
+                remplacé le Docteur. {{ are.forname }} {{ are.name }} pendant une période de trois mois, consécutifs
+                ou non, il ne pourra, sauf accord écrit du Docteur {{ are.forname }} {{ are.name }}. (5) s’installer
+                pendant une durée de deux ans dans un poste où il puisse entrer en concurrence directe avec le
+                médecin remplacé ou éventuellement ses associés ({{ hop.villes }})
+
+            <li>
+                ARTICLE 9:
+                En cas de difficultés soulevés par l’exécution ou l’interprétation du présent contrat, les parties
+                s’engagent préalablement à toute action contentieuse à soumettre leur différend à deux membres du
+                Conseil Départemental de l’Ordre, chacun choisissant librement l’un de ces deux membres.
+                Ceux-ci s’efforceront de concilier les parties et d’amener une solution amiable, ce, dans un délai
+                de 30 jours (7) à compter de la désignation du premier des conciliateurs.
+            </li>
+            <li>
+                ARTICLE 10:
+                Les parties affirment sur l’honneur n’avoir passé aucune contre-lettre ou avenant relatif au présent
+                contrat qui ne soit soumis au Conseil Départemental.
+
+            </li>
+            <li>
+                ARTICLE 11:
+                Conformément aux dispositions des articles 65 et 91 du Code de Déontologie, ce contrat sera
+                communiqué au Conseil Départemental de l’Ordre avant le début du remplacement.
+                Son renouvellement sera soumis à ces mêmes dispositions.
+            </li>
+        </ul>
+        <div class="row">
+            <div class="h6 col-12 mt-3 text-justify">
+                <p>Fait en trois exemplaires (dont un pour le Conseil Départemental) à {{ hop.town }}
+                    le &ensp; {{ date|slice:"10" }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered ml-2">
+            <thead>
+            <tr>
+                <th class="ml-4" width="50%">Docteur {{ are.forname }} {{ are.name }}</th>
+                <th class="ml-2" width="50%">
+                    {% if rpt.status %}Docteur{% endif %}{{ rpt.forname }} {{ rpt.name }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center">
+                <!--<td><br><img src='{{ signpath }}' width="50%"><br></td>-->
+                <td><br><br></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class=" h6 col-12 mt-3 text-justify small">
+            <p class="text-justify">
+                (1) il est recommandé que les modalités habituelles de fonctionnement du cabinet soient
+                précisées au remplaçant, dans le souci de la permanence des soins.
+                (2) cette activité personnelles ne devra en aucun cas être préjudiciable à la permanence des
+                soins au sein du cabinet du médecin remplacé, activité justificative de l’établissement dudit
+                contrat et ne pourra jamais être une activité de soins donnant lieu à délivrance de feuilles de
+                maladie ; il ne peut s’agir que de médecine de prévention, d’examens pour des compagnies
+                d’assurances... qui entrent dans l’activité habituelle du médecin remplaçant.
+                (3) clause facultative, à débattre entre les signataires ; elle devra faire l’objet d’une annexe
+                au présent contrat.
+                (4) serait souhaitable que cette copie soit jointe au contrat.
+                (5) l’accord peut continuer en une renonciation totale ou limitée dans le temps à prévaloir
+                sur l’interdiction d’installation édictée à l’article 86 du Code de Déontologie et rappelée par
+                cette clause du contrat.
+                (6) pour les remplacements inférieures à trois mois, les parties au contrat gardent la faculté
+                d’introduire une clause de non-réinstallation si la durée de remplacement le justifie.
+                (7) ce délai peut éventuellement être modifié sur proposition du Conseil Départemental.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

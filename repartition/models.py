@@ -48,8 +48,12 @@ class Room(models.Model):
 
 class Operator(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
-    speciality = models.CharField(max_length=50, blank=True, null=True)
+    forname = models.CharField(max_length=50, blank=True, null=True)
+    speciality = models.CharField(max_length=100, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
+    secretary = models.CharField(max_length=20, blank=True, null=True)
+    gsm = models.CharField(max_length=20, blank=True, null=True)
+
 
     def __str__(self):
         return self.name

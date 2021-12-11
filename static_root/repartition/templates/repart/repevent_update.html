@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{%  load widget_tweaks %}
+{% block title %}Modification d'une répartitiont{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card  mt-2">
+                <div class="card-header font-weight-normal h4"><strong>Nouvelle répartition</strong></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="offset-3 col-sm-3">
+                            <label for="id_title" class="form-label">Equipe</label>
+                            {{ form.title|attr:"class:form-control"|attr:"readonly"}}
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="id_start" class="form-label">Date</label>
+                            {{ form.start|attr:"class:form-control"|attr:"readonly" }}
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="offset-3 col-sm-6">
+                            <label for="id_description" class="form-label">Commentaires</label>
+                            {{ form.description|add_class:"form-control" }}
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="offset-3 col-sm-3">
+                            <label for="id_duty" class="form-label">Garde</label>
+                            {{ form.duty|add_class:"form-control" }}
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="id_sspi" class="form-label">SSPI</label>
+                            {{ form.sspi|add_class:"form-control" }}
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="offset-3 col-sm-3">
+                            <div><input class="btn btn-success pull-left mt-5" type="submit" value="Envoyer"/></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div><a href="{% url 'repart' %}" class="btn btn-info pull-right mt-5"
+                                    role="button">Annuler</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $.datetimepicker.setLocale('fr');
+        $(document).ready(function () {
+            jQuery('#id_start').datetimepicker({
+                timepicker: false,
+                dayOfWeekStart: 1,
+                format: 'd/m/Y',
+            });
+        });
+    </script>
+{% endblock %}

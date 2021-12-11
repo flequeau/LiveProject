@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block title %}Détail d'un IADE{% endblock %}
+{% block extrahead %}
+{% endblock %}
+{% block titre %}Fiche de {{ object.forname|title }} {{ object.name|upper }}{% endblock %}>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5 text-left">
+                <div class="card  mt-5">
+                    <div class="card-header font-weight-bold">Détail
+                        de {{ object.forname|title }} {{ object.name|upper }}
+                    </div>
+                    <div class="card-body">
+                        <p>Nom : {{ object.name|upper }}</p>
+                        <p>Prénom : {{ object.forname|title }}</p>
+                        <p>Mobile : {{ object.telmob }}</p>
+                        <p>Email : <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 text-left">
+                <div class="card  mt-5">
+                    <div class="card-body">
+                        <p>Tél. mobile : {{ object.telmob }}</p>
+                        <p>Tél. travail : {{ object.phone_hop }}</p>
+                        <p>Statut : {{ object.statut }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'iade_list' %}" class="btn btn-primary pull-left mt-5"
+           role="button">Retour</a>
+    </div>
+{% endblock %}
+{% block script %}
+{% endblock %}

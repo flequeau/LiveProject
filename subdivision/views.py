@@ -78,6 +78,7 @@ class DeleteCrudRpt(LoginRequiredMixin, View):
 
 
 ####### PDF EDIT ################# PDF EDIT ################# PDF EDIT ##########
+## il faut installer pdfkit et wkhtmltopdf pour que la view fonctionne
 
 def edit_pdf(request, id):
     event = Event.objects.get(pk=id)
@@ -89,10 +90,7 @@ def edit_pdf(request, id):
         findate = event.jend.strftime('%d/%m%/%Y')
     date = event.start.strftime('%d/%m%/%Y')
     hop = HopParam.objects.get(pk=1)
-    css = [
-        settings.STATIC_ROOT + '/css/bootstrap.css',
-    ]
-
+    css = str(settings.STATIC_ROOT) + '/css/bootstrap/css/bootstrap.css'
     # if settings.STATIC_ROOT + event.are.signature.url:
     # signpathare = settings.STATIC_ROOT + event.are.signature.url
     # else:
@@ -118,12 +116,9 @@ def edit_pdf(request, id):
     return FileResponse(open(path, 'rb'), content_type='application/pdf')
 
 
-
 def pdf_month(request, annee, mois, items):
     hop = HopParam.objects.get(pk=1)
-    css = [
-        settings.STATIC_ROOT + '/css/bootstrap.css',
-    ]
+    css = str(settings.STATIC_ROOT) + '/css/bootstrap/css/bootstrap.css'
     message = ''
     listcouple = []
     events = Event.objects.filter(start__year=annee, start__month=mois).order_by('start')
@@ -173,7 +168,6 @@ def pdf_month(request, annee, mois, items):
 
 MOIS = {'NC', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
         'Novembre', 'Décembre'}
-
 
 
 def searchrptmonth(request):
@@ -259,7 +253,6 @@ class EventDetail(LoginRequiredMixin, DetailView):
     template_name = 'subdivision/event/event_detail.html'
 
 
-
 def add_event(request):
     """
     Formulaire de création d'un nouvel évenement. Les heures sont pré-remplies par 00:00
@@ -274,7 +267,6 @@ def add_event(request):
     else:
         form = EventForm(initial={'start_time': '00:00:00', 'end_time': '00:00:00'})
     return render(request, 'subdivision/event/event.html', {'form': form})
-
 
 
 def events_json(request):
@@ -308,7 +300,6 @@ def events_json(request):
     else:
         return http.HttpResponse(json.dumps(event_list),
                                  content_type='application/json')
-
 
 
 def update(request, id):
@@ -354,7 +345,6 @@ def update(request, id):
                                                                        })
 
 
-
 def delete(request, id):
     """
     Recupere l'id d'un event pour supprimer celui-ci
@@ -365,7 +355,6 @@ def delete(request, id):
     event = get_object_or_404(Event, pk=id)
     event.delete()
     return redirect('rempla')
-
 
 
 def create(request, start, end):
@@ -405,7 +394,6 @@ def create(request, start, end):
         return render(request, 'subdivision/event/event.html', {'form': form, 'idems': idems})
 
 
-
 def resize(request, id, end):
     """
     Modifie un event lors d'une modification de sa duree dans le calendrier
@@ -429,7 +417,6 @@ def resize(request, id, end):
         event.end_time = endtime - timedelta(minutes=endtime.minute % 10)
         event.save()
     return redirect('rempla')
-
 
 
 def drop(request, id, start, end):
@@ -461,7 +448,6 @@ def drop(request, id, start, end):
         event.end_time = endtime - timedelta(minutes=endtime.minute % 10)
         event.save()
     return redirect('rempla')
-
 
 
 def searchMonth(request, message):
@@ -584,3 +570,4 @@ class IadeDelete(LoginRequiredMixin, DeleteView):
     model = Iade
     template_name = 'subdivision/iade/iade_delete.html'
     success_url = reverse_lazy('iade_list')'''
+

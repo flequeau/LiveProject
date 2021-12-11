@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pdfkit',
+    'easy_pdf',
     'widget_tweaks',
     'subdivision',
     'repartition',
@@ -126,11 +128,11 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR, 'static']
-STATIC_ROOT = BASE_DIR / 'static_root'
+MEDIA_URL = '/img/'
 
-MEDIA_ROOT = [BASE_DIR, "static"]
-MEDIA_URL = 'img/'
+STATIC_ROOT = BASE_DIR / 'static'
+MEDIA_ROOT = BASE_DIR / "static/img"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
