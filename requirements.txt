@@ -4,6 +4,7 @@ Django==3.2.9
 django-pdfkit==0.3.1
 django-widget-tweaks==1.4.9
 future==0.18.2
+gunicorn==20.1.0
 html5lib==1.1
 pdfkit==0.6.0
 Pillow==8.4.0
