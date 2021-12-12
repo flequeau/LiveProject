@@ -26,11 +26,11 @@
                             <label for="id_tel2" class="form-label">Tél. Fixe</label>
                             {{ form.tel2|attr:"class:form-control" }}
                         </div>
-                        <div class="col-sm-3 text-left">
+                        <div class="col-sm-3 text-left mt-2">
                             <label for="id_phone_hop" class="form-label">Poste</label>
                             {{ form.phone_hop|attr:"class:form-control" }}
                         </div>
-                        <div class="col-sm-3 text-left">
+                        <div class="col-sm-3 text-left mt-2">
                             <label for="id_email" class="form-label">Email</label>
                             {{ form.email|attr:"class:form-control" }}
                         </div>
@@ -43,12 +43,13 @@
                             <div class="col-sm-3 text-left">
                                 <label for="id_adress1" class="form-label">Adresse</label>
                                 {{ form.adress1|attr:"class:form-control" }}
+                                <label for="id_adress2" class="form-label mt-2">Complément d'adresse</label>
                                 {{ form.adress2|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
                                 <label for="id_postalcode" class="form-label">Code Postal</label>
                                 {{ form.postalcode|attr:"class:form-control" }}
-                                <label for="id_town" class="form-label">Ville</label>
+                                <label for="id_town" class="form-label mt-2">Ville</label>
                                 {{ form.town|attr:"class:form-control" }}
                             </div>
                         </div>
@@ -61,11 +62,11 @@
                             <div class="col-sm-3 text-left">
                                 <label for="id_rpps" class="form-label">RPPS</label>
                                 {{ form.rpps|attr:"class:form-control" }}
-                                <label for="id_coNum" class="form-label">Conseil de l'ordre</label>
+                                <label for="id_coNum" class="form-label mt-2">Conseil de l'ordre</label>
                                 {{ form.coNum|attr:"class:form-control" }}
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-5">
                             <div class="col-sm-3">
                                 <div><input class="btn btn-success pull-left" type="submit" value="Envoyer"/></div>
                             </div>

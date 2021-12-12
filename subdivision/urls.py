@@ -38,5 +38,11 @@ urlpatterns = [
     path('areupdate/<int:pk>', views.AreUpdate.as_view(), name='are_update'),
     path('aredelete/<int:pk>', views.AreDelete.as_view(), name='are_delete'),
     path('arecreate', views.AreCreate.as_view(), name='are_create'),
+    # iade
+    path('iade', views.IadeList.as_view(), name='iade_list'),
+    path('iadedetail/<int:pk>', views.IadeDetail.as_view(), name='iade_detail'),
+    path('iadeupdate/<int:pk>', views.IadeUpdate.as_view(), name='iade_update'),
+    path('iadedelete/<int:pk>', views.IadeDelete.as_view(), name='iade_delete'),
+    path('iadecreate', views.IadeCreate.as_view(), name='iade_create'),
 
 ]

@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 {% load widget_tweaks %}
@@ -12,21 +13,27 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 text-left">
-                            {{ form.name}}
+                            <label for="id_name" class="form-label">Nom</label>
+                            {{ form.name }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_forname" class="form-label">Prénom</label>
                             {{ form.forname }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_statut" class="form-label">Statut</label>
                             {{ form.statut }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_telmob" class="form-label">Tél. mobile</label>
                             {{ form.telmob }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_phone_hop" class="form-label">Poste</label>
                             {{ form.phone_hop }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_email" class="form-label">Mail</label>
                             {{ form.email }}
                         </div>
                         <div class="row">

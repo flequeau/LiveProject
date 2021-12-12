@@ -72,8 +72,8 @@ class Iade(models.Model):
     email = models.EmailField(blank=True, null=True)
 
     STATUT = (
-        ('sal', 'Salarié'),
-        ('vac', 'Vacataire')
+        ('Salarié', 'Salarié'),
+        ('Vacataire', 'Vacataire')
     )
     statut = models.CharField(choices=STATUT, max_length=12, blank=True, null=True, verbose_name="Statut")
 

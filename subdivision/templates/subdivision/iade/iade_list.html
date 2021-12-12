@@ -5,39 +5,49 @@
     <div class="container">
         <div class="card  mt-5">
             <div class="card-header font-weight-bold">Liste des IADEs
-                <a href="{% url 'iade_create' %}" class="btn btn-info pull-right"
-                   role="button">Nouveau</a>
+                <a class="btn btn-primary btn-sm float-right" role="button"
+                   href="{% url 'iade_create' %}">Nouveau</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="dataTable">
                         <thead>
-                        <tr>
-                            <th>Actions</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Tél. mob.</th>
-                            <th>Tél. hôp.</th>
-                            <th>Email</th>
-                            <th>Supp.</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Tél. mob.</th>
+                        <th>Tél. hôp.</th>
+                        <th>Email</th>
+                        <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for iade in object_list %}
                             <tr>
-                                <td class="btn-group" role="group">
-                                    <a class="btn btn-outline-info btn-secondary form-control fa fa-address-card"
-                                       href="{% url 'iade_detail' iade.id %}"></a>
-                                    <a class="btn btn-outline-success btn-secondary form-control fa fa-edit"
-                                       href="{% url 'iade_update' iade.id %}"></a>
-                                </td>
                                 <td>{{ iade.name|upper }}</td>
                                 <td>{{ iade.forname|capfirst }}</td>
-                                <td><a href="tel:{{ iade.telmob }}">{{ iade.telmob }}</a></td>
-                                <td>{{ iade.phone_hop }}</td>
-                                <td><a href="mailto:{{ iade.email }}">{{ iade.email }}</a></td>
-                                <td><a class="btn btn-outline-danger btn-secondary fa fa-trash"
-                                       href="{% url 'iade_delete' iade.id %}"></a></td>
+                                <td>
+                                    {%  if iade.telmob %}
+                                    <a href="tel:{{ iade.telmob }}">{{ iade.telmob }}</a>
+                                    {% else %}
+                                        {{ iade.telmob|default_if_none:'Non renseigné' }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ iade.phone_hop|default_if_none:'Non renseigné' }}</td>
+                                <td>
+                                    {% if iade.email %}
+                                        <a href="mailto:{{ iade.email }}">{{ iade.email }}</a>
+                                    {% else %}
+                                        {{ iade.email|default_if_none:'Non renseigné' }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-info btn-sm btn-secondary fa fa-address-card"
+                                       href="{% url 'iade_detail' iade.id %}"></a>
+                                    <a class="btn btn-success btn-sm btn-secondary fa fa-edit"
+                                       href="{% url 'iade_update' iade.id %}"></a>
+                                    <a class="btn btn-danger btn-sm btn-secondary fa fa-trash"
+                                       href="{% url 'iade_delete' iade.id %}"></a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>

@@ -16,17 +16,17 @@
                     <div class="card-body">
                         <p>Nom : {{ object.name|upper }}</p>
                         <p>Prénom : {{ object.forname|title }}</p>
-                        <p>Mobile : {{ object.telmob }}</p>
-                        <p>Email : <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+                        <p>Mobile : {{ object.telmob|default_if_none:'Non renseigné' }}</p>
+                        <p>Email : <a href="mailto:{{ object.email }}">{{ object.email|default_if_none:'Non renseigné'  }}</a></p>
                     </div>
                 </div>
             </div>
             <div class="col-5 text-left">
                 <div class="card  mt-5">
                     <div class="card-body">
-                        <p>Tél. mobile : {{ object.telmob }}</p>
-                        <p>Tél. travail : {{ object.phone_hop }}</p>
-                        <p>Statut : {{ object.statut }}</p>
+                        <p>Tél. mobile : {{ object.telmob|default_if_none:'Non renseigné'  }}</p>
+                        <p>Tél. travail : {{ object.phone_hop|default_if_none:'Non renseigné'  }}</p>
+                        <p>Statut : {{ object.statut|default_if_none:'Non renseigné'  }}</p>
                     </div>
                 </div>
             </div>

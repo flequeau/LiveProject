@@ -14,21 +14,29 @@
                     <div class="card-body">
                         <p>Nom : {{ object.name|upper }}</p>
                         <p>Prénom : {{ object.forname|title }}</p>
-                        <p>Mobile : {{ object.telmob }}</p>
-                        <p>Email : <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+                        {% if object.telmob %}
+                            <p>Mobile : {{ object.telmob }}</p>
+                        {% else %}
+                            <p class="text-danger">Mobile : Non renseigné</p>
+                        {% endif %}
+                        {% if object.email %}
+                            <p>Email : <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+                        {% else %}
+                            <p class="text-danger">Email : Non renseigné</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="col-5 text-left">
                 <div class="card  mt-5">
                     <div class="card-body">
-                        <p>Adresse : {{ object.adress1|title }}</p>
+                        <p>Adresse : {{ object.adress1|default_if_none:'-'|title }}</p>
                         <p>Complément : {% if object.adress2 %}{{ object.adress2|title }}{% else %}-{% endif %}</p>
-                        <p>Code postal : {{ object.postalcode }}</p>
-                        <p>Ville : {{ object.town }}</p>
-                        <p>Tél. mobile : {{ object.telmob }}</p>
-                        <p>Tél. travail : {{ object.phone_hop }}</p>
-                        <p>Secteur : {{ object.secteur }}</p>
+                        <p>Code postal : {{ object.postalcode|default_if_none:'-'|title }}</p>
+                        <p>Ville : {{ object.town|default_if_none:'-'|upper }}</p>
+                        <p>Tél. mobile : {{ object.telmob|default_if_none:'-' }}</p>
+                        <p>Tél. travail : {{ object.phone_hop|default_if_none:'-' }}</p>
+                        <p>Secteur : {{ object.secteur|default_if_none:'-' }}</p>
                     </div>
                 </div>
             </div>
@@ -38,8 +46,8 @@
                 <div class="card  mt-2">
                     <div class="card-header font-weight-bold">Conseil de l'Ordre</div>
                     <div class="card-body">
-                        <p>Num. CO : {{ object.conum }}</p>
-                        <p>Rpps: {{ object.rpps }}</p>
+                        <p>Num. CO : {{ object.conum|default_if_none:'-' }}</p>
+                        <p>Rpps: {{ object.rpps|default_if_none:'-' }}</p>
                     </div>
                 </div>
             </div>

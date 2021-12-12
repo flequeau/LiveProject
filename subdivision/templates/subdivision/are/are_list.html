@@ -9,8 +9,8 @@
     <div class="container">
         <div class="card  mt-5">
             <div class="card-header font-weight-bold">Liste des Anesthésistes
-                <a href="{% url 'are_create' %}" class="btn btn-info pull-right"
-                   role="button">Nouveau</a>
+                <a class="btn btn-primary btn-sm float-right" role="button"
+                   href="{% url 'are_create' %}">Nouveau</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -31,10 +31,15 @@
                             <tr>
                                 <td>{{ are.name|upper }}</td>
                                 <td>{{ are.forname|capfirst }}</td>
-                                <td>{% if are.telmob %}<a href="tel:{{ are.telmob }}">{% endif %}{{ are.telmob|default_if_none:"-" }}</a></td>
-                                <td>{% if are.telmob %}<a href="tel:{{ are.tel2 }}">{% endif %}{{ are.tel2|default_if_none:"-" }}</a></td>
+                                <td>{% if are.telmob %}
+                                    <a href="tel:{{ are.telmob }}">{% endif %}{{ are.telmob}}</a>
+                                </td>
+                                <td>{% if are.telmob %}
+                                    <a href="tel:{{ are.tel2 }}">{% endif %}{{ are.tel2|default_if_none:"-" }}</a></td>
                                 <td>{{ are.phone_hop|default_if_none:"-" }}</td>
-                                <td>{% if are.telmob %}<a href="mailto:{{ are.email }}">{% endif %}{{ are.email|default_if_none:"-" }}</a></td>
+                                <td>{% if are.email %}
+                                    <a href="mailto:{{ are.email }}">{% endif %}{{ are.email|default_if_none:"-" }}</a>
+                                </td>
                                 <td>
                                     <a class="btn btn-info btn-sm btn-secondary fa fa-address-card"
                                        href="{% url 'are_detail' are.id %}"></a>
