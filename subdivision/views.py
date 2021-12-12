@@ -15,9 +15,12 @@ import pdfkit
 from datetime import timedelta
 from .forms import EventForm, SearchRptMonthForm, SearchMonthForm
 from .models import Event, Calendrier, WebColor, Rpt, Are, HopParam
+from repartition.models import Iade
 
 
 ####### CRUD AJAX RPT ################# CRUD AJAX RPT ################# CRUD AJAX RPT ##########
+
+
 class CrudView(LoginRequiredMixin, ListView):
     model = Rpt
     template_name = 'subdivision/rpt/rpt_crud.html'
@@ -170,6 +173,7 @@ MOIS = {'NC', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 
         'Novembre', 'Décembre'}
 
 
+@login_required()
 def searchrptmonth(request):
     today = datetime.now()
     anneeprev = today - timedelta(weeks=52)
@@ -253,6 +257,7 @@ class EventDetail(LoginRequiredMixin, DetailView):
     template_name = 'subdivision/event/event_detail.html'
 
 
+@login_required()
 def add_event(request):
     """
     Formulaire de création d'un nouvel évenement. Les heures sont pré-remplies par 00:00
@@ -302,6 +307,7 @@ def events_json(request):
                                  content_type='application/json')
 
 
+@login_required()
 def update(request, id):
     """
     Récupère l'id d'un event pour updater celui-ci
@@ -345,6 +351,7 @@ def update(request, id):
                                                                        })
 
 
+@login_required()
 def delete(request, id):
     """
     Recupere l'id d'un event pour supprimer celui-ci
@@ -357,6 +364,7 @@ def delete(request, id):
     return redirect('rempla')
 
 
+@login_required()
 def create(request, start, end):
     """
     Creation d'un event lors d'un click dans une case du calendrier
@@ -394,6 +402,7 @@ def create(request, start, end):
         return render(request, 'subdivision/event/event.html', {'form': form, 'idems': idems})
 
 
+@login_required()
 def resize(request, id, end):
     """
     Modifie un event lors d'une modification de sa duree dans le calendrier
@@ -419,6 +428,7 @@ def resize(request, id, end):
     return redirect('rempla')
 
 
+@login_required()
 def drop(request, id, start, end):
     """
     Modifie un event lors d'un deplacement par drop
@@ -450,6 +460,7 @@ def drop(request, id, start, end):
     return redirect('rempla')
 
 
+@login_required()
 def searchMonth(request, message):
     if request.method == 'POST':
         form = SearchMonthForm(request.POST)
@@ -471,6 +482,8 @@ def searchMonth(request, message):
 
 
 ####### SEARCH RPT AJAX ################# SEARCH RPT AJAX ##########
+
+
 def index(request):
     today = datetime.now()
     anneeprev = today - timedelta(weeks=52)
@@ -543,7 +556,7 @@ class AreDelete(LoginRequiredMixin, DeleteView):
 
 
 ####### CRUD IADE ################ CRUD IADE ################ CRUD IADE #########
-'''
+
 class IadeList(LoginRequiredMixin, ListView):
     model = Iade
     template_name = 'subdivision/iade/iade_list.html'
@@ -569,5 +582,4 @@ class IadeCreate(LoginRequiredMixin, CreateView):
 class IadeDelete(LoginRequiredMixin, DeleteView):
     model = Iade
     template_name = 'subdivision/iade/iade_delete.html'
-    success_url = reverse_lazy('iade_list')'''
-
+    success_url = reverse_lazy('iade_list')

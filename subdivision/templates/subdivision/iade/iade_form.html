@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load crispy_forms_filters %}
-{% load crispy_forms_tags %}
+{% load widget_tweaks %}
 {% block title %}Mise à jour d'un IADE{% endblock %}
 {% block titre %}Mise à jour{% endblock %}
 {% block content %}
@@ -19,19 +18,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 text-left">
-                            {{ form.name|as_crispy_field }}
+                            {{ form.name }}
                         </div>
                         <div class="col-sm-3 text-left">
-                            {{ form.forname|as_crispy_field }}
+                            {{ form.forname }}
                         </div>
                         <div class="col-sm-3 text-left">
-                            {{ form.telmob|as_crispy_field }}
+                            {{ form.telmob }}
                         </div>
                         <div class="col-sm-3 text-left">
-                            {{ form.phone_hop|as_crispy_field }}
+                            {{ form.phone_hop }}
                         </div>
                         <div class="col-sm-3 text-left">
-                            {{ form.email|as_crispy_field }}
+                            {{ form.email }}
                         </div>
                     </div>
                     <div class="row">
