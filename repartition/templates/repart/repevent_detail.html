@@ -49,7 +49,6 @@
                                 <tr>
                                     <th scope="col">Bureau</th>
                                     <th scope="col">Anesthésiste</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -72,7 +71,6 @@
                                 <tr>
                                     <th scope="col">Bureau</th>
                                     <th scope="col">Anesthésiste</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -101,7 +99,6 @@
                                         <th>Anesthésiste</th>
                                         <th>Iade</th>
                                         <th>Interne</th>
-                                        <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -131,7 +128,6 @@
                                         <th>Anesthésiste</th>
                                         <th>Iade</th>
                                         <th>Interne</th>
-                                        <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -148,21 +144,6 @@
 {% endblock %}
 {% block modal %}
     <div class="modal fade" id="modal-line">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-    <div class="modal fade" id="modal-line2">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-    <div class="modal fade" id="modal-cs">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-    <div class="modal fade" id="modal-cs-2">
         <div class="modal-dialog">
             <div class="modal-content"></div>
         </div>
@@ -227,11 +208,11 @@
                     type: 'get',
                     dataType: 'json',
                     beforeSend: function () {
-                        $("#modal-line2 .modal-content").html("");
-                        $("#modal-line2").modal("show");
+                        $("#modal-line .modal-content").html("");
+                        $("#modal-line").modal("show");
                     },
                     success: function (data) {
-                        $("#modal-line2 .modal-content").html(data.html_form);
+                        $("#modal-line .modal-content").html(data.html_form);
                     }
                 });
             };
@@ -246,9 +227,9 @@
                     success: function (data) {
                         if (data.form_is_valid) {
                             $("#line-table2 tbody").html(data.html_repart_list);
-                            $("#modal-line2").modal("hide");
+                            $("#modal-line").modal("hide");
                         } else {
-                            $("#modal-line2 .modal-content").html(data.html_form);
+                            $("#modal-line .modal-content").html(data.html_form);
                         }
                     }
                 });
@@ -257,7 +238,7 @@
             /* Binding */
             // Update repart
             $("#line-table2").on("click", ".js-view-linerepart2", loadForm2);
-            $("#modal-line2").on("submit", ".js-line-update-form2", saveForm2);
+            $("#modal-line").on("submit", ".js-line-update-form2", saveForm2);
         });
 
     </script>
@@ -273,11 +254,11 @@
                     type: 'get',
                     dataType: 'json',
                     beforeSend: function () {
-                        $("#modal-cs .modal-content").html("");
-                        $("#modal-cs").modal("show");
+                        $("#modal-line .modal-content").html("");
+                        $("#modal-line").modal("show");
                     },
                     success: function (data) {
-                        $("#modal-cs .modal-content").html(data.html_form);
+                        $("#modal-line .modal-content").html(data.html_form);
                     }
                 });
             };
@@ -292,9 +273,9 @@
                     success: function (data) {
                         if (data.form_is_valid) {
                             $("#cs-table-1 tbody").html(data.html_cs_list);
-                            $("#modal-cs").modal("hide");
+                            $("#modal-line").modal("hide");
                         } else {
-                            $("#modal-cs .modal-content").html(data.html_form);
+                            $("#modal-line .modal-content").html(data.html_form);
                         }
                     }
                 });
@@ -303,7 +284,7 @@
             /* Binding */
             // Update repart
             $("#cs-table-1").on("click", ".js-view-csrepart1", loadForm3);
-            $("#modal-cs").on("submit", ".js-cs-update-form", saveForm3);
+            $("#modal-line").on("submit", ".js-cs-update-form", saveForm3);
         });
 
     </script>
@@ -319,11 +300,11 @@
                     type: 'get',
                     dataType: 'json',
                     beforeSend: function () {
-                        $("#modal-cs-2 .modal-content").html("");
-                        $("#modal-cs-2").modal("show");
+                        $("#modal-line .modal-content").html("");
+                        $("#modal-line").modal("show");
                     },
                     success: function (data) {
-                        $("#modal-cs-2 .modal-content").html(data.html_form);
+                        $("#modal-line .modal-content").html(data.html_form);
                     }
                 });
             };
@@ -338,9 +319,9 @@
                     success: function (data) {
                         if (data.form_is_valid) {
                             $("#cs-table-2 tbody").html(data.html_cs_list);
-                            $("#modal-cs-2").modal("hide");
+                            $("#modal-line").modal("hide");
                         } else {
-                            $("#modal-cs-2 .modal-content").html(data.html_form);
+                            $("#modal-line .modal-content").html(data.html_form);
                         }
                     }
                 });
@@ -349,7 +330,7 @@
             /* Binding */
             // Update repart
             $("#cs-table-2").on("click", ".js-view-csrepart2", loadForm4);
-            $("#modal-cs-2").on("submit", ".js-cs-update-form2", saveForm4);
+            $("#modal-line").on("submit", ".js-cs-update-form2", saveForm4);
         });
 
     </script>

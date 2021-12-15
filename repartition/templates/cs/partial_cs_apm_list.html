@@ -1,14 +1,7 @@
 {% for csrepart in csrepart_list_apm %}
-    <tr>
+    <tr class="js-view-csrepart2" data-url="{% url 'csapmupdate' csrepart.id %}" >
         <td>Bureau {{ csrepart.deskroom.number|default_if_none:"-" }}</td>
         <td>{{ csrepart.are.name|default_if_none:"-" }}</td>
-        <td class="text-center">
-            <button type="button"
-                    class="view-repart btn btn-sm btn-primary small js-view-csrepart2"
-                    data-url="{% url 'csapmupdate' csrepart.id %}">
-                <span class="fa fa-pen"></span>
-            </button>
-        </td>
     </tr>
 {% empty %}
     <p class="text-center">Pas de consultations enregistrées</p>

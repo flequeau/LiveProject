@@ -137,7 +137,7 @@ def LineRepartCreate(request, pk):
     deskrooms = DeskRoom.objects.all()
     a = RepartLine.objects.filter(repart=repart).count()
     for room in rooms:
-        RepartLine.objects.get_or_create(repart=repart, room=room, period='Matin')
+        RepartLine.objects.get_or_create(repart=repart, room=room, period='Matin', start_time_id=5)
         RepartLine.objects.get_or_create(repart=repart, room=room, period='Apm')
     for desk in deskrooms:
         RepartCs.objects.get_or_create(repart=repart, deskroom=desk, period='Matin')

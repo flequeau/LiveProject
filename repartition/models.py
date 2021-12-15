@@ -53,6 +53,7 @@ class Operator(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     secretary = models.CharField(max_length=20, blank=True, null=True)
     gsm = models.CharField(max_length=20, blank=True, null=True)
+    zone = models.CharField(max_length=2, blank=True, null=True)
 
 
     def __str__(self):
