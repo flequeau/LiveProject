@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container mt-3">
-        <div class="row mt-2">
+        <div class="row mt-2  border border-secondary bg-light">
             <div class="col-12">
-                <div class="alert alert-dark h4 text-justify" role="alert">
+                <div class="alert alert-dark h4 text-justify mt-2" role="alert">
                     DATE : {{ repart.start|date:'d-m-Y' }} - GARDE : {{ repart.duty.name|upper }}
                     ({{ repart.duty.phone_hop }}) - SSPI : {{ repart.sspi.name }} ({{ repart.sspi.phone_hop }})
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3 bg-light border border-secondary">
             <div class="col-6">
+                <p class="font-weight-bold mt-1 mb-1">Nord matin</p>
                 <table class="table table-sm small table-striped border border-primary">
-                    <thead class="text-dark bg-primary">
+                    <thead class="text-dark bg-light">
                     <tr>
+                        <th>Chirurgien</th>
                         <th>Salle</th>
                         <th>Heure</th>
-                        <th>Chirurgien</th>
                         <th>Anesthésiste</th>
                         <th>IADE</th>
                         <th>Interne</th>
@@ -26,19 +27,19 @@
                     {% for matin_line in matin_lines %}
                         {% if forloop.counter < 11 %}
                             <tr>
-                                <th>{{ matin_line.room }}</th>
-                                <th>{{ matin_line.start_time|default_if_none:'' }}</th>
                                 {% if matin_line.operator %}
-                                    <th>{{ matin_line.operator.name|default_if_none:'Rien' }}</th>
+                                    <th class="border-right">{{ matin_line.operator.name|default_if_none:'Rien' }}</th>
                                 {% else %}
-                                    <th class="text-danger">Rien</th>
+                                    <th class="text-danger border-right">Rien</th>
                                 {% endif %}
+                                <th class="border-right text-center">{{ matin_line.room }}</th>
+                                <th class="border-right  text-center">{{ matin_line.start_time|default_if_none:'' }}</th>
                                 {% if matin_line.rpt %}
                                     <th class="font-italic">{{ matin_line.rpt.name }}</th>
                                 {% else %}
                                     <th>{{ matin_line.are.name|default_if_none:'' }}</th>
                                 {% endif %}
-                                <th>{{ matin_line.iade|default_if_none:'' }}</th>
+                                <th>{{ matin_line.iade.name|default_if_none:'' }}</th>
                                 <th>{{ matin_line.interne|default_if_none:'' }}</th>
                             </tr>
                         {% endif %}
@@ -47,12 +48,13 @@
                 </table>
             </div>
             <div class="col-6">
+                <p class="font-weight-bold mt-1 mb-1">Nord Après-midi</p>
                 <table class="table table-sm small table-striped border border-primary">
-                    <thead class="text-dark bg-primary">
+                    <thead class="text-dark bg-light">
                     <tr>
+                        <th>Chirurgien</th>
                         <th>Salle</th>
                         <th>Heure</th>
-                        <th>Chirurgien</th>
                         <th>Anesthésiste</th>
                         <th>IADE</th>
                         <th>Interne</th>
@@ -62,19 +64,20 @@
                     {% for apm_line in apm_lines %}
                         {% if forloop.counter < 11 %}
                             <tr>
-                                <th>{{ apm_line.room }}</th>
-                                <th>{{ apm_line.start_time }}</th>
+
                                 {% if apm_line.operator %}
-                                    <th>{{ apm_line.operator.name|default_if_none:'Rien' }}</th>
+                                    <th class="border-right">{{ apm_line.operator.name|default_if_none:'Rien' }}</th>
                                 {% else %}
-                                    <th class="text-danger">Rien</th>
+                                    <th class="text-danger border-right">Rien</th>
                                 {% endif %}
+                                <th class="border-right text-center">{{ apm_line.room }}</th>
+                                <th class="border-right  text-center">{{ apm_line.start_time|default_if_none:'-' }}</th>
                                 {% if apm_line.rpt %}
                                     <th class="font-italic">{{ apm_line.rpt.name }}</th>
                                 {% else %}
                                     <th>{{ apm_line.are.name|default_if_none:'' }}</th>
                                 {% endif %}
-                                <th>{{ apm_line.iade|default_if_none:'' }}</th>
+                                <th>{{ apm_line.iade.name|default_if_none:'' }}</th>
                                 <th>{{ apm_line.interne|default_if_none:'' }}</th>
                             </tr>
                         {% endif %}
@@ -83,63 +86,63 @@
                 </table>
             </div>
         </div>
-        <div class="row">
+        <div class="row bg-border border-secondary mt-2">
             <div class="col-6">
+                <p class="font-weight-bold mt-1 mb-1">Consultations</p>
                 <table class="table table-sm small table-striped  border border-info">
-                    <thead class="text-dark bg-info">
+                    <thead class="text-dark bg-light">
                     <tr>
-                        <th>Conultation 1</th>
-                        <th>Consultation 2</th>
-                        <th>Consultation 3</th>
+                        <th></th>
+                        <th class="text-center">Cs 1er SHAU</th>
+                        <th class="text-center">Cs 2e Bali</th>
+                        <th class="text-center">Cs 3e</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
+                        <th class="text-right border-right">Cs Matin</th>
                         {% for csm in matin_cs %}
-                            <th>{{ csm.are.name }}</th>
+                            <th class="text-center">{{ csm.are.name }}</th>
                         {% endfor %}
                     </tr>
                     <tr>
+                        <th class=" text-right border-right">Cs Après-mdi</th>
                         {% for csa in apm_cs %}
-                            <th>{{ csa.are.name }}</th>
+                            <th class="text-center">{{ csa.are.name }}</th>
                         {% endfor %}
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-6">
+                <p class="font-weight-bold mt-1 mb-1">Remplacements</p>
                 <table class="table table-sm small table-striped  border border-info">
-                    <thead class="text-dark bg-info">
-                    <tr>
-                        <th>Rempla.</th>
-                        <th>Rempla.</th>
-                        <th>Rempla.</th>
-                        <th>Rempla.</th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <tr>
+                        <th class="border-right">Remplacés</th>
                         {% for rempla in remplas %}
-                            <th>{{ rempla.are.name }}</th>
+                            <th class="border-right">{{ rempla.are.name }}</th>
                         {% endfor %}
                     </tr>
                     <tr>
+                        <th class="border-right">Remplaçants</th>
                         {% for rempla in remplas %}
-                            <th>{{ rempla.rpt.name }}</th>
+                            <th class="border-right">{{ rempla.rpt.name }}</th>
                         {% endfor %}
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="row">
+        <div class="row  bg-light border border-secondary mt-2">
             <div class="col-6">
+                <p class="font-weight-bold mt-1 mb-1">Sud Matin</p>
                 <table class="table table-sm small table-striped border border-primary">
-                    <thead class="text-dark bg-primary">
+                    <thead class="text-dark bg-light">
                     <tr>
+                        <th>Chirurgien</th>
                         <th>Salle</th>
                         <th>Heure</th>
-                        <th>Chirurgien</th>
                         <th>Anesthésiste</th>
                         <th>IADE</th>
                         <th>Interne</th>
@@ -149,19 +152,19 @@
                     {% for matin_line in matin_lines %}
                         {% if forloop.counter > 10 %}
                             <tr>
-                                <th>{{ matin_line.room }}</th>
-                                <th>{{ matin_line.start_time|default_if_none:'' }}</th>
                                 {% if matin_line.operator %}
-                                    <th>{{ matin_line.operator.name|default_if_none:'Rien' }}</th>
+                                    <th class="border-right">{{ matin_line.operator.name|default_if_none:'Rien' }}</th>
                                 {% else %}
-                                    <th class="text-danger">Rien</th>
+                                    <th class="text-danger border-right">Rien</th>
                                 {% endif %}
+                                <th class="border-right text-center">{{ matin_line.room }}</th>
+                                <th class="border-right text-center">{{ matin_line.start_time|default_if_none:'' }}</th>
                                 {% if matin_line.rpt %}
                                     <th class="font-italic">{{ matin_line.rpt.name }}</th>
                                 {% else %}
                                     <th>{{ matin_line.are.name|default_if_none:'' }}</th>
                                 {% endif %}
-                                <th>{{ matin_line.iade|default_if_none:'' }}</th>
+                                <th>{{ matin_line.iade.name|default_if_none:'' }}</th>
                                 <th>{{ matin_line.interne|default_if_none:'' }}</th>
                             </tr>
                         {% endif %}
@@ -170,12 +173,13 @@
                 </table>
             </div>
             <div class="col-6">
+                <p class="font-weight-bold mt-1 mb-1">Sud Après-midi</p>
                 <table class="table table-sm small table-striped  border border-primary">
-                    <thead class="text-dark bg-primary">
+                    <thead class="text-dark bg-light">
                     <tr>
+                        <th>Chirurgien</th>
                         <th>Salle</th>
                         <th>Heure</th>
-                        <th>Chirurgien</th>
                         <th>Anesthésiste</th>
                         <th>IADE</th>
                         <th>Interne</th>
@@ -185,19 +189,19 @@
                     {% for apm_line in apm_lines %}
                         {% if forloop.counter > 10 %}
                             <tr>
-                                <th>{{ apm_line.room }}</th>
-                                <th>{{ apm_line.start_time }}</th>
                                 {% if apm_line.operator %}
-                                    <th>{{ apm_line.operator.name|default_if_none:'Rien' }}</th>
+                                    <th class="border-right">{{ apm_line.operator.name|default_if_none:'Rien' }}</th>
                                 {% else %}
-                                    <th class="text-danger">Rien</th>
+                                    <th class="text-danger border-right">Rien</th>
                                 {% endif %}
+                                <th class="border-right text-center">{{ apm_line.room }}</th>
+                                <th class="border-right text-center">{{ apm_line.start_time|default_if_none:'-' }}</th>
                                 {% if apm_line.rpt %}
                                     <th class="font-italic">{{ apm_line.rpt.name }}</th>
                                 {% else %}
                                     <th>{{ apm_line.are.name|default_if_none:'' }}</th>
                                 {% endif %}
-                                <th>{{ apm_line.iade|default_if_none:'' }}</th>
+                                <th>{{ apm_line.iade.name|default_if_none:'' }}</th>
                                 <th>{{ apm_line.interne|default_if_none:'' }}</th>
                             </tr>
                         {% endif %}

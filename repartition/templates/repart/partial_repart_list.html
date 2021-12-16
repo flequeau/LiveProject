@@ -4,8 +4,8 @@
             <td>{{ repart.start|date:"d/m/Y" }}</td>
             <td>{{ repart.duty }}</td>
             <td>{{ repart.sspi }}</td>
-            <td>{{ repart.description }}</td>
-            <td><!-- Read Repart buttons -->
+            <td><small>{{ repart.description }}</small></td>
+            <td style="width: 10rem;"><!-- Read Repart buttons -->
                 <button type="button" class="view-repart btn btn-sm btn-primary small js-view-repart"
                         data-url="{% url 'repartupdate' repart.id %}">
                     <span class="fa fa-eye"></span>
