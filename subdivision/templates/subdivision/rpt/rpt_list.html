@@ -1,16 +1,11 @@
 {% extends "base.html" %}
-{% load static %}
 {% block title %}Liste des remplaçants{% endblock %}
-{% block titre %}Liste des remplaçants{% endblock %}>
-{% block extrahead %}
-    <link href="{% static 'css/datatables/datatables.min.css' %}" rel="stylesheet">
-{% endblock %}
 {% block content %}
     <div class="container">
         <div class="card  mt-5">
             <div class="card-header font-weight-bold">Liste des remplaçants
-                <a href="{% url 'rpt_create' %}" class="btn btn-info pull-right"
-                   role="button">Nouveau</a>
+                <a class="btn btn-primary btn-sm float-right" role="button"
+                   href="{% url 'rpt_create' %}">Nouveau</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

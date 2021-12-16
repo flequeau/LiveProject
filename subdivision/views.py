@@ -267,7 +267,9 @@ def add_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.rpt.status = True
+            instance.save()
             return redirect('addevent')
     else:
         form = EventForm(initial={'start_time': '00:00:00', 'end_time': '00:00:00'})
