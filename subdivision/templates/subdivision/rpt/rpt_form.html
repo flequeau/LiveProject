@@ -20,15 +20,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 text-left">
+                            <label for="id_name" class="form-label">Nom</label>
                             {{ form.name|attr:"class:form-control" }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_forname" class="form-label">Prénom</label>
                             {{ form.forname|attr:"class:form-control" }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_telmob" class="form-label">Tél. mobile</label>
                             {{ form.telmob|attr:"class:form-control" }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_email" class="form-label">Mail</label>
                             {{ form.email|attr:"class:form-control" }}
                         </div>
                     </div>
@@ -38,15 +42,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3 text-left">
+                                <label for="id_adress1" class="form-label">Adresse</label>
                                 {{ form.adress1|attr:"class:form-control" }}
+                                <label for="id_adress2" class="form-label mt-2">Complément d'adresse</label>
                                 {{ form.adress2|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_postalcode" class="form-label">Code Postal</label>
                                 {{ form.postalcode|attr:"class:form-control" }}
+                                <label for="id_town" class="form-label mt-2">Ville</label>
                                 {{ form.town|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_tel2" class="form-label">Tél.</label>
                                 {{ form.tel2|attr:"class:form-control" }}
+                                <label for="id_tel3" class="form-label mt-2">Tél.</label>
                                 {{ form.tel3|attr:"class:form-control" }}
                             </div>
                         </div>
@@ -57,19 +67,25 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3 text-left">
+                                <label for="id_status" class="form-label">Statut</label>
                                 {{ form.status|attr:"class:form-control" }}
+                                <label for="id_conum" class="form-label mt-2">Numéro CO</label>
                                 {{ form.conum|attr:"class:form-control" }}
+                                <label for="id_licence_exp_date" class="form-label">Date expiration licence</label>
                                 {{ form.licence_exp_date|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_codepartname" class="form-label">Nom département</label>
                                 {{ form.codepartname|attr:"class:form-control" }}
+                                <label for="id_codepartnum" class="form-label mt-2">Code département</label>
                                 {{ form.codepartnum|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_assurance" class="form-label">Assurance</label>
                                 {{ form.assurance|attr:"class:form-control" }}
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-5">
                             <div class="col-sm-3">
                                 <div><input class="btn btn-success pull-left" type="submit" value="Envoyer"/></div>
                             </div>
