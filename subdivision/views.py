@@ -16,6 +16,16 @@ from datetime import timedelta
 from .forms import EventForm, SearchRptMonthForm, SearchMonthForm
 from .models import Event, Calendrier, WebColor, Rpt, Are, HopParam
 from repartition.models import Iade
+from django.core.paginator import Paginator
+
+
+@login_required()
+def eventview(request):
+    event_list = Event.objects.all().order_by('-start')
+    paginator = Paginator(event_list, 5)
+    page = request.GET.get('page')
+    events = paginator.get_page(page)
+    return render(request, 'subdivision/event/rempla.html', {'events': events})
 
 
 ####### CRUD AJAX RPT ################# CRUD AJAX RPT ################# CRUD AJAX RPT ##########
@@ -276,6 +286,7 @@ def add_event(request):
     return render(request, 'subdivision/event/event.html', {'form': form})
 
 
+@login_required()
 def events_json(request):
     """
     Crée le fichier json qui est lu pour être affiché sur le calendrier
@@ -585,3 +596,48 @@ class IadeDelete(LoginRequiredMixin, DeleteView):
     model = Iade
     template_name = 'subdivision/iade/iade_delete.html'
     success_url = reverse_lazy('iade_list')
+
+
+# Modal CRUD Event ################################################################
+
+def save_event_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            events = Event.objects.all().filter(start__month=datetime.now().month,
+                                                start__year=datetime.now().year).order_by('-start')[:5]
+            data['html_event_list'] = render_to_string('subdivision/event/partial_event_list.html', {'events': events})
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+@login_required()
+def eventupdate(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+    else:
+        form = EventForm(instance=event)
+    return save_event_form(request, form, 'subdivision/event/partial_event_update.html')
+
+
+@login_required()
+def eventdelete(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+    data = dict()
+    if request.method == 'POST':
+        event.delete()
+        data['form_is_valid'] = True
+        events = Event.objects.all()
+        data['html_repart_list'] = render_to_string('subdivision/event/partial_event_list.html', {
+            'events': events
+        })
+    else:
+        context = {'event': event}
+        data['html_form'] = render_to_string('subdivision/event/partial_event_delete.html', context, request=request)
+    return JsonResponse(data)

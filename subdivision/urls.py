@@ -5,7 +5,7 @@ from subdivision import views
 urlpatterns = [
     # event
     path('addevent', views.add_event, name='addevent'),
-    path('view', TemplateView.as_view(template_name='subdivision/event/rempla.html'), name='rempla'),
+    path('view', views.eventview, name='rempla'),
     path('list', views.EventList.as_view(), name='event_list'),
     path('detail/<int:pk>', views.EventDetail.as_view(), name='event_detail'),
     path('events.json', views.events_json, name='events.json'),
@@ -14,6 +14,9 @@ urlpatterns = [
     path('create/<str:start>/<str:end>', views.create, name='create'),
     path('resize/<int:id>/<str:end>', views.resize, name='resize'),
     path('drop/<int:id>/<str:start>/<str:end>', views.drop, name='drop'),
+    path('eventupdate/<int:pk>', views.eventupdate, name='eventupdate'),
+    path('eventdetail/<int:pk>', views.EventDetail.as_view(), name='eventdetail'),
+    path('eventdelete/<int:pk>', views.eventdelete, name='eventdelete'),
     # rpt
     path('rpt', views.RptList.as_view(), name='rpt_list'),
     path('rptdetail/<int:pk>', views.RptDetail.as_view(), name='rpt_detail'),

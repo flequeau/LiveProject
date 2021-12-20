@@ -22,7 +22,7 @@ MOIS = [
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ('title', 'are', 'rpt', 'start', 'end', 'calendrier', 'pay_amount', 'pay_are',
+        fields = ('title', 'are', 'rpt', 'start', 'end', 'pay_amount', 'pay_are',
                   'pay_type', 'pay_numchq', 'pay_date')
 
 
