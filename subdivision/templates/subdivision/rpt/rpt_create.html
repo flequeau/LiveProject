@@ -11,15 +11,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 text-left">
+                            <label for="id_name" class="form-label">Nom</label>
                             {{ form.name|attr:"class:form-control" }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_forname" class="form-label">Prénom</label>
                             {{ form.forname|attr:"class:form-control" }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_telmob" class="form-label">Tél. mobile</label>
                             {{ form.telmob|attr:"class:form-control" }}
                         </div>
                         <div class="col-sm-3 text-left">
+                            <label for="id_email" class="form-label">Email</label>
                             {{ form.email|attr:"class:form-control" }}
                         </div>
                     </div>
@@ -29,15 +33,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3 text-left">
+                                <label for="id_adress1" class="form-label">Adresse</label>
                                 {{ form.adress1|attr:"class:form-control" }}
+                                <label for="id_adress2" class="form-label">Complément d'adresse</label>
                                 {{ form.adress2|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_postalcode" class="form-label">Code postal</label>
                                 {{ form.postalcode|attr:"class:form-control" }}
+                                <label for="id_town" class="form-label">Ville</label>
                                 {{ form.town|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_tel2" class="form-label">Tél. fixe</label>
                                 {{ form.tel2|attr:"class:form-control" }}
+                                <label for="id_tel3" class="form-label">Tél. autre</label>
                                 {{ form.tel3|attr:"class:form-control" }}
                             </div>
                         </div>
@@ -48,15 +58,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3 text-left">
+                                <label for="id_status" class="form-label">Statut</label>
                                 {{ form.status|attr:"class:form-control" }}
+                                <label for="id_conum" class="form-label">N° CO</label>
                                 {{ form.conum|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_codepartname" class="form-label">Nom département</label>
                                 {{ form.codepartname|attr:"class:form-control" }}
+                                <label for="id_codepartnum" class="form-label">Numéro département</label>
                                 {{ form.codepartnum|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
+                                <label for="id_rpps" class="form-label">Numéro RPPS (si thésé)</label>
                                 {{ form.rpps|attr:"class:form-control" }}
+                                <label for="id_active" class="form-label">Actif</label>
                                 {{ form.active|attr:"class:form-control" }}
                             </div>
                         </div>
