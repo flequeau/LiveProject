@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Remplacement</title>
@@ -8,8 +8,11 @@
 <body>
 <div class="container">
     <div class="row">
-        <h3 class="text-center">ANNEXE CALENDAIRE AU CONTRAT DE REMPLACEMENT</h3>
-        <br><br>
+        <div class="col-12">
+            <h3 class="text-center">ANNEXE CALENDAIRE AU CONTRAT DE REMPLACEMENT</h3>
+        </div>
+    </div>
+    <div class="row mt-5">
         <table class="table table-bordered">
             <tbody>
             <tr class="text-center">
@@ -39,41 +42,46 @@
         <br><br><br>
 
     </div>
-    <div class="row">
-        <p class="font-weight-bold">
-            Signée entre le Docteur {{ are.forname|title }} {{ are.name|upper }} - N° d'inscription: {{ are.numco }}
-        </p>
-        <p class="font-weight-bold">
-            exerçant: {{ hop.name|upper }} {{ hop.adress1 }}
-            {% if hop.adress2 %}{{ hop.adress2 }}{% endif %} {{ hop.postalcode }} {{ hop.town }}
-        </p>
+    <div class="row mt-5">
+        <div class="col-12">
+            <p class="font-weight-bold">
+                Signée entre le </br>  Docteur {{ are.forname|title }} {{ are.name|upper }} - N°
+                d'inscription: {{ are.numco }}
+                exerçant: {{ hop.name|upper }} {{ hop.adress1 }}
+                {% if hop.adress2 %}{{ hop.adress2 }}{% endif %} {{ hop.postalcode }} {{ hop.town }}
+            </p>
+        </div>
     </div>
-    <div class="row">
-        <p class="font-weight-bold">
-            Et {{ rpt.forname|title }} {{ rpt.name|upper }}
-        </p>
-        <br><br><br>
-        <p>
+    <div class="row mt-5">
+        <div class="col-12">
+            <p class="font-weight-bold">
+                Et  </br>   {{ rpt.forname|title }} {{ rpt.name|upper }}
+            </p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
             Remplacements et tours de garde: &ensp; {{ date }}
-        </p>
-        <br><br><br><br><br><br><br><br>
+        </div>
     </div>
+    <br><br><br><br><br><br><br><br>
+
     <div class="row">
         <table class="table table-bordered">
             <thead>
-            <tr>
-                <th scope="col">Signature du médecin remplacé</th>
-                <th scope="col">Signature du remplaçant</th>
+            <tr class="text-center">
+                <th>Signature du médecin remplacé</th>
+                <th>Signature du remplaçant</th>
             </tr>
             </thead>
             <tbody>
             <tr class="text-center">
                 <!--<td><br><img src='{{ signpath }}' width="50%"><br></td>-->
                 <td><br><br></td>
+                <td><br><br></td>
             </tr>
             </tbody>
         </table>
-
     </div>
 </div>
 </body>
