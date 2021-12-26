@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'LiveProject.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': env.db(),
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -148,7 +148,11 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 AMOUNT_RPT = 900
+
 GERANT = 'Docteur Franck Le Quéau'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 SESSION_COOKIE_AGE = 10000
+
+WKHTMLTOPDF_CMD = '/usr/local/bin/wkhtmltopdf'
