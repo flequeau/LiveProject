@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from subdivision.models import Are, Rpt
+from subdivision.models import Are, Rpt, Calendrier
 
 PERIOD = [
     ('Matin', 'Matin'),
@@ -127,6 +127,8 @@ class RepartEvent(models.Model):
     start_time = models.TimeField(verbose_name='Heure début', default='00:00:00')
     end = models.DateField(verbose_name='Fin', null=True, blank=True)
     end_time = models.TimeField(verbose_name='Heure Fin', default='00:00:00')
+    calendrier = models.ForeignKey(Calendrier, default=3, on_delete=models.CASCADE, blank=True, null=True,
+                                   verbose_name='Calendrier')
     is_cancelled = models.BooleanField(default=False, blank=True)
     all_day = models.BooleanField(default=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
