@@ -71,7 +71,8 @@ class Are(models.Model):
     phone_hop = models.CharField(max_length=12, verbose_name='Poste', blank=True, null=True)
     phone_secretary = models.CharField(max_length=12, verbose_name='Secrétariat', null=True, blank=True)
     email = models.EmailField(max_length=50, blank=True, null=True)
-    secteur = models.CharField(max_length=10, choices=SECTOR, verbose_name='Secteur', default=True, blank=True, null=True)
+    secteur = models.CharField(max_length=10, choices=SECTOR, verbose_name='Secteur', default=True, blank=True,
+                               null=True)
     photo = models.ImageField(upload_to='are/photo', blank=True, null=True)
     signature = models.ImageField(upload_to='are/signature', blank=True, null=True)
 
@@ -130,6 +131,7 @@ class Rpt(models.Model):
         verbose_name = "Remplaçant"
         verbose_name_plural = "Remplaçants"
         ordering = ['name', ]
+        unique_together = ['name', 'forname']
 
 
 class Event(models.Model):

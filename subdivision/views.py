@@ -19,6 +19,23 @@ from repartition.models import Iade
 from django.core.paginator import Paginator
 
 
+def calendar(request):
+    events = Event.objects.all().order_by('-start')
+    for event in events:
+        event_month = event.start.month
+        event_year = event.start.year
+        old = Event.objects.filter(title=event.title, start__month__lt=event_month,
+                                   start__year=event_year) | Event.objects.filter(title=event.title,
+                                                                                  start__year__lt=event_year)
+        if old.exists():
+            event.calendrier_id = 2
+            event.save()
+        else:
+            event.calendrier_id = 1
+            event.save()
+    return render(request, 'subdivision/event/rempla.html')
+
+
 @login_required()
 def eventview(request):
     event_list = Event.objects.all().order_by('-start')

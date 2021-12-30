@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'environ',
+    'django_extensions',
     'pdfkit',
     'widget_tweaks',
     'subdivision',
@@ -156,3 +157,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 10000
 
 WKHTMLTOPDF_CMD = '/usr/local/bin/wkhtmltopdf'
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
