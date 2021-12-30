@@ -26,6 +26,7 @@ urlpatterns = [
     # pdf
     path('editpdf/<int:id>', views.edit_pdf, name='editpdf'),
     path('monthpdf/<annee>/<mois>/<items>', views.pdf_month, name='monthpdf'),
+    path('eventpdf/<int:are>/<int:rpt>/<int:event>', views.pdf_event, name='eventpdf'),
     path('searchrptmonth', views.searchrptmonth, name='searchrptmonth'),
     path('searchMonth/<message>', views.searchMonth, name='searchMonth'),
     # crud ajax rpt

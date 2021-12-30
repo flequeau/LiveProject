@@ -12,13 +12,14 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 import pdfkit
-from datetime import timedelta
+from datetime import timedelta, datetime
 from .forms import EventForm, SearchRptMonthForm, SearchMonthForm
 from .models import Event, Calendrier, WebColor, Rpt, Are, HopParam
 from repartition.models import Iade
 from django.core.paginator import Paginator
 
 
+# MISE A JOUR DES CALENDRIERS CONTRAT OU ANNEXE ###########################
 def calendar(request):
     events = Event.objects.all().order_by('-start')
     for event in events:
@@ -117,8 +118,8 @@ def edit_pdf(request, id):
     if event.start == event.jend:
         findate = ''
     else:
-        findate = event.jend.strftime('%d/%m%/%Y')
-    date = event.start.strftime('%d/%m%/%Y')
+        findate = event.jend.strftime('%d/%m/%Y')
+    date = event.start.strftime('%d/%m/%Y')
     hop = HopParam.objects.get(pk=1)
     css = str(settings.STATIC_ROOT) + '/css/bootstrap/css/bootstrap.css'
     # if settings.STATIC_ROOT + event.are.signature.url:
@@ -146,7 +147,7 @@ def edit_pdf(request, id):
     return FileResponse(open(path, 'rb'), content_type='application/pdf')
 
 
-def pdf_month(request, annee, mois, items):
+def pdf_month(request, annee, mois, items=''):
     hop = HopParam.objects.get(pk=1)
     css = str(settings.STATIC_ROOT) + '/css/bootstrap/css/bootstrap.css'
     message = ''
@@ -163,11 +164,11 @@ def pdf_month(request, annee, mois, items):
                 listcouple.append((event.are, event.rpt))
                 dates = events.filter(are=event.are, rpt=event.rpt).order_by('start')
                 for date in dates:
-                    d = date.start.strftime('%d/%m%/%Y')
+                    d = date.start.strftime('%d/%m/%Y')
                     if date.start == date.jend:
                         fd = ''
                     else:
-                        fd = date.jend.strftime('%d/%m%/%Y')
+                        fd = date.jend.strftime('%d/%m/%Y')
                         d = d + ' au ' + fd
                     datecouple.append(d)
                     if event.calendrier_id == 1:
@@ -194,6 +195,43 @@ def pdf_month(request, annee, mois, items):
     else:
         message = 'Pas d\'édition à créer'
     return redirect('searchMonth', message=message)
+
+
+def pdf_event(request, are, rpt, event):
+    hop = HopParam.objects.get(pk=1)
+    css = str(settings.STATIC_ROOT) + '/css/bootstrap/css/bootstrap.css'
+    obj = Event.objects.filter(pk=event)
+    jour = obj.first()
+    message = ''
+    datecouple = []
+    events = Event.objects.filter(are=are, rpt=rpt, start__month=jour.start.month, start__year=jour.start.year)
+    for event in events:
+        # if settings.STATIC_ROOT + event.are.signature.url:
+        # signpathare = settings.STATIC_ROOT + event.are.signature.url
+        # else:
+        # signpathare = ''
+        datecouple.append(event.start.strftime('%d/%m/%Y'))
+    if jour.calendrier_id == 1:
+        p = 'staticfiles/img/contrat/' + str(jour.start.year) + '/' + str(jour.start.month) + '/'
+        url = 'subdivision/contrat.html'
+    else:
+        p = 'staticfiles/img/annexe/' + str(jour.start.year) + '/' + str(jour.start.month) + '/'
+        url = 'subdivision/annexe.html'
+
+    os.makedirs(p, exist_ok=True)
+
+    dc = ', '.join(datecouple)
+    contrat = render_to_string(url, {'are': jour.are,
+                                     'rpt': jour.rpt,
+                                     'date': dc,
+                                     'hop': hop,
+                                     # 'signpath': signpathare,
+                                     })
+    path = p + jour.start.strftime('%Y%m%d') + jour.are.name.replace(' ', '_') + '_' + jour.rpt.name.replace(' ',
+                                                                                                             '_') + '.pdf'
+    pdfkit.from_string(contrat, path, css=css)
+    message = 'Opération terminée'
+    return redirect('event_list')
 
 
 MOIS = {'NC', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
