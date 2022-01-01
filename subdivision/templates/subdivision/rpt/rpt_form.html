@@ -4,16 +4,17 @@
 {% block titre %}Mise à jour{% endblock %}
 {% block content %}
     <div class="container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card  mt-3">
-                <div class="card-header font-weight-bold">
-                    <div class="row  justify-content-between">
-                        <div class="'col-4 ml-3">
+                <div class="card-header font-weight-bold justify-content-between">
+                    <div class="row">
+                        <div class="'col-2 ml-3 h4">
                             Contact
                         </div>
-                        <div class="'col-4 mr-4">
-                            {{ form.active }} &ensp; Actif
+                            <label for="id_active" class="col-sm-2 offset-2 col-form-label float-right"></label>
+                        <div class="col-sm-4 float-left">
+                            {{ form.active|attr:"class:form-control" }}
                         </div>
                     </div>
                 </div>
@@ -67,20 +68,22 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3 text-left">
-                                <label for="id_status" class="form-label">Statut</label>
+                                <label for="id_status" class="form-label">Thésé(e)</label>
                                 {{ form.status|attr:"class:form-control" }}
                                 <label for="id_conum" class="form-label mt-2">Numéro CO</label>
                                 {{ form.conum|attr:"class:form-control" }}
-                                <label for="id_licence_exp_date" class="form-label">Date expiration licence</label>
-                                {{ form.licence_exp_date|attr:"class:form-control" }}
+                                <label for="id_rpps" class="form-label mt-2">RPPS</label>
+                                {{ form.rpps|attr:"class:form-control" }}
                             </div>
                             <div class="col-sm-3 text-left">
-                                <label for="id_codepartname" class="form-label">Nom département</label>
+                                <label for="id_licence_exp_date" class="form-label">Date expiration licence</label>
+                                {{ form.licence_exp_date|attr:"class:form-control" }}
+                                <label for="id_codepartname" class="form-label mt-2">Nom département</label>
                                 {{ form.codepartname|attr:"class:form-control" }}
                                 <label for="id_codepartnum" class="form-label mt-2">Code département</label>
                                 {{ form.codepartnum|attr:"class:form-control" }}
                             </div>
-                            <div class="col-sm-3 text-left">
+                            <div class="col-sm-6 text-left">
                                 <label for="id_assurance" class="form-label">Assurance</label>
                                 {{ form.assurance|attr:"class:form-control" }}
                             </div>

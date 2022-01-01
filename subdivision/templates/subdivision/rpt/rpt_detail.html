@@ -10,7 +10,7 @@
                 <div class="card  mt-5">
                     <div class="card-header font-weight-bold">Détail
                         de {{ object.forname|title }} {{ object.name|upper }}
-                        <span class="ml-5">Actif : {{ object.active }}</span>
+                        <span class="ml-5">Actif : {% if object.active != None %}Non{% endif %}</span>
                     </div>
                     <div class="card-body">
                         <p>Nom : {{ object.name|upper }}</p>
