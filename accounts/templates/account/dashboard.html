@@ -1,25 +1,34 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
     <div class="container mt-5">
         <div class="row">
-            <div class="jumbotron mt-5">
-                <h1 class="display-4">SUBDIVISION</h1>
-                <p class="lead">Application pour la gestion des remplacements médicaux et la
-                    répartition journalière des équipes au bloc</p>
-                <hr class="my-4">
-                <p>A l'usage exclusif du GARHPA</p>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#knowModal" role="button"
-                           >En savoir plus...</button>
+            <div class="col-12">
+                <img src="{% static 'accueil.png' %}" class="img-fluid" alt="404">
             </div>
         </div>
         <div class="row">
-            {% if request.user.is_authenticated %}
-                <div>Vous êtes authentifié comme {{ user.username }}<br>
-                    <a data-toggle="modal" data-target="#logoutModal" href="#">Se déconnecter</a>
+            <div class="col-12">
+                <div class="jumbotron">
+                    <h1 class="display-4">SUBDIVISION</h1>
+                    <p class="lead">Application pour la gestion des remplacements médicaux et la
+                        répartition journalière des équipes au bloc</p>
+                    <hr class="my-4">
+                    <p>A l'usage exclusif du GARHPA</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#knowModal" role="button"
+                    >En savoir plus...
+                    </button>
                 </div>
-            {% else %}
-                <a href="{% url 'login' %}">S'authentifier</a>
-            {% endif %}
+            </div>
+            <div class="row ml-3">
+                {% if request.user.is_authenticated %}
+                    <div>Vous êtes authentifié comme {{ user.username }}<br>
+                        <a data-toggle="modal" data-target="#logoutModal" href="#">Se déconnecter</a>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}">S'authentifier</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

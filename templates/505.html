@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Erreur{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <img src="{% static 'accueil.png' %}" class="card-img-top" alt="404">
+                    <div class="card-body">
+                        <h5 class="card-title">Erreur type 500</h5>
+                        <p class="card-text">Désolé, le serveur a rencontré une erreur.</p>
+                        <a href="{% url 'dashboard' %}" class="btn btn-primary">Retour à l'accueil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -19,6 +19,14 @@ from repartition.models import Iade
 from django.core.paginator import Paginator
 
 
+def handler_404(request, exception):
+    return render(request, '404.html')
+
+
+def handler_500(request):
+    return render(request, '505.html')
+
+
 # MISE A JOUR DES CALENDRIERS CONTRAT OU ANNEXE ###########################
 def calendar(request):
     events = Event.objects.all().order_by('-start')
@@ -252,14 +260,10 @@ def searchrptmonth(request):
         annee = int(request.POST.get('annee'))
         if Rpt.objects.filter(name=rpt):
             rpt_choice = Rpt.objects.get(name=rpt)
-            print(rpt_choice)
-            print(mois)
-            print(annee)
             if Event.objects.filter(rpt=rpt_choice, start__month=mois, start__year=annee):
                 items = Event.objects.filter(rpt=rpt_choice, start__month=mois, start__year=annee).order_by('start')
                 # rpt_choice = rpt_choice.forname + ' ' + rpt_choice.name + ' (' + MOIS[mois] + ' ' + str(annee) + ')'
-                rpt_choice = '{} {} ( {} {} )'.format(rpt_choice.forname, rpt_choice.name, str(mois), str(annee))
-                print(rpt_choice)
+                rpt_choice = '{} {} ({}-{})'.format(rpt_choice.forname, rpt_choice.name, str(mois), str(annee))
                 return render(request, 'subdivision/event/searchRptMonthForm.html', {'annees': annees,
                                                                                      'items': items,
                                                                                      'rpt': rpt_choice,
