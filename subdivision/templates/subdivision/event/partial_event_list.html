@@ -1,20 +1,22 @@
 {% for event in events %}
-        <tr>
-            <td>{{ event.start|date:"d/m/Y" }}</td>
-            <td>{{ event.are.name}}</td>
-            <td>{{ event.rpt.name }}</td>
-            <td style="width: 10rem;"><!-- Read Repart buttons -->
-                <button type="button" class="view-event btn btn-sm btn-primary small js-view-event"
-                        data-url="{% url 'eventupdate' event.id %}">
-                    <span class="fa fa-eye"></span>
-                </button>
-                <!-- Delete Repart buttons -->
-                <button type="button" class="delete-event btn btn-sm btn-danger js-delete-event"
-                        data-url="{% url 'eventdelete' event.id %}">
-                    <span class="fa fa-trash"></span>
-                </button>
-            </td>
-        </tr>
-    {% empty %}
-        <p>Pas de remplacements à afficher</p>
-    {% endfor %}
+    <tr>
+        <td>
+            <button type="button" class="view-event btn btn-sm btn-primary small js-view-event"
+                    data-url="{% url 'eventupdate' event.id %}">
+                <span class="fa fa-eye"></span>
+            </button>
+        </td>
+        <td>{{ event.start|date:"d/m/Y" }}</td>
+        <td>{{ event.are.name }}</td>
+        <td>{{ event.rpt.name }}</td>
+        <td>
+            <!-- Delete Repart buttons -->
+            <button type="button" class="delete-event btn btn-sm btn-danger js-delete-event"
+                    data-url="{% url 'eventdelete' event.id %}">
+                <span class="fa fa-trash"></span>
+            </button>
+        </td>
+    </tr>
+{% empty %}
+    <p>Pas de remplacements à afficher</p>
+{% endfor %}
