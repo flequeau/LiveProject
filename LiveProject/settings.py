@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'environ',
     'django_extensions',
+    'django_simple_bulma',
     'pdfkit',
     'widget_tweaks',
     'subdivision',
@@ -129,6 +130,7 @@ USE_TZ = True
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -168,3 +170,17 @@ GRAPH_MODELS = {
 }
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+BULMA_SETTINGS = {
+  "extensions": ['all'],
+  "variables": {
+    "primary": "#000000",
+    "size-1": "6rem",
+  },
+  "alt_variables": {
+    "primary": "#fff",
+    "scheme-main": "#000",
+  },
+  "output_style": "compressed",
+  "fontawesome_token": "e761a01be3",
+}

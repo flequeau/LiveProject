@@ -3,17 +3,32 @@
 {% block title %}Erreur{% endblock %}
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-12">
+        <div class="columns is-centered">
+            <div class="column is-one-third">
                 <div class="card">
-                    <img src="{% static 'accueil.png' %}" class="card-img-top" alt="404">
-                    <div class="card-body">
-                        <h5 class="card-title">Erreur type 500</h5>
-                        <p class="card-text">Désolé, le serveur a rencontré une erreur.</p>
-                        <a href="{% url 'dashboard' %}" class="btn btn-primary">Retour à l'accueil</a>
+                    <div class="card-header ">
+                        <div class="card-header-title is-centered">Oups ! C'est embêtant...</div>
+                    </div>
+                    <div class="card-image mt-3 has-text-centered">
+                        <figure class="image is-128x128 is-inline-block">
+                            <img src="{% static '404.png' %}" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content has-text-centered">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">Erreur 500</p>
+                                <p class="is-4">Désolé, le serveur rencontre un problème...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer has-text-centered">
+                        <div class="card-footer-item is-centered">
+                            <a href="{% url 'dashboard' %}" class="button is-info is-right">Retour à l'accueil</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock %}ock %}

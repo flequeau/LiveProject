@@ -1,67 +1,65 @@
 {% extends "base.html" %}
+{% load static %}
 {% load widget_tweaks %}
+{% load django_simple_bulma %}
+{% bulma %}
+{% font_awesome %}
 {% block content %}
     <div class="container">
-        <ul class="nav nav-tabs mt-5">
-            <li class="nav-item">
-                <a class="nav-link active">Volume réserve</a>
-            </li>
-        </ul>
-        <div class="alert alert-secondary mt-2 mb-2" role="alert">
-            Calcul du volume sanguin de réserve et stratégie d'épargne.
-        </div>
-        <div>
-            {% if volume <= 0 %}
-                <div class="alert alert-danger" role="alert">
-                    {{ conclusion }}
-                </div>
-            {% endif %}
-            {% if volume %}
-                <div class="alert alert-success" role="alert">
-                    Volume de réserve = {{ volume|floatformat:0 }} ml à 100% d'hématocrite
-                    {% if manque > 0 %}
-                        - Volume à compenser : {{ manque|floatformat:0 }} ml
-                    {% else %}
-                        - Le volume de réserve est supérieur aux pertes prévisibles
-                    {% endif %}
-                </div>
-                <div class="alert alert-info" role="alert">
-                    {{ conclusion }}
-                </div>
-            {% endif %}
-        </div>
-        <form class="ml-2" action="" method="post">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-sm-2 mt-2">
-                    <label for="id_gender" class="form-label">Genre</label>
-                    {{ form.gender|add_class:"form-control"|attr:'required=true' }}
-                </div>
-                <div class="col-sm-2 mt-2">
-                    <label for="id_weight" class="form-label">Poids (kg)</label>
-                    {{ form.weight|add_class:"form-control" }}
-                </div>
-                <div class="col-sm-3 mt-2">
-                    <label for="id_blood_loss" class="form-label">Pertes prévues</label>
-                    {{ form.blood_loss|add_class:"form-control" }}
+        <section class="section">
+            <div class="notification mt-2">
+                Calcul du volume sanguin de réserve et stratégie d'épargne.
+            </div>
+            <div>
+                {% if volume <= 0 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ conclusion }}
+                    </div>
+                {% endif %}
+                {% if volume %}
+                    <div class="notification is-info mb-3">
+                        Volume de réserve = {{ volume|floatformat:0 }} ml à 100% d'hématocrite
+                        {% if manque > 0 %}
+                            - Volume à compenser : {{ manque|floatformat:0 }} ml
+                        {% else %}
+                            - Le volume de réserve est supérieur aux pertes prévisibles
+                        {% endif %}
+                    </div>
+                    <div class="notification is-warning mb-3">
+                        {{ conclusion }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="columns">
+                <div class="column is-half is-offset-one-quarter">
+                    <form class="box" action="" method="post">
+                        {% csrf_token %}
+                        <div class="field">
+                            <label for="id_gender" class="form-label">Genre</label>
+                            {{ form.gender|add_class:"input" }}
+                        </div>
+                        <div class="field">
+                            <label for="id_weight" class="form-label">Poids (kg)</label>
+                            {{ form.weight|add_class:"input" }}
+                        </div>
+                        <div class="field">
+                            <label for="id_blood_loss" class="form-label">Pertes prévues</label>
+                            {{ form.blood_loss|add_class:"input" }}
+                        </div>
+                        <div class="field">
+                            <label for="id_hemacrit_init" class="form-label">Hématocrite initial</label>
+                            {{ form.hemacrit_init|add_class:"input" }}
+                        </div>
+                        <div class="field">
+                            <label for="id_hemacrit_final" class="form-label">Hématocrite final</label>
+                            {{ form.hemacrit_final|add_class:"input" }}
+                        </div>
+                        <input class="button is-primary" type="submit" value="Envoyer"/>
+                        <a href="{% url 'blood' %}" class="button is-info" role="button">Effacer</a>
+                    </form>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-sm-2 mt-2">
-                    <label for="id_hemacrit_init" class="form-label">Hématocrite initial</label>
-                    {{ form.hemacrit_init|add_class:"form-control" }}
-                </div>
-                <div class="col-sm-2 mt-2">
-                    <label for="id_hemacrit_final" class="form-label">Hématocrite final</label>
-                    {{ form.hemacrit_final|add_class:"form-control" }}
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-sm-6">
-                    <input class="btn btn-success" type="submit" value="Envoyer"/>
-                    <a href="{% url 'blood' %}" class="btn btn-info" role="button">Effacer</a>
-                </div>
-            </div>
-        </form>
+        </section>
     </div>
 {% endblock %}

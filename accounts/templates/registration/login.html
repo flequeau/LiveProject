@@ -1,39 +1,51 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load django_simple_bulma %}
+{% bulma %}
+{% font_awesome %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <div class="card mt-5">
-            <div class="card-header font-weight-bold">Authentification</div>
-            <div class="card-body text-center">
-                {% if form.errors %}
-                    <p>L'identifiant et le mot de passe ne correspondent pas.
-                        Merci de recommencer
-                    </p>
-                {% else %}
-                    <h3>Bienvenue</h3>
-                    <p>Merci de vous identifier</p>
-                {% endif %}
-                <form class="m-t" role="form" action="{% url 'login' %}" method='post'>
-                    {% csrf_token %}
-                    {% for field in form.visible_fields %}
-                        <div class="fieldWrapper">
-                            {{ field.errors }}
-                            <br>
-                            {{ field.label_tag }}
-                            <br>
-                            {{ field }}
-                            {% if field.help_text %}
-                                <p class="help">{{ field.help_text|safe }}</p>
-                            {% endif %}
-                            <br>
-                        </div>
-                    {% endfor %}
-                    <br>
-
-                    <p><input type="submit" class="btn btn-primary block full-width m-b" value="Soumettre"></p>
-                    <a href="#"><small>Mot de passe oublié ?</small></a>
-                </form>
+    <section class="section mt-3">
+        <div class="columns is-centered">
+            <div class="column is-one-third">
+                <div class="card mt-5">
+                    <div class="card-header-title is-centered is-size-3">Authentification</div>
+                    <div class="card-content has-text-centered">
+                        {% if form.errors %}
+                            <p>L'identifiant et le mot de passe ne correspondent pas.<br><br>
+                                Merci de recommencer
+                            </p>
+                        {% else %}
+                            <p class="title is-4">Bienvenue</p>
+                            <p>Merci de vous identifier</p>
+                        {% endif %}
+                        <form action="{% url 'login' %}" method='post'>
+                            {% csrf_token %}
+                            {% for field in form.visible_fields %}
+                                {{ field.errors }}
+                                <br>
+                                {{ field.label_tag }}
+                                <br>
+                                {{  field|attr:'class:input'}}
+                                {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                                <br>
+                            {% endfor %}
+                            <div class="card-footer mt-5">
+                                <div class="card-footer">
+                                    <div class="card-footer-item">
+                                        <input type="submit" class="button is-info" value="Soumettre">
+                                    </div>
+                                    <div class="card-footer-item has-text-centered">
+                                        <a href="#"><small>Mot de passe oublié ?</small></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock %}

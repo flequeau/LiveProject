@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 {% load static %}
 {% load widget_tweaks %}
+{% load django_simple_bulma %}
+{% bulma %}
+{% font_awesome %}
 <html lang="fr">
 
 <head>
@@ -13,8 +16,8 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/fontawesome/css/all.css' %}" rel="stylesheet">
-    <link href="{% static 'css/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/datatables/datatables.css' %}" rel="stylesheet">
+
     <!-- Full Calendar -->
     <link href="{% static 'css/fullcalendar/fullcalendar.css' %}" rel='stylesheet'/>
     <link href="{% static 'css/fullcalendar/fullcalendar.print.min.css' %}" rel='stylesheet' media='print'/>
@@ -26,120 +29,137 @@
     {% endblock %}
 </head>
 
-<body id="page-top">
-<div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-dark mt-1" style="background-color: #483D8B;">
+<body>
 
-        <img src="{% static 'icon001.png' %}" width="38" height="38" class="ml-5" alt="brand">
-        <a class="navbar-brand ml-2" href="{% url 'dashboard' %}">SUBDIVISION</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a href="{% url 'dashboard' %}" class="nav-link fa fa-home">&ensp;Accueil</a>
-                </li>
-                <li class="nav-item active ml-3">
-                    <a href="{% url 'admin:index' %}" class="nav-link  fa fa-cog">&ensp;Console</a>
-                </li>
-                <li class="nav-item active ml-3">
-                    <a href="{% url 'blood' %}" class="nav-link  fa fa-calculator">&ensp;Calculs</a>
-                </li>
-                <li class="nav-item dropdown active ml-3">
-                    <a class="nav-link dropdown-toggle fa fa-exchange" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        &ensp;Remplacements</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item fa fa-calendar" href="{% url 'rempla' %}">&ensp;Calendrier</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item fa fa-list" href="{% url 'event_list' %}">&ensp;Liste
-                            remplacements</a>
-                        <a class="dropdown-item fa fa-list" href="{% url 'searchrptmonth' %}">&ensp;Mois &
-                            Remplaçant</a>
-                        <a class="dropdown-item fa fa-list"
-                           href="{% url 'searchMonth' "Editions des contrats et Annexes" %}">&ensp;Mois</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item fa fa-user-md" href="{% url 'are_list' %}">&ensp;Anesthésistes</a>
-                        <a class="dropdown-item fa fa-user" href="{% url 'rpt_list' %}">&ensp;Remplaçants</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle ml-3 fa fa-chevron-circle-down" href="#" id="navbarDropdown"
-                       role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        &ensp;Répartitions</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item  fa fa-calendar" href="{% url 'repart' %}">&ensp;Calendrier</a>
-                        <a class="dropdown-item fa fa-edit" href="#">&ensp;Dernière Répart.</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item  fa fa-user-md" href="{% url 'are_list' %}">&ensp;Anesthésistes</a>
-                        <a class="dropdown-item  fa fa-user" href="{% url 'iade_list' %}">&ensp;IADEs</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown active ml-5">
-                    <a class="nav-link dropdown-toggle fa fa-user" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ensp;Utilisateur</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'login' %}">Se connecter</a>
-                        <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
-                           href="#">Se déconnecter</a>
-                        <div class="dropdown-divider"></div>
-                    </div>
-                </li>
-            </ul>
+    <nav class="navbar is-info is-fixed-top">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'dashboard' %}">
+                <img src="{% static 'icon001.png' %}" width="30" height="50" alt="brand">
+                &ensp;SUBDIVISION
+            </a>
+            <div class="navbar-burger burger" data-target="navbarExample">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-
+        <div id="navbarExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="{% url 'dashboard' %}">
+                    Accueil
+                </a>
+                <a class="navbar-item" href="{% url 'admin:index' %}">
+                    Console
+                </a>
+                <a class="navbar-item" href="{% url 'blood' %}">
+                    Calcul
+                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="#">
+                        Remplacements
+                    </a>
+                    <div class="navbar-dropdown is-boxed">
+                        <a class="navbar-item" href="{% url 'rempla' %}">
+                            Calendrier
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="{% url 'event_list' %}">
+                            Liste remplacements
+                        </a>
+                        <a class="navbar-item" href="{% url 'searchrptmonth' %}">
+                            Mois et remplaçant
+                        </a>
+                        <a class="navbar-item" href="{% url 'searchMonth' "Editions des contrats et Annexes" %}">
+                            Editions contrats
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="{% url 'are_list' %}">
+                            Anesthésistes
+                        </a>
+                        <a class="navbar-item" href="{% url 'rpt_list' %}">
+                            Remplaçants
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="#">
+                        Répartitions
+                    </a>
+                    <div class="navbar-dropdown is-boxed">
+                        <a class="navbar-item" href="{% url 'repart' %}">
+                            Calendrier
+                        </a>
+                        <a class="navbar-item" href="#">
+                            Dernière répartition
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="{% url 'are_list' %}">
+                            Anesthésistes
+                        </a>
+                        <a class="navbar-item" href="{% url 'iade_list' %}">
+                            IADEs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="#">
+                        Utilisateur
+                    </a>
+                    <div class="navbar-dropdown is-boxed">
+                        <a class="navbar-item" href="{% url 'login' %}">
+                            Se connecter
+                        </a>
+                        <a class="navbar-item js-modal-trigger" data-target="modal-js-example" href="#">
+                            Se déconnecter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
-</div>
+
 {% block content %}
 
 {% endblock %}
 
 {% block modal %}
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Prêt à nous quitter ?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Sélectionnez "Déconnexion" ci-dessous pour mettre fin à votre cession.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
-                    <a class="btn btn-primary" href="{% url 'logout' %}">Déconnexion</a>
-                </div>
-            </div>
+    <div class="modal" id="modal-js-example">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-link-dark">
+                <p class="modal-card-title  has-text-white-bis">Prêt à nous quitter ?</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                Sélectionnez "Déconnexion" ci-dessous pour mettre fin à votre cession.
+            </section>
+            <footer class="modal-card-foot">
+                <a class="button is-info is-small" href="{% url 'logout' %}">Déconnexion</a>
+                <button class="button is-small">Annuler</button>
+            </footer>
         </div>
     </div>
 
-    <div class="modal fade" id="knowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">En savoir plus... ?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Vous êtes trop curieux, vous n'en saurez pas plus...</div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Fermer</button>
-                </div>
-            </div>
+    <div class="modal" id="js-knowModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-link-dark">
+                <p class="modal-card-title has-text-white-bis">En savoir plus... ?</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                Vous êtes trop curieux, vous n'en saurez pas plus...
+            </section>
+            <footer class="modal-card-foot"></footer>
         </div>
     </div>
 {% endblock modal %}
 <script src="{% static 'js/jquery/moment.min.js' %}"></script>
 <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'js/jquery/popper.min.js' %}"></script>
-<script src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
 <!-- Full Calendar JavaScript -->
 <script src="{% static 'js/fullcalendar/fullcalendar.min.js' %}"></script>
 <script src="{% static 'js/fullcalendar/locale-all.js' %}"></script>
@@ -150,12 +170,73 @@
 <script src="{% static 'js/datatables/datatables.min.js' %}"></script>
 <script src="{% static 'js/datatables/datetime-moment.js' %}"></script>
 <script src="{% static 'js/datatables/buttons.colVis.js' %}"></script>
+<script>
+    $(document).ready(function () {
+
+        // Check for click events on the navbar burger icon
+        $(".navbar-burger").click(function () {
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            $(".navbar-burger").toggleClass("is-active");
+            $(".navbar-menu").toggleClass("is-active");
+
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+            $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+            $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+            (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                closeModal($modal);
+            });
+        }
+
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+            const modal = $trigger.dataset.target;
+            const $target = document.getElementById(modal);
+            console.log($target);
+
+            $trigger.addEventListener('click', () => {
+                openModal($target);
+            });
+        });
+
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+            const $target = $close.closest('.modal');
+
+            $close.addEventListener('click', () => {
+                closeModal($target);
+            });
+        });
+
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+            const e = event || window.event;
+
+            if (e.keyCode === 27) { // Escape key
+                closeAllModals();
+            }
+        });
+    });
+</script>
 <!-- Block Extra JavaScript -->
 {% block script %}
 {% endblock script %}
-<footer class="fixed-bottom text-center">
-    <small>©Atheinas 2021 - Tous droits réservés</small>
+<footer class="footer is-fixed-bottom">
+    <div class="content has-text-centered">
+        <small>SUBDIVISION</small> by <a href="#">Atheinas</a>. © 2022
+    </div>
 </footer>
 </body>
-
 </html>
