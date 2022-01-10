@@ -5,7 +5,7 @@
 {% font_awesome %}
 {% load static %}
 {% block content %}
-    <section class="section mt-3">
+    <section class="section">
         <div class="columns is-centered">
             <div class="column is-one-third">
                 <div class="card mt-5">
@@ -26,7 +26,7 @@
                                 <br>
                                 {{ field.label_tag }}
                                 <br>
-                                {{  field|attr:'class:input'}}
+                                {{ field|attr:'class:input' }}
                                 {% if field.help_text %}
                                     <p class="help">{{ field.help_text|safe }}</p>
                                 {% endif %}

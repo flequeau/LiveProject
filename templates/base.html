@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/fontawesome/css/all.css' %}" rel="stylesheet">
-    <link href="{% static 'css/datatables/datatables.css' %}" rel="stylesheet">
+    <link href="{% static 'css/datatables/datatables.min.css' %}" rel="stylesheet">
 
     <!-- Full Calendar -->
     <link href="{% static 'css/fullcalendar/fullcalendar.css' %}" rel='stylesheet'/>
@@ -31,94 +31,94 @@
 
 <body>
 
-    <nav class="navbar is-info is-fixed-top">
-        <div class="navbar-brand">
+<nav class="navbar is-info is-fixed-top">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'dashboard' %}">
+            <img src="{% static 'icon001.png' %}" width="30" height="50" alt="brand">
+            &ensp;SUBDIVISION
+        </a>
+        <div class="navbar-burger burger" data-target="navbarExample">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div id="navbarExample" class="navbar-menu">
+        <div class="navbar-start">
             <a class="navbar-item" href="{% url 'dashboard' %}">
-                <img src="{% static 'icon001.png' %}" width="30" height="50" alt="brand">
-                &ensp;SUBDIVISION
+                Accueil
             </a>
-            <div class="navbar-burger burger" data-target="navbarExample">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        <div id="navbarExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" href="{% url 'dashboard' %}">
-                    Accueil
+            <a class="navbar-item" href="{% url 'admin:index' %}">
+                Console
+            </a>
+            <a class="navbar-item" href="{% url 'blood' %}">
+                Calcul
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Remplacements
                 </a>
-                <a class="navbar-item" href="{% url 'admin:index' %}">
-                    Console
-                </a>
-                <a class="navbar-item" href="{% url 'blood' %}">
-                    Calcul
-                </a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" href="#">
-                        Remplacements
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="{% url 'rempla' %}">
+                        Calendrier
                     </a>
-                    <div class="navbar-dropdown is-boxed">
-                        <a class="navbar-item" href="{% url 'rempla' %}">
-                            Calendrier
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item" href="{% url 'event_list' %}">
-                            Liste remplacements
-                        </a>
-                        <a class="navbar-item" href="{% url 'searchrptmonth' %}">
-                            Mois et remplaçant
-                        </a>
-                        <a class="navbar-item" href="{% url 'searchMonth' "Editions des contrats et Annexes" %}">
-                            Editions contrats
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item" href="{% url 'are_list' %}">
-                            Anesthésistes
-                        </a>
-                        <a class="navbar-item" href="{% url 'rpt_list' %}">
-                            Remplaçants
-                        </a>
-                    </div>
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" href="#">
-                        Répartitions
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="{% url 'event_list' %}">
+                        Liste remplacements
                     </a>
-                    <div class="navbar-dropdown is-boxed">
-                        <a class="navbar-item" href="{% url 'repart' %}">
-                            Calendrier
-                        </a>
-                        <a class="navbar-item" href="#">
-                            Dernière répartition
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item" href="{% url 'are_list' %}">
-                            Anesthésistes
-                        </a>
-                        <a class="navbar-item" href="{% url 'iade_list' %}">
-                            IADEs
-                        </a>
-                    </div>
+                    <a class="navbar-item" href="{% url 'searchrptmonth' %}">
+                        Mois et remplaçant
+                    </a>
+                    <a class="navbar-item" href="{% url 'searchMonth' "Editions des contrats et Annexes" %}">
+                        Editions contrats
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="{% url 'are_list' %}">
+                        Anesthésistes
+                    </a>
+                    <a class="navbar-item" href="{% url 'rpt_list' %}">
+                        Remplaçants
+                    </a>
                 </div>
             </div>
-            <div class="navbar-end">
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" href="#">
-                        Utilisateur
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Répartitions
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="{% url 'repart' %}">
+                        Calendrier
                     </a>
-                    <div class="navbar-dropdown is-boxed">
-                        <a class="navbar-item" href="{% url 'login' %}">
-                            Se connecter
-                        </a>
-                        <a class="navbar-item js-modal-trigger" data-target="modal-js-example" href="#">
-                            Se déconnecter
-                        </a>
-                    </div>
+                    <a class="navbar-item" href="#">
+                        Dernière répartition
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="{% url 'are_list' %}">
+                        Anesthésistes
+                    </a>
+                    <a class="navbar-item" href="{% url 'iade_list' %}">
+                        IADEs
+                    </a>
                 </div>
             </div>
         </div>
-    </nav>
+        <div class="navbar-end">
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Utilisateur
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="{% url 'login' %}">
+                        Se connecter
+                    </a>
+                    <a class="navbar-item js-modal-trigger" data-target="modal-js-example" href="#">
+                        Se déconnecter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 
 {% block content %}
 
@@ -137,8 +137,8 @@
                 Sélectionnez "Déconnexion" ci-dessous pour mettre fin à votre cession.
             </section>
             <footer class="modal-card-foot">
-                <a class="button is-info is-small" href="{% url 'logout' %}">Déconnexion</a>
-                <button class="button is-small">Annuler</button>
+                <a class="button is-info" href="{% url 'logout' %}">Déconnexion</a>
+                <button class="button ">Annuler</button>
             </footer>
         </div>
     </div>
@@ -166,10 +166,7 @@
 <!-- DateTimePicker JavaScript -->
 <script src="{% static 'js/datetimepicker/jquery.datetimepicker.full.js' %}"></script>
 
-<script src="{% static 'js/datatables/moment.min.js' %}"></script>
 <script src="{% static 'js/datatables/datatables.min.js' %}"></script>
-<script src="{% static 'js/datatables/datetime-moment.js' %}"></script>
-<script src="{% static 'js/datatables/buttons.colVis.js' %}"></script>
 <script>
     $(document).ready(function () {
 
