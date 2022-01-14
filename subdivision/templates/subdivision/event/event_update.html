@@ -2,127 +2,134 @@
 {% load widget_tweaks %}
 {% block title %}Modification d'un remplacement{% endblock %}
 {% block content %}
-    <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            <div class="card  mt-5">
-                <div class="card-header">Détail du remplacement</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label for="id_title" class="form-label">Remplacement</label>
-                            {{ form.title|attr:"class:form-control"|attr:"readonly"}}
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <div class="card-header-title is-size-3">Détail du remplacement</div>
                         </div>
-                        <div class="col-sm-3">
-                            <label for="id_start" class="form-label">Date</label>
-                            {{ form.start|attr:"class:form-control"|attr:"readonly" }}
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="id_end" class="form-label">Fin</label>
-                            {{ form.end|attr:"class:form-control"|attr:"readonly" }}
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="id_pay_amount" class="form-label">Règlement</label>
-                            {{ form.pay_amount|attr:"class:form-control" }}
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-3">
-                            <label for="id_are" class="form-label">Titulaire</label>
-                            {{ form.are|attr:"class:form-control"}}
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="id_rpt" class="form-label">Remplaçant</label>
-                            {{ form.rpt|attr:"class:form-control" }}
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="id_pay_date" class="form-label">Date du règlement</label>
-                            {{ form.pay_date|attr:"class:form-control" }}
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="id_pay_type" class="form-label">Mode règlement</label>
-                            {{ form.pay_type|attr:"class:form-control" }}
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-3  offset-md-6">
-                            <label for="id_pay_are" class="form-label">Réglé par</label>
-                            {{ form.pay_are|attr:"class:form-control" }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="btn-group mt-5" role="group">
-                                <input class="btn btn-success pull-left" type="submit" value="Envoyer"/>
-                                <a onclick="return confirm('Etes-vous certain de supprimer cet évènement ?');"
-                                   href="{% url 'delete' id %}" class="btn btn-danger pull-left"
-                                   role="button">Effacer</a>
-                                <a href="{% url 'rempla' %}" class="btn btn-info pull-left" role="button">Annuler</a>
-                            </div>
+                        <div class="card-content">
+                            <form method="post">
+                                {% csrf_token %}
+                                    <div class="field">
+                                        <label for="id_title" class="label">Remplacement</label>
+                                        {{ form.title|attr:"class:input" }}
+                                    </div>
+                                    <div class="field">
+                                        <label for="id_start" class="label">Date</label>
+                                        {{ form.start|attr:"class:input" }}
+                                    </div>
+                                    <div class="field">
+                                        <label for="id_end" class="label">Fin</label>
+                                        {{ form.end|attr:"class:input" }}
+                                    </div>
+                                <div class="field">
+                                    <label for="id_pay_amount" class="label">Règlement</label>
+                                    {{ form.pay_amount|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_are" class="form-label">Titulaire</label>
+                                    {{ form.are|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_rpt" class="form-label">Remplaçant</label>
+                                    {{ form.rpt|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_pay_date" class="form-label">Date du règlement</label>
+                                    {{ form.pay_date|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_pay_type" class="form-label">Mode règlement</label>
+                                    {{ form.pay_type|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_pay_are" class="form-label">Réglé par</label>
+                                    {{ form.pay_are|attr:"class:input" }}
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-footer-item">
+                                        <input class="button is-success" type="submit" value="Envoyer"/>
+                                    </div>
+                                    <div class="card-footer-item">
+                                        <a onclick="return confirm('Etes-vous certain de supprimer cet évènement ?');"
+                                           href="{% url 'delete' id %}" class="button is-danger"
+                                           role="button">Effacer</a>
+                                    </div>
+                                    <div class="card-footer-item">
+                                        <a href="{% url 'rempla' %}" class="button is-info"
+                                           role="button">Annuler</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+                {% if message %}
+                    <div class="alert alert-warning mt-5" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
             </div>
-            {% if message %}
-                <div class="alert alert-warning mt-5" role="alert">
-                    {{ message }}
-                </div>
-            {% endif %}
-        </form>
-        <div class="card mt-5">
-            <div class="card-header font-weight-normal"><strong>Précédents remplacements enregistrés ces
-                médecins</strong></div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable">
-                        <thead>
-                        <tr>
-                            <th>Anesthésiste</th>
-                            <th>Remplaçant</th>
-                            <th>Début</th>
-                            <th>Fin</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% if event_idems %}
-                            {% for idem in event_idems %}
+        </div>
+        </div>
+        <div class="columns is-centered">
+            <div class="columns is-centered">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <div class="card-header-title">Précédents remplacements enregistrés ces
+                            médecins
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table">
+                            <table class="table is-striped" id="dataTable">
+                                <thead>
                                 <tr>
-                                    <td>{{ idem.are|upper }}</td>
-                                    <td>{{ idem.rpt|upper }}</td>
-                                    <td data-sort='YYYYMMDD'>{{ idem.start|date:'d/m/Y' }}</td>
-                                    <td data-sort='YYYYMMDD'>{{ idem.jend|date:'d/m/Y' }}</td>
+                                    <th>Anesthésiste</th>
+                                    <th>Remplaçant</th>
+                                    <th>Début</th>
+                                    <th>Fin</th>
                                 </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td class="text-center">Pas d'autre remplacement enregistré entre ces deux médecins</td>
-                                <td class="text-center">-</td>
-                            </tr>
-                        {% endif %}
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                {% if event_idems %}
+                                    {% for idem in event_idems %}
+                                        <tr>
+                                            <td>{{ idem.are|upper }}</td>
+                                            <td>{{ idem.rpt|upper }}</td>
+                                            <td data-sort='YYYYMMDD'>{{ idem.start|date:'d/m/Y' }}</td>
+                                            <td data-sort='YYYYMMDD'>{{ idem.jend|date:'d/m/Y' }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td class="text-center">Pas d'autre remplacement enregistré entre ces deux
+                                            médecins
+                                        </td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock %}
 {% block script %}
     <script>
         $.datetimepicker.setLocale('fr');
         $(document).ready(function () {
-            jQuery('#id_start').datetimepicker({
-                timepicker: false,
-                dayOfWeekStart: 1,
-                format: 'd/m/Y',
-            });
-            jQuery('#id_end').datetimepicker({
-                timepicker: false,
-                dayOfWeekStart: 1,
-                format: 'd/m/Y',
-            });
             jQuery('#id_pay_date').datetimepicker({
                 timepicker: false,
-                mask:true,
+                mask: true,
                 dayOfWeekStart: 1,
                 format: 'd/m/Y',
             });

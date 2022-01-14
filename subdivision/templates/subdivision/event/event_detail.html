@@ -1,36 +1,37 @@
 {% extends "base.html" %}
-{% block title %}Détail d'un emplacement{% endblock %}
-{% block titre %}Détail{% endblock %}>
-{% block extrahead %}
-{% endblock %}
+{% block title %}Détail d'un remplacement{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="card  mt-5">
-            <div class="card-header font-weight-normal"><strong>Détail du remplacement du {{ object.start }}</strong>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-6 h4">
-                        Anesthésiste : <strong>{{ object.are.forname }} {{ object.are.name|upper }}</strong>
-                    </div>
-                    <div class="col-sm-6 h4">
-                        Remplaçant : <strong>{{ object.rpt.forname }} {{ object.rpt.name|upper }}</strong>
-                        <a class="fa fa-edit ml-4" role= "button" href="{% url 'rpt_update' object.rpt.id %}"></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="offset-6 col-sm-6 mt-5">
-                        Téléphone : {{ object.rpt.telmob }} &emsp; Adresse mail :
-                        {% if object.rpt.email %}
-                            {{ object.rpt.email }}
-                        {% else %}
-                            Pas d'email renseigné
-                        {% endif %}
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="card  mt-5">
+                        <div class="header">
+                            <div class="card-header-title">Détail du remplacement
+                                du {{ object.start }}
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-columns">
+                                <div class="column">
+                                    Anesthésiste : <strong>{{ object.are.forname }} {{ object.are.name|upper }}</strong>
+                                </div>
+                                <div class="column">
+                                    Remplaçant : <strong>{{ object.rpt.forname }} {{ object.rpt.name|upper }}</strong>
+                                    <a class="fa fa-edit ml-4" role="button"
+                                       href="{% url 'rpt_update' object.rpt.id %}"></a>
+                                    Téléphone : {{ object.rpt.telmob }} &emsp; Adresse mail :
+                                    {% if object.rpt.email %}
+                                        {{ object.rpt.email }}
+                                    {% else %}
+                                        Pas d'email renseigné
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-{% endblock %}
-{% block script %}
+    </section>
 {% endblock %}

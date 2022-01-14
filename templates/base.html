@@ -10,11 +10,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="512x512" href="{% static 'apple-touch-icon.png' %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <title>{% block title %}Accueil{% endblock %}</title>
 
 
     <!-- Custom styles for this template -->
+    <link href="{% static 'css/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/fontawesome/css/all.css' %}" rel="stylesheet">
     <link href="{% static 'css/datatables/datatables.min.css' %}" rel="stylesheet">
 
@@ -160,6 +162,7 @@
 <script src="{% static 'js/jquery/moment.min.js' %}"></script>
 <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'js/jquery/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap/js/bootstrap.js' %}"></script>
 <!-- Full Calendar JavaScript -->
 <script src="{% static 'js/fullcalendar/fullcalendar.min.js' %}"></script>
 <script src="{% static 'js/fullcalendar/locale-all.js' %}"></script>

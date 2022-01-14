@@ -1,22 +1,29 @@
 {% extends "base.html" %}
 {% block title %}Remplacements{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="card mt-5"></div>
-        <div class="card-header"><strong>Calendrier des remplacements</strong></div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="calendar"></div>
+    <section class="section">
+        <div class="container is-widescreen">
+            <div class="card mt-5"></div>
+            <div class="card-header">
+                <div class="card-header-title">Calendrier des remplacements</div>
+            </div>
+            <div class="card-content">
+                <div class="columns">
+                    <div class="column">
+                        <div id="calendar"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card mt-2">
-            <div class="card-header h4"><strong>Derniers remplacements</strong></div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 table-responsive-sm">
-                        <table class="table table-striped table-hover table-sm" id="event-table">
+            <div class="card-footer">
+
+            </div>
+            <div class="card mt-2">
+                <div class="card-header">
+                    <div class="card-header-title">Derniers remplacements</div>
+                </div>
+                <div class="card-content">
+                    <div class="table-container">
+                        <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="event-table">
                             <thead>
                             <tr>
                                 <th>Détail</th>
@@ -30,36 +37,40 @@
                             {% include 'subdivision/event/partial_event_list.html' %}
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center">
-
-                                {% if events.has_previous %}
-                                    <li class="page-item"><a class="page-link fa fa-fast-backward" aria-hidden="true"
-                                                             href="?page=1"></a></li>
-                                    <li class="page-item"><a class="page-link fa fa-backward" aria-hidden="true"
-                                                             href="?page={{ events.previous_page_number }}"></a></li>
-                                {% endif %}
-                                <li class="page-item mt-1 small">&emsp;Page {{ events.number }}
-                                    de {{ events.paginator.num_pages }}&emsp;
-                                </li>
-                                {% if events.has_next %}
-                                    <li class="page-item small"><a class="page-link fa fa-forward" aria-hidden="true"
-                                                                   href="?page={{ events.next_page_number }}"></a></li>
-                                    <li class="page-item small"><a class="page-link fa fa-fast-forward"
-                                                                   aria-hidden="true"
-                                                                   href="?page={{ events.paginator.num_pages }}"></a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
                     </div>
+                    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                        <ul class="pagination">
+
+                            {% if events.has_previous %}
+                                <li class="pagination-link small"><a class=" fas fa-fast-backward"
+
+                                                               href="?page=1"></a></li>
+                                <li class="pagination-link small"><a class=" fas fa-backward" aria-hidden="true"
+                                                               href="?page={{ events.previous_page_number }}"></a>
+                                </li>
+                            {% endif %}
+                            <li class="pagination-link mt-1 small">&emsp;Page {{ events.number }}
+                                de {{ events.paginator.num_pages }}&emsp;
+                            </li>
+                            {% if events.has_next %}
+                                <li class="pagination-link small"><a class=" fa fa-forward"
+
+                                                                     href="?page={{ events.next_page_number }}"></a>
+                                </li>
+                                <li class="pagination-link small"><a class=" fas fa-fast-forward"
+
+                                                                     href="?page={{ events.paginator.num_pages }}"></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock %}
 {% block modal %}
-    <div class="modal fade" id="modal-event">
+    <div class="modal" id="modal-event">
         <div class="modal-dialog">
             <div class="modal-content"></div>
         </div>

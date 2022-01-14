@@ -3,35 +3,35 @@
 {% block titre %}Nouveau Remplacement{% endblock %}
 {% block content %}
     <section class="section">
-        <div class="columns is-centered">
-            <div class="column is-half">
-                <div class="card mt-5">
-                    <div class="card-header-title is-size-3">Nouveau remplacement</div>
-                    <div class="card-content">
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="field">
-                                <label for="id_title" class="label">Intitulé</label>
-                                {{ form.title|attr:"class:input" }}
-                            </div>
-                            <div class="field">
-                                <label for="id_start" class="label">Date</label>
-                                {{ form.start|attr:"class:input"  }}
-                            </div>
-                            <div class="field">
-                                <label for="id_end" class="label">Fin</label>
-                                {{ form.end|attr:"class:input" }}
-                            </div>
-                            <div class="field">
-                                <label for="id_are" class="label">Titulaire</label>
-                                {{ form.are|attr:"class:input" }}
-                            </div>
-                            <div class="field">
-                                <label for="id_rpt" class="label">Remplaçant</label>
-                                {{ form.rpt|attr:"class:input" }}
-                            </div>
-                            <div class="card-footer mt-5">
-                                <div class="card-footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="card mt-5">
+                        <div class="card-header-title is-size-3">Nouveau remplacement</div>
+                        <div class="card-content">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="field">
+                                    <label for="id_title" class="label">Intitulé</label>
+                                    {{ form.title|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_start" class="label">Date</label>
+                                    {{ form.start|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_end" class="label">Fin</label>
+                                    {{ form.end|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_are" class="label">Titulaire</label>
+                                    {{ form.are|attr:"class:input" }}
+                                </div>
+                                <div class="field">
+                                    <label for="id_rpt" class="label">Remplaçant</label>
+                                    {{ form.rpt|attr:"class:input" }}
+                                </div>
+                                <div class="card-footer mt-5">
                                     <div class="card-footer-item">
                                         <button class="button is-primary" type="submit">Envoyer</button>
                                     </div>
@@ -40,41 +40,43 @@
                                            role="button">Annuler</a>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="columns is-centered">
-            <div class="column">
-                <div class="card">
-                    <div class="card-header-title is-size-4">Autres remplacements à cette date</div>
-                    <div class="card-content">
-                        <div class="table">
-                            <table class="table is-striped" id="dataTable">
-                                <thead>
-                                <tr>
-                                    <th>Anesthésiste</th>
-                                    <th>Remplaçant</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if idems %}
-                                    {% for idem in idems %}
-                                        <tr>
-                                            <td>{{ idem.are|upper }}</td>
-                                            <td>{{ idem.rpt|upper }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                {% else %}
+            <div class="columns is-centered">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-header-title is-size-4">Autres remplacements à cette date</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="table">
+                                <table class="table is-striped" id="dataTable">
+                                    <thead>
                                     <tr>
-                                        <td class="text-center">Pas de remplacement enregistré à cette date</td>
-                                        <td class="text-center">-</td>
+                                        <th>Anesthésiste</th>
+                                        <th>Remplaçant</th>
                                     </tr>
-                                {% endif %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% if idems %}
+                                        {% for idem in idems %}
+                                            <tr>
+                                                <td>{{ idem.are|upper }}</td>
+                                                <td>{{ idem.rpt|upper }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td class="text-center">Pas de remplacement enregistré à cette date</td>
+                                            <td class="text-center">-</td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
