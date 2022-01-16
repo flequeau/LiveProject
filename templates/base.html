@@ -7,7 +7,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="{% static 'icons/apple-touch-icon.png' %}"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'icons/apple-touch-icon-57x57.png' %}"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'icons/apple-touch-icon-72x72.png' %}"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'icons/apple-touch-icon-76x76.png' %}"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'icons/apple-touch-icon-114x114.png' %}"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'icons/apple-touch-icon-120x120.png' %}"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'icons/apple-touch-icon-144x144.png' %}"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'icons/apple-touch-icon-152x152.png' %}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'icons/apple-touch-icon-180x180.png' %}"/>
+
     <title>{% block title %}Accueil{% endblock %}</title>
 
 
@@ -30,7 +41,7 @@
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark mt-1" style="background-color: #483D8B;">
 
-        <img src="{% static 'icon001.png' %}" width="38" height="38" class="ml-5" alt="brand">
+        <img src="{% static 'icons/icon001.png' %}" width="38" height="38" class="ml-5" alt="brand">
         <a class="navbar-brand ml-2" href="{% url 'dashboard' %}">SUBDIVISION</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
