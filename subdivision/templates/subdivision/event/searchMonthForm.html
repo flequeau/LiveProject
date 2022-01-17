@@ -11,10 +11,6 @@
             {% csrf_token %}
             <div class="card  mt-2">
                 <div class="card-header"><strong>Contrats et annexes mensuels</strong>
-                    {% if items %}
-                    <a href="{% url 'monthpdf' annee mois items %}" class="btn btn-info pull-right"
-                       role="button">Editions mensuelles</a>
-                    {% endif %}
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -38,11 +34,13 @@
                 </div>
             </div>
         </form>
-    {% if items %}
-        <div class="alert alert-info" role="alertdialog">
-            {{ message }}
-        </div>
-    {% endif %}
+        {% if items %}
+            <div class="alert alert-info" role="alertdialog">
+                {{ message }}
+                <a href="{% url 'monthpdf' annee mois items %}" class="btn btn-info btn-sm float-right"
+                   role="button">Editions mensuelles</a>
+            </div>
+        {% endif %}
         <div class="card mt-2">
             <div class="card-header font-weight-normal"><strong>Remplacements trouvés</strong></div>
             <div class="card-body">
@@ -92,7 +90,7 @@
                 autowidth: false,
                 pageLength: 200,
                 responsive: true,
-                order: [[ 2, "desc" ]],
+                order: [[2, "desc"]],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     {

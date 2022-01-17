@@ -159,7 +159,7 @@ GERANT = 'Docteur Franck Le Quéau'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-SESSION_COOKIE_AGE = 10000
+SESSION_COOKIE_AGE = 1000
 
 WKHTMLTOPDF_CMD = '/usr/local/bin/wkhtmltopdf'
 
