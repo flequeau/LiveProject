@@ -1,33 +1,43 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3 bg-light">
         <div class="card mb-3">
+            <div class="card-header">© Atheinas 2022</div>
             <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="{% static 'icons/accueil.png' %}" class="rounded mx-auto d-block">
+                <div class="col-md-6 col-sm-4">
+                    <img src="{% static 'icons/accueil.png' %}" class="rounded mx-auto d-block mt-3">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-4">
+
                     <div class="card-body">
-                        <h5 class="card-title">SUBDIVISION</h5>
+                        <h5 class="card-title h3">SUBDIVISION</h5>
                         <p class="card-text">Application pour la gestion des remplacements médicaux et la
                             répartition journalière des équipes au bloc</p>
-                        <p>A l'usage exclusif du GARHPA</p>
+
                         <button class="btn btn-primary" data-toggle="modal" data-target="#knowModal" role="button"
                         >En savoir plus...
                         </button>
                     </div>
                 </div>
             </div>
+            <div class="card-footer text-muted">
+                <strong>A l'usage exclusif du GARHPA</strong>
+            </div>
         </div>
-        <div class="row ml-3">
-            {% if request.user.is_authenticated %}
-                <div>Vous êtes authentifié comme {{ user.username }}<br>
-                    <a data-toggle="modal" data-target="#logoutModal" href="#">Se déconnecter</a>
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" role="alert">
+                    {% if request.user.is_authenticated %}
+                        <div>Hello {{ user.username }} !
+                            <a class="btn btn-warning btn-sm float-right" data-toggle="modal" data-target="#logoutModal"
+                               href="#">Se déconnecter</a>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}">S'authentifier</a>
+                    {% endif %}
                 </div>
-            {% else %}
-                <a href="{% url 'login' %}">S'authentifier</a>
-            {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

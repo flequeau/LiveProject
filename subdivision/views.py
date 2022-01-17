@@ -13,7 +13,6 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
 from repartition.models import Iade
 from .forms import EventForm, SearchMonthForm
 from .models import Event, Calendrier, WebColor, Rpt, Are, HopParam
