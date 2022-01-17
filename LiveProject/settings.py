@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'subdivision',
     'repartition',
     'calculs',
+    'vacations',
 
 ]
 
