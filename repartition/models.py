@@ -100,7 +100,7 @@ class Interne(models.Model):
         return reverse('int_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return '{}'.format(self.forname)
+        return '{} {}'.format(self.forname, self.name)
 
     class Meta:
         verbose_name = 'Interne'

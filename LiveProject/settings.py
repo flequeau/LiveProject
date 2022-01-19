@@ -169,3 +169,10 @@ GRAPH_MODELS = {
 }
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'anesthesialiveproject@gmail.com'
+EMAIL_HOST_PASSWORD = '5Reabsorb_cockle_7uncouth'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

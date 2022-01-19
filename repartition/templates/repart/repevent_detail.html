@@ -13,6 +13,8 @@
                href="{% url 'repart' %}">Retour</a>
             <a class="btn btn-info btn-sm float-right" role="button"
                href="{% url 'export' object.id %}">Export</a>
+            <a class="btn btn-warning btn-sm float-right" role="button"
+               href="{% url 'mail' object.id %}">Emails</a>
         </div>
         <div class="row">
             <div class="col-12">

@@ -1,19 +1,22 @@
-from django.shortcuts import render
 import json
+from datetime import datetime
+from datetime import timedelta
+
+from django import http
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from datetime import datetime, timedelta
-from django.views.generic import ListView, DetailView, View, TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django import http
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from datetime import timedelta
-from .models import RepartEvent, RepartLine, Room, RepartCs, DeskRoom
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import UpdateView
+
+from LiveProject import settings
 from subdivision.models import Event
 from .forms import EventFormRepart, RepartLineForm, CsLineForm
+from .models import RepartEvent, RepartLine, Room, RepartCs, DeskRoom
 
 
 def export(request, pk):
@@ -30,6 +33,37 @@ def export(request, pk):
                                                   'apm_cs': apm_cs,
                                                   'remplas': remplas
                                                   })
+
+
+def emailing(request, pk):
+    sender = settings.EMAIL_HOST_USER
+    mes_deb = "Bonsoir,\n\n"
+    mes_fin = "\n\nA demain"
+    repart = get_object_or_404(RepartEvent, pk=pk)
+    lines = RepartLine.objects.all().filter(repart=pk, period='Matin')
+    subject = "Affectation matin du " + repart.start.strftime('%d-%m-%Y')
+    for line in lines:
+        test = line.operator_id
+        if test is not None:
+            salle = line.room.number
+            debut = line.start_time
+            chir = line.operator.name
+            are = line.are.name
+            message = F"{mes_deb}Salle: {salle} - Opérateur: Dr {chir} - Début: {debut}.{mes_fin}"
+            send_mail(subject, message, sender, [line.are.email], fail_silently=True)  # Envoi à l'ARE
+            if line.iade:
+                iade = line.iade
+                message = F"{mes_deb}Salle: {salle} - Opérateur: {chir} - Début: {debut} - Binôme IADE: {iade}.{mes_fin}"
+                send_mail(subject, message, sender, [line.are.email], fail_silently=True)  # Envoi à l'ARE
+                message = F"{mes_deb}Salle: {salle} - Opérateur: {chir} - Début: {debut} - Anesthésiste: {are}.{mes_fin}"
+                send_mail(subject, message, sender, [line.iade.email], fail_silently=True)  # Envoi à l'IADE
+            if line.interne:
+                interne = line.interne.forname
+                message = F"{mes_deb}Salle {salle} - Opérateur {chir} - Début {debut} - Interne: {interne}.{mes_fin}"  # Envoi à l'ARE
+                send_mail(subject, message, sender, [line.are.email], fail_silently=True)
+                message = F"{mes_deb}Salle {salle} - Opérateur {chir} - Début {debut} - Anesthésiste: {are}.{mes_fin}"  # Envoi à l'Interne
+                send_mail(subject, message, sender, [line.interne.email], fail_silently=True)
+    return redirect(export, pk)
 
 
 @login_required()
