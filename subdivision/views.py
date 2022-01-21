@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import timedelta, datetime
+
 import pdfkit
 from django import http
 from django.conf import settings
@@ -13,6 +14,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 from repartition.models import Iade
 from .forms import EventForm, SearchMonthForm
 from .models import Event, Calendrier, WebColor, Rpt, Are, HopParam
@@ -540,11 +542,13 @@ def searchMonth(request, message):
             annee = int(form.data['annee'])
             mois = int(form.data['mois'])
             items = Event.objects.filter(start__month=mois, start__year=annee).order_by('start')
+            cost = items.count() * settings.AMOUNT_RPT
             return render(request, 'subdivision/event/searchMonthForm.html', {'form': form,
                                                                               'items': items,
                                                                               'message': message,
                                                                               'annee': annee,
-                                                                              'mois': mois})
+                                                                              'mois': mois,
+                                                                              'cost':cost})
     else:
         form = SearchMonthForm()
     return render(request, 'subdivision/event/searchMonthForm.html', {'form': form,

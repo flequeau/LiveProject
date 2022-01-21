@@ -42,7 +42,8 @@
             </div>
         {% endif %}
         <div class="card mt-2">
-            <div class="card-header font-weight-normal"><strong>Remplacements trouvés</strong></div>
+            <div class="card-header font-weight-normal"><strong>Remplacements trouvés {% if cost %}<span class="badge badge-warning float-right"><h4>Coût estimé :
+                {{ cost }} €</h4></span>{% endif %}</strong></div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable">
