@@ -1,7 +1,8 @@
+from datetime import timedelta
+
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from datetime import timedelta
-from django.conf import settings
 
 
 class HopParam(models.Model):
@@ -75,21 +76,27 @@ class Are(models.Model):
                                null=True)
     photo = models.ImageField(upload_to='are/photo', blank=True, null=True)
     signature = models.ImageField(upload_to='are/signature', blank=True, null=True)
+    codepartname = models.CharField(max_length=50, blank=True, null=True)
+    codedepartnum = models.CharField(max_length=5, blank=True, null=True)
 
-    def get_absolute_url(self):
-        return reverse('are_detail', kwargs={'pk': self.pk})
 
-    @property
-    def initials(self):
-        return self.forname[2] + '.' + self.name[2]
+def get_absolute_url(self):
+    return reverse('are_detail', kwargs={'pk': self.pk})
 
-    def __str__(self):
-        return self.name + ' ' + self.forname
 
-    class Meta:
-        verbose_name = "Anesthésiste"
-        verbose_name_plural = "Anesthésistes"
-        ordering = ['name', ]
+@property
+def initials(self):
+    return self.forname[2] + '.' + self.name[2]
+
+
+def __str__(self):
+    return self.name + ' ' + self.forname
+
+
+class Meta:
+    verbose_name = "Anesthésiste"
+    verbose_name_plural = "Anesthésistes"
+    ordering = ['name', ]
 
 
 class Rpt(models.Model):
