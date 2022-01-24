@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'environ',
-    'django_extensions',
     'pdfkit',
     'widget_tweaks',
     'subdivision',
