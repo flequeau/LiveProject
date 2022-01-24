@@ -47,16 +47,12 @@ class Vacation(models.Model):
     calendrier = models.ForeignKey(Calendrier, on_delete=models.CASCADE, default=4, blank=True, null=True,
                                    verbose_name='Calendrier')
     is_cancelled = models.BooleanField(default=False, blank=True)
-    all_day = models.BooleanField(default=True, blank=True)
+    all_day = models.BooleanField(default=False, blank=True)
     vacataire = models.ForeignKey(Vacataire, on_delete=models.CASCADE, related_name='vacataire',
                                   verbose_name='Vacataire', null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('vacation_detail', kwargs={'pk': self.pk})
-
-    @property
-    def jend(self):
-        return self.end - timedelta(days=1)
 
     def __str__(self):
         return str(self.start) + ' ' + self.title
@@ -66,3 +62,4 @@ class Vacation(models.Model):
         verbose_name_plural = 'Vacations'
         ordering = ['start', 'end']
         unique_together = [('vacataire', 'start'), ]
+
