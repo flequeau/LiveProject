@@ -52,7 +52,7 @@ class Vacation(models.Model):
                                   verbose_name='Vacataire', null=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse('vacation_detail', kwargs={'pk': self.pk})
+        return reverse('vacdetail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return str(self.start) + ' ' + self.title
