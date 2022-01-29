@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Remplacement</title>
+    <title>Contrat</title>
     {% block extrahead %}
 
     {% endblock %}
@@ -23,17 +23,21 @@
         Le Docteur <strong>{{ are.forname }} {{ are.name }}</strong>,
         exerçant {{ hop.name }} {{ hop.adress1 }} {{ hop.postalcode }} {{ hop.town }},
         inscrit au Conseil Départemental de l’Ordre des Médecins du 92 - Hauts de Seine sous
-        le numéro {{ are.coNum }}, et exerçant en ANESTHESIE - REANIMATION<br>
+        le numéro {{ are.coNum }}, et exerçant en ANESTHESIE - REANIMATION
         D’UNE PART
     </div>
     <div class="row ml-1 col-10 h6">
-        Et le Docteur <strong>{{ rpt.forname }} {{ rpt.name }}</strong>
-        {{ rpt.status }},
-        {{ rpt.codepartname }} {{ rpt.conum }} {{ rpt.licence.num }}
-        Conseil Départemental {{ rpt.codepartName }},<br>
-        Exerçant en ANESTHESIE - REANIMATION -
+        Et le Docteur <strong>{{ rpt.forname }} {{ rpt.name }} </strong>
+        {% if rpt.status == 'Oui' %}
+            inscrit au Conseil
+        {% else %}
+            titulaire d'une licence de remplacement
+        {% endif %}
+        de l'Ordre des médecins du {{ rpt.codepartnum|default_if_none:'' }} ({{ rpt.codepartname|default_if_none:'' }}) RPPS : {{ rpt.rpps|default_if_none:'' }}
+        ,
+        exerçant en ANESTHESIE - REANIMATION -
         {% if rpt.urssaf %} Urssaf: {{ rpt.urssaf }} {% else %} Urssaf: En cours d'immatriculation{% endif %}
-        {% if rpt.siren %} - Siren: {{ rpt.siren }}{% else %} - Siren: En cours d'immatriculation <br>{% endif %}
+        {% if rpt.siren %} - Siren: {{ rpt.siren }}{% else %} - Siren: En cours d'immatriculation {% endif %}
         D’AUTRE PART.
     </div>
     <div class="row>">
@@ -162,7 +166,7 @@
                 <tr>
                     <th class="ml-4" width="50%">Docteur {{ are.forname }} {{ are.name }}</th>
                     <th class="ml-2" width="50%">
-                        {% if rpt.status %}Docteur{% endif %}{{ rpt.forname }} {{ rpt.name }}</th>
+                        {% if rpt.status == 'Oui' %}Docteur {% endif %}{{ rpt.forname }} {{ rpt.name }}</th>
                 </tr>
                 </thead>
                 <tbody>

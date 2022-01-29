@@ -1,8 +1,10 @@
 import json
 import os
 from datetime import timedelta, datetime
-
+from pathlib import Path
 import pdfkit
+from django.template import context
+
 from django import http
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -10,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import FileResponse, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -198,6 +200,7 @@ def pdf_month(request, annee, mois, items=''):
                     path = p + event.start.strftime('%Y%m%d') + \
                            event.are.name.replace(' ', '_') + '_' + event.rpt.name.replace(' ', '_') + '.pdf'
                     pdfkit.from_string(contrat, path, css=css)
+
                     message = 'Opération terminée'
             else:
                 pass
@@ -245,6 +248,8 @@ def pdf_event(request, are, rpt, event):
 
 MOIS = {'NC', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
         'Novembre', 'Décembre'}
+
+
 
 
 @login_required()
