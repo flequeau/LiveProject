@@ -1,5 +1,5 @@
 from django.urls import path
-from django.views.generic import TemplateView
+
 from subdivision import views
 
 urlpatterns = [
@@ -29,6 +29,8 @@ urlpatterns = [
     path('eventpdf/<int:are>/<int:rpt>/<int:event>', views.pdf_event, name='eventpdf'),
     path('searchrptmonth', views.searchrptmonth, name='searchrptmonth'),
     path('searchMonth', views.searchMonth, name='searchMonth'),
+    path('archives', views.archive, name='archives'),
+    path('upload/<str:arch>', views.upload, name='upload'),
     # crud ajax rpt
     path('crud_rpt/', views.CrudView.as_view(), name='crud_ajax'),
     path('ajax/crud/create/', views.CreateCrudRpt.as_view(), name='crud_ajax_create'),

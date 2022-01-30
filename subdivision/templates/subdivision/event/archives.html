@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block titre %}Contrats et annexes{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="card mt-3">
+            <div class="card-header">
+                Archives des contrats et annexes à télécharger
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Archives</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if archives %}
+                            {% for a in archives %}
+                                <tr>
+                                    <td>{{ a }}</td>
+                                    <td>
+                                        <a class="view-event btn btn-sm btn-primary small" href="{% url 'upload' a %}">
+                                            <span class="fa fa-upload"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td>Pas d'archives</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

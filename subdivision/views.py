@@ -206,7 +206,10 @@ def pdf_month(request, annee, mois):
                        event.are.name.replace(' ', '_') + '_' + event.rpt.name.replace(' ', '_') + '.pdf'
                 pdfkit.from_string(contrat, path, css=css)
 
-    ca_zip = "C_A_" + annee + "_" + mois + ".zip"
+    if mois in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
+        ca_zip = "CA_" + annee + '0' + mois + ".zip"
+    else:
+        ca_zip = "CA_" + annee + mois + ".zip"
     ca_zip = pz / ca_zip
 
     with ZipFile(ca_zip, 'w') as zipobj:
@@ -219,6 +222,28 @@ def pdf_month(request, annee, mois):
 
     try:
         return FileResponse(open(ca_zip, 'rb'), as_attachment=True, content_type='application/zip')
+    except FileNotFoundError:
+        raise Http404()
+
+
+@login_required()
+def archive(request):
+    archives = []
+    path = Path(settings.STATIC_ROOT) / 'archives'
+    if path.iterdir() != []:
+        for p in path.iterdir():
+            archives.append(p.name)
+            archives.sort(reverse=True)
+        return render(request, 'subdivision/event/archives.html', {'archives': archives})
+    else:
+        return redirect('')
+
+
+@login_required()
+def upload(request, arch):
+    pz = Path(settings.STATIC_ROOT) / "archives" / arch
+    try:
+        return FileResponse(open(pz, 'rb'), as_attachment=True, content_type='application/zip')
     except FileNotFoundError:
         raise Http404()
 
