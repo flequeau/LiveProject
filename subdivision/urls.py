@@ -25,10 +25,10 @@ urlpatterns = [
     path('rptcreate', views.RptCreate.as_view(), name='rpt_create'),
     # pdf
     path('editpdf/<int:id>', views.edit_pdf, name='editpdf'),
-    path('monthpdf/<annee>/<mois>/<items>', views.pdf_month, name='monthpdf'),
+    path('monthpdf/<annee>/<mois>', views.pdf_month, name='monthpdf'),
     path('eventpdf/<int:are>/<int:rpt>/<int:event>', views.pdf_event, name='eventpdf'),
     path('searchrptmonth', views.searchrptmonth, name='searchrptmonth'),
-    path('searchMonth/<message>', views.searchMonth, name='searchMonth'),
+    path('searchMonth', views.searchMonth, name='searchMonth'),
     # crud ajax rpt
     path('crud_rpt/', views.CrudView.as_view(), name='crud_ajax'),
     path('ajax/crud/create/', views.CreateCrudRpt.as_view(), name='crud_ajax_create'),

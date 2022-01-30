@@ -2,17 +2,17 @@ import json
 import os
 from datetime import timedelta, datetime
 from pathlib import Path
-import pdfkit
-from django.template import context
+from zipfile import ZipFile
 
+import pdfkit
 from django import http
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.http import FileResponse, JsonResponse, HttpResponse
+from django.http import FileResponse, JsonResponse, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string, get_template
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -158,55 +158,65 @@ def edit_pdf(request, id):
     return FileResponse(open(path, 'rb'), content_type='application/pdf')
 
 
-def pdf_month(request, annee, mois, items=''):
+def pdf_month(request, annee, mois):
     hop = HopParam.objects.get(pk=1)
-    css = str(settings.STATIC_ROOT) + '/css/bootstrap/css/bootstrap.css'
-    message = ''
+    path_static = Path(settings.STATIC_ROOT)
+    css = path_static / "css" / "bootstrap" / "css" / "bootstrap.css"
     listcouple = []
     events = Event.objects.filter(start__year=annee, start__month=mois).order_by('start')
-    if events:
-        for event in events:
-            datecouple = []
-            if (event.are, event.rpt) not in listcouple:
-                # if settings.STATIC_ROOT + event.are.signature.url:
-                # signpathare = settings.STATIC_ROOT + event.are.signature.url
-                # else:
-                # signpathare = ''
-                listcouple.append((event.are, event.rpt))
-                dates = events.filter(are=event.are, rpt=event.rpt).order_by('start')
-                for date in dates:
-                    d = date.start.strftime('%d/%m/%Y')
-                    if date.start == date.jend:
-                        fd = ''
-                    else:
-                        fd = date.jend.strftime('%d/%m/%Y')
-                        d = d + ' au ' + fd
-                    datecouple.append(d)
-                    if event.calendrier_id == 1:
-                        p = 'staticfiles/img/contrat/' + str(annee) + '/' + str(mois) + '/'
-                        url = 'subdivision/contrat.html'
-                    else:
-                        p = 'staticfiles/img/annexe/' + str(annee) + '/' + str(mois) + '/'
-                        url = 'subdivision/annexe.html'
+    annee = str(annee)
+    mois = str(mois)
+    pc = path_static / "img" / "contrat" / annee / mois
+    pa = path_static / "img" / "annexe" / annee / mois
+    for event in events:
+        datecouple = []
+        if (event.are, event.rpt) not in listcouple:
+            # if settings.STATIC_ROOT + event.are.signature.url:
+            # signpathare = settings.STATIC_ROOT + event.are.signature.url
+            # else:
+            # signpathare = ''
+            listcouple.append((event.are, event.rpt))
+            dates = events.filter(are=event.are, rpt=event.rpt).order_by('start')
+            for date in dates:
+                d = date.start.strftime('%d/%m/%Y')
+                if date.start == date.jend:
+                    fd = ''
+                else:
+                    fd = date.jend.strftime('%d/%m/%Y')
+                    d = d + ' au ' + fd
+                datecouple.append(d)
+                if event.calendrier_id == 1:
+                    p = pc
+                    url = 'subdivision/contrat.html'
+                else:
+                    p = pa
+                    url = 'subdivision/annexe.html'
 
-                    os.makedirs(p, exist_ok=True)
-                    dc = ', '.join(datecouple)
-                    contrat = render_to_string(url, {'are': event.are,
-                                                     'rpt': event.rpt,
-                                                     'date': dc,
-                                                     'hop': hop,
-                                                     # 'signpath': signpathare,
-                                                     })
-                    path = p + event.start.strftime('%Y%m%d') + \
-                           event.are.name.replace(' ', '_') + '_' + event.rpt.name.replace(' ', '_') + '.pdf'
-                    pdfkit.from_string(contrat, path, css=css)
+                os.makedirs(p, exist_ok=True)
+                dc = ', '.join(datecouple)
+                contrat = render_to_string(url, {'are': event.are,
+                                                 'rpt': event.rpt,
+                                                 'date': dc,
+                                                 'hop': hop,
+                                                 # 'signpath': signpathare,
+                                                 })
+                path = str(p) + '/' + event.start.strftime('%Y%m%d') + \
+                       event.are.name.replace(' ', '_') + '_' + event.rpt.name.replace(' ', '_') + '.pdf'
+                pdfkit.from_string(contrat, path, css=css)
 
-                    message = 'Opération terminée'
-            else:
-                pass
-    else:
-        message = 'Pas d\'édition à créer'
-    return redirect('searchMonth', message=message)
+    ca_zip = "C_A_" + annee + "_" + mois + ".zip"
+    ca_zip = pc / ca_zip
+
+    with ZipFile(ca_zip, 'w') as zipobj:
+        for f in pc.rglob('*.pdf'):
+            zipobj.write(f, f.name)
+        for f in pa.rglob('*.pdf'):
+            zipobj.write(f, f.name)
+
+    try:
+        return FileResponse(open(ca_zip, 'rb'), as_attachment=True, content_type='application/zip')
+    except FileNotFoundError:
+        raise Http404()
 
 
 def pdf_event(request, are, rpt, event):
@@ -248,8 +258,6 @@ def pdf_event(request, are, rpt, event):
 
 MOIS = {'NC', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
         'Novembre', 'Décembre'}
-
-
 
 
 @login_required()
@@ -539,7 +547,7 @@ def drop(request, id, start, end):
 
 
 @login_required()
-def searchMonth(request, message):
+def searchMonth(request):
     if request.method == 'POST':
         form = SearchMonthForm(request.POST)
         if form.is_valid():
@@ -553,11 +561,10 @@ def searchMonth(request, message):
                                                                               'message': message,
                                                                               'annee': annee,
                                                                               'mois': mois,
-                                                                              'cost':cost})
+                                                                              'cost': cost})
     else:
         form = SearchMonthForm()
     return render(request, 'subdivision/event/searchMonthForm.html', {'form': form,
-                                                                      'message': message
                                                                       })
 
 
