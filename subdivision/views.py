@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 from datetime import timedelta, datetime
 from pathlib import Path
 from zipfile import ZipFile
@@ -168,6 +169,7 @@ def pdf_month(request, annee, mois):
     mois = str(mois)
     pc = path_static / "img" / "contrat" / annee / mois
     pa = path_static / "img" / "annexe" / annee / mois
+    pz = path_static / "archives"
     for event in events:
         datecouple = []
         if (event.are, event.rpt) not in listcouple:
@@ -205,13 +207,15 @@ def pdf_month(request, annee, mois):
                 pdfkit.from_string(contrat, path, css=css)
 
     ca_zip = "C_A_" + annee + "_" + mois + ".zip"
-    ca_zip = pc / ca_zip
+    ca_zip = pz / ca_zip
 
     with ZipFile(ca_zip, 'w') as zipobj:
         for f in pc.rglob('*.pdf'):
             zipobj.write(f, f.name)
         for f in pa.rglob('*.pdf'):
             zipobj.write(f, f.name)
+    shutil.rmtree(path_static / "img" / "contrat")
+    shutil.rmtree(path_static / "img" / "annexe")
 
     try:
         return FileResponse(open(ca_zip, 'rb'), as_attachment=True, content_type='application/zip')
