@@ -95,6 +95,12 @@ class Are(models.Model):
         ordering = ['name', ]
 
 
+BOOL = (
+    ('Oui', 'Oui'),
+    ('Non', 'Non'),
+)
+
+
 class Rpt(models.Model):
     name = models.CharField(max_length=50, verbose_name='Nom')
     forname = models.CharField(max_length=50, verbose_name='Prénom')
@@ -112,12 +118,12 @@ class Rpt(models.Model):
     tel2 = models.CharField(max_length=20, blank=True, null=True, verbose_name='Tél. Perso')
     tel3 = models.CharField(max_length=20, blank=True, null=True, verbose_name='Tél. Travail')
     email = models.EmailField(max_length=50, blank=True, null=True, verbose_name='Email')
-    status = models.BooleanField(verbose_name='Thésé', default=True, blank=True, null=True)
+    status = models.CharField(max_length=3, choices=BOOL, verbose_name='Thésé', blank=True, null=True)
     photo = models.ImageField(upload_to='rpt/photo', blank=True, null=True, verbose_name='Photo')
     assurance = models.FileField(upload_to='rpt/assurance', blank=True, null=True, verbose_name='Assurance')
     licence = models.FileField(upload_to='rpt/licence', blank=True, null=True, verbose_name='Licence')
     licence_exp_date = models.DateField(verbose_name='Date expiration licence', blank=True, null=True)
-    active = models.BooleanField(verbose_name="Actif", default=True, blank=True, null=True)
+    active = models.CharField(max_length=3, choices=BOOL, verbose_name="Actif", blank=True, null=True)
     signature = models.ImageField(upload_to='rpt/signature', blank=True, null=True, )
 
     def get_absolute_url(self):

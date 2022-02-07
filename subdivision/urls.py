@@ -36,6 +36,7 @@ urlpatterns = [
     path('ajax/crud/create/', views.CreateCrudRpt.as_view(), name='crud_ajax_create'),
     path('ajax/crud/update/', views.UpdateCrudRpt.as_view(), name='crud_ajax_update'),
     path('ajax/crud/delete/', views.DeleteCrudRpt.as_view(), name='crud_ajax_delete'),
+    path('ajax/crud/edit/', views.EditCrudRpt.as_view(), name='crud_ajax_edit'),
     path('index', views.index, name='index'),
     path('ajax_calls/search', views.autocompleteModel, name='search'),
     # are

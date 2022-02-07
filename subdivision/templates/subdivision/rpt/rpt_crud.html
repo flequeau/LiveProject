@@ -1,91 +1,92 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block titre %}CRUD RPT{% endblock %}
-{% block extrahead %}
-    <link href="{% static 'css/datatables/datatables.min.css' %}" rel="stylesheet">
-{% endblock %}
 {% block content %}
     <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-lg-12">
-            <div class="card mt-2">
-                <div class="card-header font-weight-bold">Ajout d'un remplaçant</div>
-                <div class="card-body">
+        <div class="row">
+            <div class="col-md-8 col-lg-12">
+                <div class="card mt-2">
+                    <div class="card-header font-weight-bold">Ajout d'un remplaçant</div>
+                    <div class="card-body">
 
-                    <form id="addRpt" action="">
-                        <div class="row">
-                            <div class="col-md-4 col-lg-6">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="name" placeholder="Nom" required>
+                        <form id="addRpt" action="">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="name" placeholder="Nom" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name='forname' placeholder="Prénom"
+                                               required>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name='forname' placeholder="Prénom"
-                                           required>
+                                <div class="col-md-4 col-lg-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="tel" name='tel' placeholder="Téléphone"
+                                               required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="email" name='email' placeholder="Email"
+                                               required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-6">
-                                <div class="form-group">
-                                    <input class="form-control" type="tel" name='tel' placeholder="Téléphone"
-                                           required>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" type="email" name='email' placeholder="Email"
-                                           required>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary form-control" type="submit">Envoyer</button>
-                    </form>
+                            <button class="btn btn-primary form-control" type="submit">Envoyer</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 col-lg-12">
-            <div class="card mt-2">
-                <div class="card-header font-weight-bold">Remplaçants enregistrés</div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable">
-                            <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Prénom</th>
-                                <th>Téléphone</th>
-                                <th>Mail</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% if rpts %}
-                                {% for rpt in rpts %}
-                                    <tr id="rpt-{{ rpt.id }}">
-                                        <td class="rptName rptData" name="name" width="30%">{{ rpt.name }}</td>
-                                        <td class="rptForname rptData" name="forname">{{ rpt.forname }}</td>
-                                        <td class="rptTel rptData" name="tel">{{ rpt.telmob }}</td>
-                                        <td class="rptEmail rptData" name="email">{{ rpt.email }}</td>
-                                        <td class="btn-group" role="group">
-                                            <a class="btn btn-outline-success btn-secondary form-control fa fa-edit"
-                                               role="button"
-                                               onclick="editRpt({{ rpt.id }})"
-                                               data-toggle="modal" data-target="#myModal">
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-secondary form-control fa fa-trash"
-                                               role="button"
-                                               onclick="deleteRpt({{ rpt.id }})">
-                                            </a>
+        <div class="row">
+            <div class="col-md-8 col-lg-12">
+                <div class="card mt-2">
+                    <div class="card-header font-weight-bold">Remplaçants enregistrés</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Téléphone</th>
+                                    <th>Mail</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if rpts %}
+                                    {% for rpt in rpts %}
+                                        <tr id="rpt-{{ rpt.id }}">
+                                            <td class="rptName rptData" name="name" width="30%">{{ rpt.name }}</td>
+                                            <td class="rptForname rptData" name="forname">{{ rpt.forname }}</td>
+                                            <td class="rptTel rptData" name="tel"><a
+                                                    href="tel:{{ rpt.telmob }}">{{ rpt.telmob|default_if_none:'' }}</a>
+                                            </td>
+                                            <td class="rptEmail rptData" name="email"><a
+                                                    href="mailto:{{ rpt.email }}">{{ rpt.email|default_if_none:'' }}</a>
+                                            </td>
+                                            <td class="btn-group" role="group">
+                                                <a class="btn btn-outline-success btn-secondary form-control fa fa-edit"
+                                                   role="button"
+                                                   onclick="editRpt({{ rpt.id }})"
+                                                   data-toggle="modal" data-target="#myModal">
+                                                </a>
+                                                <a class="btn btn-outline-danger btn-secondary form-control fa fa-trash"
+                                                   role="button"
+                                                   onclick="deleteRpt({{ rpt.id }})">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td>
+                                            Aucun remplaçant trouvé
                                         </td>
                                     </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr>
-                                    <td>
-                                        Aucun remplaçant trouvé
-                                    </td>
-                                </tr>
-                            {% endif %}
-                            </tbody>
-                        </table>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,32 +95,51 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-light">
+                    <h4 class="modal-title" id="myModalLabel">Remplaçant</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
                 </div>
                 <form id="updateRpt" action="">
                     <div class="modal-body">
-                        <input class="form-control" id="form-id" type="hidden" name="formId">
-                        <label for="form-name">Nom</label>
-                        <input class="form-control" id="form-name" type="text" name="formName">
-                        <label for="form-forname">Prénom</label>
-                        <input class="form-control" id="form-forname" type="text" name="formForname">
-                        <label for="form-tel">Téléphone</label>
-                        <input class="form-control" id="form-tel" type="text" name="formTel">
-                        <label for="form-email">Email</label>
-                        <input class="form-control" id="form-email" type="email" name="formEmail">
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-6">
+                                <input class="form-control" id="form-id" type="hidden" name="formId">
+                                <label class='mt-3' for="form-name">Nom</label>
+                                <input class="form-control" id="form-name" type="text" name="formName">
+                                <label class='mt-3' for="form-forname">Prénom</label>
+                                <input class="form-control" id="form-forname" type="text" name="formForname">
+                                <label class='mt-3' for="form-tel">Téléphone</label>
+                                <input class="form-control" id="form-tel" type="text" name="formTel">
+                                <label class='mt-3' for="form-email">Email</label>
+                                <input class="form-control" id="form-email" type="email" name="formEmail">
+                                <label class='mt-3' for="form-adress">Adresse</label>
+                                <input class="form-control" id="form-adress" type="text" name="formAdress">
+                                <label class='mt-3' for="form-town">Ville</label>
+                                <input class="form-control" id="form-town" type="text" name="formTown">
+                                <label class='mt-3' for="form-cp">Code postal</label>
+                                <input class="form-control" id="form-cp" type="text" name="formCp">
+                            </div>
+                            <div class="col-sm-4 col-lg-6">
+                                <label class='mt-3' for="form-conum">Numéro CO</label>
+                                <input class="form-control" id="form-conum" type="text" name="formConum">
+                                <label class='mt-3' for="form-rpps">Numéro RPPS</label>
+                                <input class="form-control" id="form-rpps" type="text" name="formRpps">
+                                <label class='mt-3' for="form-conumdepart">Département CO</label>
+                                <input class="form-control" id="form-conumdepart" type="text" name="formConumdepart">
+                                <label class='mt-3' for="form-codepart">Nom département CO</label>
+                                <input class="form-control" id="form-codepart" type="text" name="formCodepart">
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer bg-light">
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                     </div>
                 </form>
             </div>
         </div>
-        </di
     </div>
 {% endblock %}
 {% block script %}
@@ -207,18 +227,28 @@
 
         // Update Django Ajax Call
         function editRpt(id) {
-            if (id) {
-                tr_id = "#rpt-" + id;
-                name = $(tr_id).find(".rptName").text();
-                forname = $(tr_id).find(".rptForname").text();
-                tel = $(tr_id).find(".rptTel").text();
-                email = $(tr_id).find(".rptEmail").text();
-                $('#form-id').val(id);
-                $('#form-name').val(name);
-                $('#form-forname').val(forname);
-                $('#form-tel').val(tel);
-                $('#form-email').val(email);
-            }
+            $.ajax({
+                url: '{% url "crud_ajax_edit" %}',
+                data: {
+                    'id': id,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#form-id').val(data.rpt.id);
+                    $('#form-name').val(data.rpt.name);
+                    $('#form-forname').val(data.rpt.forname);
+                    $('#form-tel').val(data.rpt.tel);
+                    $('#form-email').val(data.rpt.email);
+                    $('#form-adress').val(data.rpt.adress);
+                    $('#form-town').val(data.rpt.town);
+                    $('#form-cp').val(data.rpt.cp);
+                    $('#form-conum').val(data.rpt.conum);
+                    $('#form-rpps').val(data.rpt.rpps);
+                    $('#form-codepart').val(data.rpt.codepart);
+                    $('#form-conumdepart').val(data.rpt.conumdepart);
+
+                }
+            })
         }
 
 
@@ -248,6 +278,13 @@
             var fornameInput = $('input[name="formForname"]').val().trim();
             var telInput = $('input[name="formTel"]').val().trim();
             var emailInput = $('input[name="formEmail"]').val().trim();
+            var adressInput = $('input[name="formAdress"]').val().trim();
+            var townInput = $('input[name="formTown"]').val().trim();
+            var cpInput = $('input[name="formCp"]').val().trim();
+            var conumInput = $('input[name="formConum"]').val().trim();
+            var rppsInput = $('input[name="formRpps"]').val().trim();
+            var conumdepartInput = $('input[name="formConumdepart"]').val().trim();
+            var codepartInput = $('input[name="formCodepart"]').val().trim();
             if (nameInput && fornameInput) {
                 // Create Ajax Call
                 $.ajax({
@@ -258,6 +295,13 @@
                         'forname': fornameInput,
                         'tel': telInput,
                         'email': emailInput,
+                        'adress': adressInput,
+                        'town': townInput,
+                        'cp': cpInput,
+                        'conum': conumInput,
+                        'rpps': rppsInput,
+                        'conumdepart': conumdepartInput,
+                        'codepart': codepartInput,
                     },
                     dataType: 'json',
                     success: function (data) {
@@ -282,7 +326,7 @@
             <td class="rptName rptData" name="name">${rpt.name}</td>
             <td class="rptForname rptData" name="forname">${rpt.forname}</td>
             <td class="rptTel rptData" name="tel">${rpt.tel}</td>
-            <td class="rptEmail rptData" name="email">${rpt.email}</td>
+            <td class="rptEmail rptData" name="email"><a href="mailto:${rpt.email}">${rpt.email}</a></td>
             <td class="btn-group" role="group">
                 <a class="btn btn-outline-success btn-secondary form-control fa fa-edit" onClick="editRpt(${rpt.id})" data-toggle="modal" data-target="#myModal")"></a>
                 <a class="btn btn-outline-danger btn-secondary form-control fa fa-trash" onClick="deleteRpt(${rpt.id})"></a>

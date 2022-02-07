@@ -87,22 +87,51 @@ class CreateCrudRpt(LoginRequiredMixin, View):
         return JsonResponse(data)
 
 
+class EditCrudRpt(LoginRequiredMixin, View):
+    def get(self, request):
+        id = request.GET.get('id', None)
+        obj = get_object_or_404(Rpt, pk=id)
+        rpt = {'id': obj.id, 'name': obj.name, 'forname': obj.forname, 'tel': obj.telmob, 'email': obj.email,
+               'adress': obj.adress1, 'town': obj.town, 'cp': obj.postalcode, 'conum': obj.conum, 'rpps': obj.rpps,
+               'conumdepart': obj.codepartnum, 'codepart': obj.codepartname}
+        data = {
+            'rpt': rpt
+        }
+        return JsonResponse(data)
+
+
 class UpdateCrudRpt(LoginRequiredMixin, View):
     def get(self, request):
         id1 = request.GET.get('id', None)
-        name1 = request.GET.get('name', None)
-        forname1 = request.GET.get('forname', None)
-        tel1 = request.GET.get('tel', None)
-        email1 = request.GET.get('email', None)
+        name = request.GET.get('name', None)
+        forname = request.GET.get('forname', None)
+        tel = request.GET.get('tel', None)
+        email = request.GET.get('email', None)
+        adress = request.GET.get('adress', None)
+        town = request.GET.get('town', None)
+        cp = request.GET.get('cp', None)
+        conum = request.GET.get('conum', None)
+        rpps = request.GET.get('rpps', None)
+        conumdepart = request.GET.get('conumdepart', None)
+        codepart = request.GET.get('codepart', None)
 
         obj = Rpt.objects.get(id=id1)
-        obj.name = name1
-        obj.forname = forname1
-        obj.telmob = tel1
-        obj.email = email1
+        obj.name = name
+        obj.forname = forname
+        obj.telmob = tel
+        obj.email = email
+        obj.codepartname = codepart
+        obj.codepartnum = conumdepart
+        obj.conum = conum
+        obj.rpps = rpps
+        obj.postalcode = cp
+        obj.adress1 = adress
+        obj.town = town
         obj.save()
 
-        rpt = {'id': obj.id, 'name': obj.name, 'forname': obj.forname, 'tel': obj.telmob, 'email': obj.email}
+        rpt = {'id': obj.id, 'name': obj.name, 'forname': obj.forname, 'tel': obj.telmob, 'email': obj.email,
+               'adress': obj.adress1, 'town': obj.town, 'cp': obj.postalcode, 'conum': obj.conum, 'rpps': obj.rpps,
+               'conumdepart': obj.codepartnum, 'codepart': obj.codepartname}
 
         data = {
             'rpt': rpt
