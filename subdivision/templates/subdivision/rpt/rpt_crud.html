@@ -7,28 +7,40 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="card mt-2">
                     <div class="card-header font-weight-bold">Ajout d'un remplaçant</div>
                     <div class="card-body">
+
                         <form id="addRpt" action="">
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="name" placeholder="Nom" required>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" name='forname' placeholder="Prénom" required>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="tel" name='tel' placeholder="Téléphone" required>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="email" name='email' placeholder="Email" required>
+                            <div class="row">
+                                <div class="col-md-4 col-lg-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="name" placeholder="Nom" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name='forname' placeholder="Prénom"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="tel" name='tel' placeholder="Téléphone"
+                                               required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="email" name='email' placeholder="Email"
+                                               required>
+                                    </div>
+                                </div>
                             </div>
                             <button class="btn btn-primary form-control" type="submit">Envoyer</button>
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-8">
                 <div class="card mt-2">
                     <div class="card-header font-weight-bold">Remplaçants enregistrés</div>
@@ -233,7 +245,7 @@
             var nameInput = $('input[name="formName"]').val().trim();
             var fornameInput = $('input[name="formForname"]').val().trim();
             var telInput = $('input[name="formTel"]').val().trim();
-            var emailInput = $('input[name="email"]').val().trim();
+            var emailInput = $('input[name="formEmail"]').val().trim();
             if (nameInput && fornameInput) {
                 // Create Ajax Call
                 $.ajax({
@@ -274,15 +286,17 @@
             </td>
         </tr>
     `);
-        };
+        }
 
         function updateToRptTable(rpt) {
             $("#dataTable #rpt-" + rpt.id).children(".rptData").each(function () {
                 var attr = $(this).attr("name");
-                if (attr == "name") {
+                if (attr === "name") {
                     $(this).text(rpt.name);
-                } else if (attr == "forname") {
+                } else if (attr === "forname") {
                     $(this).text(rpt.forname);
+                } else if (attr === "email") {
+                    $(this).text(rpt.email);
                 } else {
                     $(this).text(rpt.tel);
                 }
