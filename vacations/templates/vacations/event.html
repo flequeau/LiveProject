@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block titre %}Vacation{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card  mt-2">
+                <div class="card-header font-weight-normal"><strong>Nouvelle vacation</strong></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="id_title" class="form-label">Intitulé</label>
+                            {{ form.title|attr:"class:form-control"|attr:"readonly" }}
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="id_start" class="form-label">Date</label>
+                            {{ form.start|attr:"class:form-control"|attr:"readonly" }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="id_vacataire" class="form-label">Vacataire</label>
+                            {{ form.vacataire|attr:"class:form-control" }}
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="id_start_time" class="form-label">Heure arrivée</label>
+                            {{ form.start_time|attr:"class:form-control" }}
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="id_end_time" class="form-label">Heure départ</label>
+                            {{ form.end_time|attr:"class:form-control" }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div><input class="btn btn-success pull-left mt-5" type="submit" value="Envoyer"/></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div><a href="{% url 'vacation' %}" class="btn btn-info pull-right mt-5"
+                                    role="button">Annuler</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if message %}
+                        <div class="alert alert-warning mt-5" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+        <div class="card mt-2">
+            <div class="card-header font-weight-normal"><strong>Autres vacations à cette date</strong></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Vacataire</th>
+                            <th>Heure arrivée</th>
+                            <th>Heure départ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if idems %}
+                            {% for idem in idems %}
+                                <tr>
+                                    <td>{{ idem.vacataire|upper }}</td>
+                                    <td>{{ idem.start_time|time:'H:i' }}</td>
+                                    <td>{{ idem.end_time|time:'H:i' }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td class="text-center">Pas de vacation enregistrée à cette date</td>
+                                <td class="text-center">-</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "scrollY": "100px",
+                "scrollCollapse": true,
+                "paging": false,
+                "language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"},
+                "date_euro": {"url": "//cdn.datatables.net/plug-ins/1.10.20/sorting/date-euro.js"},
+                autowidth: false,
+                pageLength: 20,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+            });
+        });
+    </script>
+        <script>
+        $.datetimepicker.setLocale('fr');
+        $(document).ready(function () {
+            jQuery('#id_start_time').datetimepicker({
+                timepicker: true,
+                datepicker: false,
+                format: 'H:i',
+            });
+            jQuery('#id_end_time').datetimepicker({
+                timepicker: true,
+                datepicker: false,
+                format: 'H:i',
+            });
+        });
+    </script>
+{% endblock %}
