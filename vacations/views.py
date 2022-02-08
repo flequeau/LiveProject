@@ -13,3 +13,4 @@ def vacview(request):
     page = request.GET.get('page')
     vacations = paginator.get_page(page)
     return render(request, 'vacations/vac.html', {'vacations': vacations})
+
