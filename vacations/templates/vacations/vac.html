@@ -32,8 +32,8 @@
                             <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Heure début</th>
-                                <th>Heure Fin</th>
+                                <th>Début</th>
+                                <th>Fin</th>
                                 <th>Commentaires</th>
                                 <th>Actions</th>
                             </tr>
@@ -91,7 +91,7 @@
                 header: {
                     left: 'prevYear,nextYear',
                     center: 'today title prev,next',
-                    right: 'month,listMonth'
+                    right: 'month,basicWeek,basicDay,listMonth'
                 },
                 buttonText: {
                     listWeek: 'Week',
@@ -104,17 +104,17 @@
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
-                events: '/rep/events.json',
+                events: '/vac/events.json',
                 themeSystem: 'standard',
                 selectable: true,
                 select: function (start, end, jsEvent, view) {
                     var startday = start.format("DDMMYYYYHHMMSS");
                     var endday = end.format("DDMMYYYYHHMMSS");
-                    window.location.href = '/vac/vaccreate/' + startday + '/' + endday;
+                    window.location.href = '/vac/create/' + startday + '/' + endday;
                 },
-                eventClick: function (event, jsEvent, view) {
+                eventClick: function (event) {
                     var id = event.id;
-                    window.location.href = '/vac/vacupdate/' + id;
+                    window.location.href = '/vac/update/' + id;
                 },
             });
         });

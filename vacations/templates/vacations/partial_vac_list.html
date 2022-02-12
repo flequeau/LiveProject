@@ -8,24 +8,24 @@
             <td><small>{{ vac.description|truncatewords:"10" }}</small></td>
             <td style="width: 10rem;"><!-- Read Vac buttons -->
                 <button type="button" class="view-vac btn btn-sm btn-primary small js-view-vac"
-                        data-url="{% url 'vacupdate' vac.id %}">
+                        data-url="">
                     <span class="fa fa-eye"></span>
                 </button>
                 <!-- LineRepart buttons -->
                 <button type="button" class="btn btn-sm btn-primary">
-                        <a href="{% url 'vacdetail' vac.id %}">
+                        <a href="">
                             <span class="fa fa-bars text-white"></span></a>
                 </button>
                 <!-- Export Repart buttons -->
                 <button type="button" class="upload-vac btn btn-sm btn-primary">
-                    <a href="{% url 'export' vac.id %}">
+                    <a href="">
 
                     <span class="fa fa-upload text-white"></span></a>
                 </button>
                 <span class="badge bg-info text-white"></span>
                 <!-- Delete Vac buttons -->
                 <button type="button" class="delete-vac btn btn-sm btn-danger js-delete-vac"
-                        data-url="{% url 'vacdelete' vac.id %}">
+                        data-url="">
                     <span class="fa fa-trash"></span>
                 </button>
             </td>

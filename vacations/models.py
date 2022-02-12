@@ -41,7 +41,7 @@ class Vacation(models.Model):
     description = models.TextField(max_length=200, null=True, blank=True, default='', verbose_name='Résumé')
     title = models.CharField(max_length=100, default='VAC :  ', verbose_name='Vacation')
     start = models.DateField(verbose_name='Début')
-    start_time = models.TimeField(verbose_name='Heure début', default='00:07:45')
+    start_time = models.TimeField(verbose_name='Heure début', default='07:45:00')
     end = models.DateField(verbose_name='Fin', null=True, blank=True)
     end_time = models.TimeField(verbose_name='Heure Fin', default='00:00:00')
     calendrier = models.ForeignKey(Calendrier, on_delete=models.CASCADE, default=4, blank=True, null=True,
@@ -52,7 +52,7 @@ class Vacation(models.Model):
                                   verbose_name='Vacataire', null=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse('vacdetail', kwargs={'pk': self.pk})
+        return reverse('detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return str(self.start) + ' ' + self.title

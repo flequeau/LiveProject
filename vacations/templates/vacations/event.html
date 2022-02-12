@@ -100,16 +100,22 @@
             });
         });
     </script>
-        <script>
+    <script>
         $.datetimepicker.setLocale('fr');
         $(document).ready(function () {
             jQuery('#id_start_time').datetimepicker({
                 timepicker: true,
+                minTime: '07:00',
+                maxTime: '20:30',
+                step: 15,
                 datepicker: false,
                 format: 'H:i',
             });
             jQuery('#id_end_time').datetimepicker({
                 timepicker: true,
+                minTime: '14:00',
+                maxTime: '20:30',
+                step: 15,
                 datepicker: false,
                 format: 'H:i',
             });
