@@ -56,7 +56,8 @@
                                 </li>
                                 {% if vacations.has_next %}
                                     <li class="page-item small"><a class="page-link fa fa-forward" aria-hidden="true"
-                                                                   href="?page={{ vacations.next_page_number }}"></a></li>
+                                                                   href="?page={{ vacations.next_page_number }}"></a>
+                                    </li>
                                     <li class="page-item small"><a class="page-link fa fa-fast-forward"
                                                                    aria-hidden="true"
                                                                    href="?page={{ vacations.paginator.num_pages }}"></a>
@@ -85,13 +86,13 @@
                 defaultView: 'month',
                 selectHelper: true,
                 eventBackgroundColor: '#A52A2A',
-                aspectRatio: 2.8,
+                aspectRatio: 5,
                 eventTextColor: '#f0ffff',
                 height: 'auto',
                 header: {
                     left: 'prevYear,nextYear',
                     center: 'today title prev,next',
-                    right: 'month,basicWeek,basicDay,listMonth'
+                    right: 'month,agendaWeek,agendaDay,listWeek'
                 },
                 buttonText: {
                     listWeek: 'Week',
@@ -104,6 +105,9 @@
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
+                hiddenDays: [ 0,],
+                minTime: '07:00', // a start time (10am in this example)
+                maxTime: '20:00', //
                 events: '/vac/events.json',
                 themeSystem: 'standard',
                 selectable: true,

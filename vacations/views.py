@@ -29,11 +29,12 @@ def events_json(request):
     event_list = []
 
     for event in events:
-        event_start = event.start
         event_list.append({
             'id': event.id,
-            'start': event_start.strftime('%Y-%m-%d'),
+            'start': '{}T{}'.format(event.start.strftime('%Y-%m-%d'), event.start_time.strftime('%H:%M:%S')),
+            'end': '{}T{}'.format(event.start.strftime('%Y-%m-%d'), event.end_time.strftime('%H:%M:%S')),
             'title': event.title,
+            'color': event.vacataire.color.colorHex
         })
     if len(event_list) == 0:
         raise http.Http404

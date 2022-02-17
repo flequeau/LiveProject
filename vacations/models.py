@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from django.db import models
 from django.urls import reverse
 
@@ -18,6 +16,7 @@ class Vacataire(models.Model):
     email = models.EmailField(max_length=50, blank=True, null=True, verbose_name='Email')
     active = models.BooleanField(verbose_name="Actif", default=True, blank=True, null=True)
     signature = models.ImageField(upload_to='vac/signature', blank=True, null=True, )
+    color = models.ForeignKey(WebColor, blank=True, null=True, verbose_name='Couleur', on_delete=models.DO_NOTHING)
 
     def get_absolute_url(self):
         return reverse('vacataire_detail', kwargs={'pk': self.pk})
@@ -43,13 +42,14 @@ class Vacation(models.Model):
     start = models.DateField(verbose_name='Début')
     start_time = models.TimeField(verbose_name='Heure début', default='07:45:00')
     end = models.DateField(verbose_name='Fin', null=True, blank=True)
-    end_time = models.TimeField(verbose_name='Heure Fin', default='00:00:00')
+    end_time = models.TimeField(verbose_name='Heure Fin', default='15:00:00')
     calendrier = models.ForeignKey(Calendrier, on_delete=models.CASCADE, default=4, blank=True, null=True,
                                    verbose_name='Calendrier')
     is_cancelled = models.BooleanField(default=False, blank=True)
     all_day = models.BooleanField(default=False, blank=True)
     vacataire = models.ForeignKey(Vacataire, on_delete=models.CASCADE, related_name='vacataire',
                                   verbose_name='Vacataire', null=True, blank=True)
+    color = models.ForeignKey(Vacataire, related_name='Couleur', null=True, blank=True, on_delete=models.DO_NOTHING)
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
@@ -62,4 +62,3 @@ class Vacation(models.Model):
         verbose_name_plural = 'Vacations'
         ordering = ['start', 'end']
         unique_together = [('vacataire', 'start'), ]
-
