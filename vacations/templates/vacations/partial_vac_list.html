@@ -2,10 +2,9 @@
     {% for vac in vacations %}
         <tr>
             <td>{{ vac.start|date:"d/m/Y" }}</td>
-            <td>{{ vac.vacataire.name}}</td>
+            <td>{{ vac.vacataire }}</td>
             <td>{{ vac.start_time }}</td>
             <td>{{ vac.end_time }}</td>
-            <td><small>{{ vac.description|truncatewords:"10" }}</small></td>
             <td style="width: 10rem;"><!-- Read Vac buttons -->
                 <button type="button" class="view-vac btn btn-sm btn-primary small js-view-vac"
                         data-url="">
