@@ -1,8 +1,8 @@
-from django import forms
 from django.forms import ModelForm
-from .models import Vacation, Vacataire
-from datetime import datetime, timedelta
+from .models import Vacation
+from django.forms import ModelForm
 
+from .models import Vacation
 
 
 class VacForm(ModelForm):

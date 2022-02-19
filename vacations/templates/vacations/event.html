@@ -41,6 +41,13 @@
                                     role="button">Annuler</a>
                             </div>
                         </div>
+                        {% if id %}
+                            <div class="col-sm-3">
+                                <div><a href="{% url 'delete' id %}" class="btn btn-danger pull-right mt-5"
+                                        role="button">Supprimer</a>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                     {% if message %}
                         <div class="alert alert-warning mt-5" role="alert">

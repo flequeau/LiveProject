@@ -1,10 +1,10 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from django import http
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import VacForm
 from .models import Vacation
@@ -12,12 +12,14 @@ from .models import Vacation
 
 # Create your views here.
 @login_required()
-def vacview(request):
+def vacview(request, day=None):
     vac_list = Vacation.objects.all().order_by('-start')
     paginator = Paginator(vac_list, 5)
     page = request.GET.get('page')
     vacations = paginator.get_page(page)
-    return render(request, 'vacations/vac.html', {'vacations': vacations})
+    day = date.today()
+    return render(request, 'vacations/vac.html', {'vacations': vacations,
+                                                  'day': day})
 
 
 @login_required()
@@ -44,11 +46,10 @@ def events_json(request):
 
 
 def create(request, start, end):
-    start_event = start[4:8] + '-' + start[2:4] + '-' + start[:2]
+    start_event = start[0:10]
     start_event = datetime.strptime(start_event, '%Y-%m-%d')
-    end_event = end[4:8] + '-' + end[2:4] + '-' + end[:2]
+    end_event = end[0:10]
     end_event = datetime.strptime(end_event, '%Y-%m-%d')
-    start = start[:2] + '/' + start[2:4] + '/' + start[4:8]
     if Vacation.objects.filter(start=start_event).exists:
         idems = Vacation.objects.filter(start=start_event)
     else:
@@ -60,7 +61,8 @@ def create(request, start, end):
             instance.title = instance.vacataire.name + ' ' + instance.vacataire.forname
             instance.calendrier_id = 4
             instance.save()
-            return redirect('vacation')
+            day = start_event
+            return render(request, 'vacations/vac.html', {'day': day})
         else:
             message = 'Le vacataire a déjà un contrat à cette date'
             return render(request, 'vacations/event.html',
@@ -68,3 +70,50 @@ def create(request, start, end):
     else:
         form = VacForm(initial={'start': start_event, 'end': end_event})
         return render(request, 'vacations/event.html', {'form': form, 'idems': idems})
+
+
+@login_required()
+def update(request, id):
+    event = get_object_or_404(Vacation, pk=id)
+    event_idems = Vacation.objects.filter(start=event.start).exclude(pk=id)
+    form = VacForm(request.POST or None, instance=event)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            day = event.start
+            return render(request, 'vacations/vac.html', {'day': day})
+    else:
+        return render(request, 'vacations/event.html', {'form': form,
+                                                        'id': id,
+                                                        'start': event.start,
+                                                        'title': event.title,
+                                                        'start_time': event.start_time,
+                                                        'end_time': event.end_time,
+                                                        'vacataire': event.vacataire,
+                                                        'idems': event_idems,
+                                                        })
+
+
+@login_required()
+def resize(request, id, start, end):
+    event = get_object_or_404(Vacation, pk=id)
+    start_new = start[0:10]
+    end_new = end[0:10]
+    start_time_new = start[11:19]
+    end_time_new = end[11:19]
+    event.start = start_new
+    event.end = end_new
+    event.start_time = start_time_new
+    event.end_time = end_time_new
+    event.save()
+    event = get_object_or_404(Vacation, pk=id)
+    day = event.start
+    return render(request, 'vacations/vac.html', {'day': day})
+
+
+@login_required()
+def delete(request, id):
+    event = get_object_or_404(Vacation, pk=id)
+    day = event.start
+    event.delete()
+    return render(request, 'vacations/vac.html', {'day': day})
