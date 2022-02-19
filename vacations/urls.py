@@ -4,9 +4,9 @@ from . import views
 
 urlpatterns = [
     path('view', views.vacview, name='vacation'),
-    path('create/<str:start>/<str:end>', views.create, name='create'),
-    path('update/<int:id>', views.update, name='update'),
-    path('resize/<int:id>/<str:start>/<str:end>', views.resize, name='resize'),
-    path('delete/<int:id>', views.delete, name='delete'),
-    path('events.json', views.events_json, name='events_json')
+    path('vaccreate/<str:start>/<str:end>', views.vaccreate, name='vaccreate'),
+    path('vacupdate/<int:id>', views.vacupdate, name='vacupdate'),
+    path('vacresize/<int:id>/<str:start>/<str:end>', views.vacresize, name='vacresize'),
+    path('vacdelete/<int:id>', views.vacdelete, name='vacdelete'),
+    path('vac_events.json', views.vac_events_json, name='events_json')
 ]

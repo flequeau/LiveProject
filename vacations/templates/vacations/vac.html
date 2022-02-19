@@ -66,17 +66,17 @@
                 minTime: '07:00', // a start time (10am in this example)
                 maxTime: '20:00',
                 slotLabelFormat:'HH:mm',
-                events: '/vac/events.json',
+                events: '/vac/vac_events.json',
                 themeSystem: 'standard',
                 selectable: true,
                 select: function (start, end, jsEvent, view) {
                     var startday = moment(start).format();
                     var endday = moment(end).format();
-                    window.location.href = '/vac/create/' + startday + '/' + endday;
+                    window.location.href = '/vac/vaccreate/' + startday + '/' + endday;
                 },
                 eventClick: function (event) {
                     var id = event.id;
-                    window.location.href = '/vac/update/' + id;
+                    window.location.href = '/vac/vacupdate/' + id;
                 },
                 eventResize: function (event, delta, revertFunc) {
                     if (!confirm("Confirmez-vous cette modification ?")) {
@@ -85,7 +85,7 @@
                         var id = event.id;
                         var start = moment(event.start).format();
                         var end = moment(event.end).format();
-                        window.location.href = '/vac/resize/' + id + '/' + start + '/' + end;
+                        window.location.href = '/vac/vacresize/' + id + '/' + start + '/' + end;
                     }
                 },
                 eventDrop: function (event, delta, revertFunc) {
@@ -96,63 +96,10 @@
                         var id = event.id;
                         var start = moment(event.start).format();
                         var end = moment(event.end).format();
-                        window.location.href = '/vac/resize/' + id + '/' + start + '/' + end;
+                        window.location.href = '/vac/vacresize/' + id + '/' + start + '/' + end;
                     }
                 },
             });
-        });
-    </script>
-    <script>
-        $(function () {
-
-            /* Functions */
-
-            var loadForm = function () {
-                var btn = $(this);
-                $.ajax({
-                    url: btn.attr("data-url"),
-                    type: 'get',
-                    dataType: 'json',
-                    beforeSend: function () {
-                        $("#modal-vac .modal-content").html("");
-                        $("#modal-vac").modal("show");
-                    },
-                    success: function (data) {
-                        $("#modal-vac .modal-content").html(data.html_form);
-                    }
-                });
-            };
-
-            var saveForm = function () {
-                var form = $(this);
-                $.ajax({
-                    url: form.attr("action"),
-                    data: form.serialize(),
-                    type: form.attr("method"),
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.form_is_valid) {
-                            $("#vac-table tbody").html(data.html_vac_list);
-                            $("#modal-vac").modal("hide");
-                        } else {
-                            $("#modal-vac .modal-content").html(data.html_form);
-                        }
-                    }
-                });
-                return false;
-            };
-
-
-            /* Binding */
-
-            // Update repart
-            $("#vac-table").on("click", ".js-view-vac", loadForm);
-            $("#modal-vac").on("submit", ".js-vac-update-form", saveForm);
-
-            // Delete repart
-            $("#vac-table").on("click", ".js-delete-vac", loadForm);
-            $("#modal-vac").on("submit", ".js-vac-delete-form", saveForm);
-
         });
     </script>
 {% endblock %}

@@ -43,9 +43,9 @@
                         </div>
                         {% if id %}
                             <div class="col-sm-3">
-                                <div><a href="{% url 'delete' id %}" class="btn btn-danger pull-right mt-5"
-                                        role="button">Supprimer</a>
-                                </div>
+                                <a onclick="return confirm('Etes-vous certain de supprimer cette vacation ?');"
+                                   href="{% url 'vacdelete' id %}" class="btn btn-danger pull-left mt-5"
+                                   role="button">Effacer</a>
                             </div>
                         {% endif %}
                     </div>

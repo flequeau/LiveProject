@@ -23,7 +23,7 @@ def vacview(request, day=None):
 
 
 @login_required()
-def events_json(request):
+def vac_events_json(request):
     today = datetime.now()
     anneeprev = today - timedelta(weeks=52)
     anneepost = today + timedelta(weeks=52)
@@ -45,7 +45,7 @@ def events_json(request):
                                  content_type='application/json')
 
 
-def create(request, start, end):
+def vaccreate(request, start, end):
     start_event = start[0:10]
     start_event = datetime.strptime(start_event, '%Y-%m-%d')
     end_event = end[0:10]
@@ -73,7 +73,7 @@ def create(request, start, end):
 
 
 @login_required()
-def update(request, id):
+def vacupdate(request, id):
     event = get_object_or_404(Vacation, pk=id)
     event_idems = Vacation.objects.filter(start=event.start).exclude(pk=id)
     form = VacForm(request.POST or None, instance=event)
@@ -95,7 +95,7 @@ def update(request, id):
 
 
 @login_required()
-def resize(request, id, start, end):
+def vacresize(request, id, start, end):
     event = get_object_or_404(Vacation, pk=id)
     start_new = start[0:10]
     end_new = end[0:10]
@@ -112,7 +112,7 @@ def resize(request, id, start, end):
 
 
 @login_required()
-def delete(request, id):
+def vacdelete(request, id):
     event = get_object_or_404(Vacation, pk=id)
     day = event.start
     event.delete()
