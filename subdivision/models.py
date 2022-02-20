@@ -143,6 +143,17 @@ class Rpt(models.Model):
         unique_together = ['name', 'forname']
 
 
+class Compta(models.Model):
+    rpt_cost = models.IntegerField(blank=True, null=True, verbose_name='Rpt tarif')
+    vac_cost_1 = models.DecimalField(max_digits=6, decimal_places=3, blank=True, null=True, verbose_name='Vac moins')
+    vac_cost_2 = models.DecimalField(max_digits=6, decimal_places=3, blank=True, null=True, verbose_name='Vac plus')
+    gerant = models.ForeignKey(Are, related_name='gerant', null=True, blank=True, verbose_name='Gerant',
+                               on_delete=models.DO_NOTHING)
+
+    class Meta:
+        verbose_name = 'Comptabilite'
+
+
 class Event(models.Model):
     PAYTYPE = (
         ('C', 'Chèque'),

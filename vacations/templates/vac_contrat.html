@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Contrat Vacataire</title>
+    {% block extrahead %}
+
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="h6 mt-3 col-12 text-center">
+            SCM G.A.R.H.P.A., 25 avenue de la providence 92160 ANTONY
+            <br>
+            CONTRAT DE TRAVAIL A DUREE DETERMINEE, POUR SURCROÎT DE TRAVAIL.<br>
+            ENTRE LES SOUSSIGNÉS:
+        </div>
+    </div>
+    <div class="row ml-1 col-10 h6">
+        La S.C.M. G.A.R.H.P.A., 25 avenue de la providence 92160 ANTONY, n° de SIRET 415 156 991 00010, employeur,
+        représentée par le Dr {{ gerant }} agissant en qualité de gérant,
+        D’UNE PART
+    </div>
+    <div class="row ml-1 col-10 h6">
+        Et M {{ vacataire.forname }} {{ vacataire.name }} (Demeurant à l’adresse indiquée sur la déclaration d’embauche
+        auprès des organismes sociaux),
+        En qualité d’infirmier anesthésiste diplômé d’état (I.A.D.E.), le contractant.
+
+    </div>
+    <div class="row>">
+        <div class="h6 col-12 mt-3">
+            <p>
+                IL A ETE CONVENU CE QUI SUIT :
+            </p>
+            <ul>
+                <li>ARTICLE 1:
+                    La S.C.M. G.A.R.H.P.A. engage la personne nommée ci-dessus, dit le contractant, qui accepte pour
+                    une durée déterminée, en vue de faire face à un surcroît de travail lié à l’activité variable du
+                    bloc opératoire.
+                </li>
+                <li>
+                    ARTICLE 2:
+                    Le contrat est conclu à durée déterminée. Le présent contrat prend effet
+                    le {{ vacation.start|date:'d/m/Y' }} de {{ vacation.start_time|date:'H:i' }}
+                    à {{ vacation.end_time|date:'H:i' }}
+                </li>
+                <li>
+                    ARTICLE 3:
+                    Le contractant exercera en qualité de d’infirmier anesthésiste diplômé d’état sous la
+                    responsabilité et l’autorité des médecins anesthésistes associés de la S.C.M. G.A.R.H.P.A. ou de
+                    leurs remplaçants médecins anesthésistes, dans les locaux situés dans le bloc opératoire de
+                    l’Hôpital Privé d’Antony, 1 rue Velpeau, 92160 ANTONY.
+                </li>
+                <li>
+                    ARTICLE 4:
+                    Le présent contrat ne présente pas de période d’essai.
+                </li>
+                <li>
+                    ARTICLE 5:
+                    Le contractant percevra rémunération brute horaire dont le montant est fixé au premier janvier de
+                    l’année civile par la S.C.M. G.A.R.H.P.A., pour les contrats de travail à durée déterminée pour
+                    surcroît de travail, soit {{ vac_cost_1 }} euros en dessous d’un an d’ancienneté et {{ vac_cost_2 }}
+                    euros au-delà d’un an d’ancienneté. A ce taux horaire brut s’ajoutent la prime de précarité de 10%
+                    et la prime de fin d’année mensualisée d’un taux annuel de 4,2%. Le contractant reconnaît être
+                    informé et accepte cette rémunération. Elle lui sera versée à la fin de chaque mois civil.
+                </li>
+                <li>
+                    ARTICLE 6:
+                    Les conditions de travail du contractant seront régies par les dispositions de la Convention
+                    collective du personnel des Cabinets Médicaux applicable à l'entreprise.
+                </li>
+                <li>
+                    ARTICLE 7:
+                    Le contractant bénéficiera de tous les droits et avantages reconnus aux salariés à temps plein
+                    travaillant pour La S.C.M. G.A.R.H.P.A., résultant du Code du Travail, de la Convention Collective
+                    Nationale des cabinets médicaux, au prorata de son temps de travail.
+                </li>
+                <li>
+                    ARTICLE 8:
+                    La S.C.M. G.A.R.H.P.A. garantit au contractant un traitement équivalent aux autres salariés de
+                    même qualification professionnelle et de même ancienneté.
+
+                <li>
+                    ARTICLE 9:
+                    Le contractant s'engage à respecter toutes les instructions et consignes particulières de
+                    travail qui lui seront données et la plus entière discrétion sur tout ce qui concerne l'activité de
+                    La S.C.M. G.A.R.H.P.A. Il s’engage également à respecter toutes les recommandations et textes
+                    législatifs relatifs à l’exercice de l’anesthésie et aux mesures d’hygiène dans les soins.
+                </li>
+                <li>
+                    ARTICLE 10:
+                    Le contractant est titulaire d’une assurance responsabilité civile professionnelle.
+                </li>
+            </ul>
+            <div class="row">
+                <div class="h6 col-12 mt-3 text-justify">
+                    <p>Fait en deux exemplaires à {{ hop.town }}
+                        le &ensp; {{ date|slice:"10" }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table ml-2">
+                <thead>
+                <tr>
+                    <th class="ml-4 w-50">Le contractant, lu et approuvé</th>
+                    <th class="ml-2 w-50">L'employeur, lu et approuvé</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

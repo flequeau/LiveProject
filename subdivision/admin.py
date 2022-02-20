@@ -1,7 +1,8 @@
 from django.contrib import admin
-from subdivision.models import Calendrier, WebColor, Are, Rpt, HopParam, Event
+
 from repartition.models import Room, RepartEvent, DeskRoom, Iade, Operator, Sector, RepartLine, HourChoice, RepartCs, \
     Interne
+from subdivision.models import Calendrier, WebColor, Are, Rpt, HopParam, Event, Compta
 from vacations.models import Vacataire, Vacation
 
 admin.site.register(Calendrier)
@@ -9,6 +10,7 @@ admin.site.register(WebColor)
 admin.site.register(Are)
 admin.site.register(Rpt)
 admin.site.register(HopParam)
+admin.site.register(Compta)
 admin.site.register(Event)
 admin.site.register(HourChoice)
 admin.site.register(Sector)
