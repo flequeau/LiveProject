@@ -7,7 +7,7 @@
         <form method="post">
             {% csrf_token %}
             <div class="card  mt-2">
-                <div class="card-header"><strong>Contrats et annexes mensuels</strong>
+                <div class="card-header"><strong>Vacations IADEs mensuelles</strong>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -25,7 +25,7 @@
                             <div><input class="btn btn-success pull-left" type="submit" value="Envoyer"/></div>
                         </div>
                         <div class="col-sm-3">
-                            <a href="{% url 'rempla' %}" class="btn btn-info pull-left" role="button">Annuler</a>
+                            <a href="{% url 'vacation' %}" class="btn btn-info pull-left" role="button">Annuler</a>
                         </div>
                     </div>
                 </div>
@@ -34,32 +34,33 @@
         {% if items %}
             <div class="alert alert-info" role="alertdialog">
                 {{ message }}
-                <a href="{% url 'monthpdf' annee mois %}" class="btn btn-info btn-sm float-right"
+                <a href="" class="btn btn-info btn-sm float-right"
                    role="button">Editions mensuelles</a>
             </div>
         {% endif %}
         <div class="card mt-2">
-            <div class="card-header font-weight-normal"><strong>Remplacements trouvés {% if cost %}<span class="badge badge-warning float-right"><h4>Coût estimé :
-                {{ cost }} €</h4></span>{% endif %}</strong></div>
+            <div class="card-header font-weight-normal"><strong>Vacations trouvées</strong></div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable">
                         <thead>
                         <tr>
-                            <th>Anesthésiste</th>
-                            <th>Remplaçant</th>
+                            <th>Date</th>
+                            <th>Vacataire</th>
                             <th>Début</th>
                             <th>Fin</th>
+                            <th>Durée</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% if items %}
                             {% for item in items %}
                                 <tr>
-                                    <td>{{ item.are|upper }}</td>
-                                    <td>{{ item.rpt|upper }}</td>
                                     <td>{{ item.start|date:'d/m/Y' }}</td>
-                                    <td>{{ item.jend|date:'d/m/Y' }}</td>
+                                    <td>{{ item.vacataire }}</td>
+                                    <td>{{ item.start_time|date:'H:i' }}</td>
+                                    <td>{{ item.end_time|date:'H:i' }}</td>
+                                    <td>{{ item.duration }}</td>
                                 </tr>
                             {% endfor %}
                         {% else %}
@@ -88,7 +89,7 @@
                 autowidth: false,
                 pageLength: 200,
                 responsive: true,
-                order: [[2, "desc"]],
+                order: [[0, "desc"]],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     {

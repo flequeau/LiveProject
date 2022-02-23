@@ -4,8 +4,9 @@ from datetime import datetime, timedelta, date
 from django import http
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 
+from subdivision.forms import SearchMonthForm
 from .forms import VacForm
 from .models import Vacation
 
@@ -48,8 +49,7 @@ def vac_events_json(request):
 def vaccreate(request, start, end):
     start_event = start[0:10]
     start_event = datetime.strptime(start_event, '%Y-%m-%d')
-    end_event = end[0:10]
-    end_event = datetime.strptime(end_event, '%Y-%m-%d')
+    end_event = start_event
     if Vacation.objects.filter(start=start_event).exists:
         idems = Vacation.objects.filter(start=start_event)
     else:
@@ -60,6 +60,7 @@ def vaccreate(request, start, end):
             instance = form.save(commit=False)
             instance.title = instance.vacataire.name + ' ' + instance.vacataire.forname
             instance.calendrier_id = 4
+            instance.end = instance.start
             instance.save()
             day = start_event
             return render(request, 'vacations/vac.html', {'day': day})
@@ -117,3 +118,24 @@ def vacdelete(request, id):
     day = event.start
     event.delete()
     return render(request, 'vacations/vac.html', {'day': day})
+
+
+@login_required()
+def searchVacMonth(request):
+    if request.method == 'POST':
+        form = SearchMonthForm(request.POST)
+        if form.is_valid():
+            message = 'Editions des contrats vacataires disponibles'
+            annee = int(form.data['annee'])
+            mois = int(form.data['mois'])
+            items = Vacation.objects.filter(start__month=mois, start__year=annee).order_by('-start')
+            return render(request, 'vacations/searchVacMonthForm.html', {'form': form,
+                                                                         'items': items,
+                                                                         'message': message,
+                                                                         'annee': annee,
+                                                                         'mois': mois,
+                                                                         })
+    else:
+        form = SearchMonthForm()
+    return render(request, 'vacations/searchVacMonthForm.html', {'form': form,
+                                                                 })

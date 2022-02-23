@@ -1,3 +1,5 @@
+from datetime import timedelta, time
+
 from django.db import models
 from django.urls import reverse
 
@@ -51,6 +53,16 @@ class Vacation(models.Model):
                                   verbose_name='Vacataire', null=True, blank=True)
     color = models.ForeignKey(Vacataire, related_name='Couleur', null=True, blank=True, on_delete=models.DO_NOTHING)
 
+    @property
+    def duration(self):
+        t1 = timedelta(hours=self.start_time.hour, minutes=self.start_time.minute)
+        t2 = timedelta(hours=self.end_time.hour, minutes=self.end_time.minute)
+        secondes = (t2 - t1).seconds
+        minutes = (secondes // 60) % 60
+        heures = int(secondes / 3600)
+        duration = time(heures, minutes)
+        return duration
+
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
 
@@ -60,5 +72,5 @@ class Vacation(models.Model):
     class Meta:
         verbose_name = 'Vacation'
         verbose_name_plural = 'Vacations'
-        ordering = ['start', 'end']
+        ordering = ['-start', '-start_time']
         unique_together = [('vacataire', 'start'), ]
