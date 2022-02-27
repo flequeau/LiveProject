@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
-{% block title %}Vacataires{% endblock %}
-{% block titre %}Mise à jour{% endblock %}
+{% block title %}Mise à jour d'un Vacataire{% endblock %}
 {% block content %}
     <div class="container">
         <form method="post">
             {% csrf_token %}
-            <div class="card  mt-5">
-                <div class="card-header font-weight-bold">Nouveau vacataire</div>
+            <div class="card  mt-3">
+                <div class="card-header font-weight-bold">
+                    <div class="row  justify-content-between">
+                        <div class="'col-4 ml-3">
+                            Contact
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 text-left">
@@ -19,26 +24,26 @@
                             {{ form.forname|attr:"class:form-control" }}
                         </div>
                         <div class="col-sm-3 text-left">
-                            <label for="telmob" class="form-label">Tél. Mobile</label>
+                            <label for="id_telmob" class="form-label">Tél. Mobile</label>
                             {{ form.telmob|attr:"class:form-control" }}
                         </div>
-                        <div class="col-sm-3 text-left">
-                            <label for="id_tel2" class="form-label">Email</label>
+                        <div class="col-sm-3 text-left mt-2">
+                            <label for="id_email" class="form-label">Email</label>
                             {{ form.email|attr:"class:form-control" }}
-                        </div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-sm-3">
-                            <div><input class="btn btn-success pull-left" type="submit" value="Envoyer"/></div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div><a href="{% url 'vacataires_list' %}" class="btn btn-info pull-left"
-                                    role="button">Annuler</a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+                <div class="row">
+                    <div class="col-sm-3 mt-5">
+                        <div><input class="btn btn-success pull-left" type="submit" value="Envoyer"/></div>
+                    </div>
+                    <div class="col-sm-3 mt-5">
+                        <div><a href="{% url 'vacataire-list' %}" class="btn btn-info pull-left"
+                                role="button">Annuler</a>
+                        </div>
+                    </div>
+                </div>
         </form>
     </div>
 {% endblock %}

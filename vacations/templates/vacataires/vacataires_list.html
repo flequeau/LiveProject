@@ -5,7 +5,7 @@
         <div class="card  mt-5">
             <div class="card-header font-weight-bold">Liste des vacataires
                 <a class="btn btn-primary btn-sm float-right" role="button"
-                   href="{% url 'rpt_create' %}">Nouveau</a>
+                   href="{% url 'vacataire_create' %}">Nouveau</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -28,11 +28,11 @@
                                 <td><a href="mailto:{{ vac.email }}">{{ vac.email }}</a></td>
                                 <td>
                                     <a class="btn btn-info btn-secondary btn-sm fa fa-address-card"
-                                       href="{% url 'vac_detail' vac.id %}"></a>
+                                       href="{% url 'vacataire_detail' vac.id %}"></a>
                                     <a class="btn btn-success btn-secondary btn-sm fa fa-edit"
-                                       href="{% url 'vac_update' vac.id %}"></a>
+                                       href="{% url 'vacataire_update' vac.id %}"></a>
                                     <a class="btn btn-danger btn-secondary btn-sm fa fa-trash"
-                                       href="{% url 'vac_delete' vac.id %}"></a>
+                                       href="{% url 'vacataire_delete' vac.id %}"></a>
                                 </td>
                             </tr>
                         {% endfor %}

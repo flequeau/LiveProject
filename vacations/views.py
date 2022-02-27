@@ -147,28 +147,28 @@ def searchVacMonth(request):
 
 class VacataireList(LoginRequiredMixin, ListView):
     model = Vacataire
-    template_name = 'vacations/vacataires_list.html'
+    template_name = 'vacataires/vacataires_list.html'
     ordering = ['name']
 
 
 class VacataireDetail(LoginRequiredMixin, DetailView):
     model = Vacataire
-    template_name = 'vacations/vacataires_detail.html'
+    template_name = 'vacataires/vacataires_detail.html'
 
 
 class VacataireUpdate(LoginRequiredMixin, UpdateView):
     model = Vacataire
     fields = ['name', 'forname', 'email', 'telmob']
-    template_name = 'vacations/vacataires_detail.html'
+    template_name = 'vacataires/vacataires_update.html'
 
 
 class VacataireCreate(LoginRequiredMixin, CreateView):
     model = Vacataire
     fields = ['name', 'forname', 'email', 'telmob']
-    template_name = 'vacations/vacataires_create.html'
+    template_name = 'vacataires/vacataires_create.html'
 
 
 class VacataireDelete(LoginRequiredMixin, DeleteView):
     model = Vacataire
-    template_name = 'vacations/vacataires_delete.html'
-    success_url = reverse_lazy('vacataires_list')
+    template_name = 'vacataires/vacataires_delete.html'
+    success_url = reverse_lazy('vacataire-list')
