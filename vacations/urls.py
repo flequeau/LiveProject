@@ -10,4 +10,9 @@ urlpatterns = [
     path('vacdelete/<int:id>', views.vacdelete, name='vacdelete'),
     path('vac_events.json', views.vac_events_json, name='events_json'),
     path('searchVacMonth', views.searchVacMonth, name='searchVacMonth'),
+    path('vaca', views.VacataireList.as_view(), name='vacataires_list'),
+    path('vacadetail/<int:pk>', views.VacataireDetail.as_view(), name='vacataires_detail'),
+    path('vacaupdate/<int:pk>', views.VacataireUpdate.as_view(), name='vacataires_update'),
+    path('vacadelete/<int:pk>', views.VacataireDelete.as_view(), name='vacataires_delete'),
+    path('vacacreate', views.VacataireCreate.as_view(), name='vacataires_create'),
 ]

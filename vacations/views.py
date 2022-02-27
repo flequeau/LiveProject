@@ -3,12 +3,15 @@ from datetime import datetime, timedelta, date
 
 from django import http
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 
 from subdivision.forms import SearchMonthForm
 from .forms import VacForm
-from .models import Vacation
+from .models import Vacation, Vacataire
 
 
 # Create your views here.
@@ -139,3 +142,33 @@ def searchVacMonth(request):
         form = SearchMonthForm()
     return render(request, 'vacations/searchVacMonthForm.html', {'form': form,
                                                                  })
+
+####### CRUD VACATAIRES ################# CRUD ARE ################# CRUD ARE ##########
+
+class VacataireList(LoginRequiredMixin, ListView):
+    model = Vacataire
+    template_name = 'vacations/vacataires_list.html'
+    ordering = ['name']
+
+
+class VacataireDetail(LoginRequiredMixin, DetailView):
+    model = Vacataire
+    template_name = 'vacations/vacataires_detail.html'
+
+
+class VacataireUpdate(LoginRequiredMixin, UpdateView):
+    model = Vacataire
+    fields = ['name', 'forname', 'email', 'telmob']
+    template_name = 'vacations/vacataires_detail.html'
+
+
+class VacataireCreate(LoginRequiredMixin, CreateView):
+    model = Vacataire
+    fields = ['name', 'forname', 'email', 'telmob']
+    template_name = 'vacations/vacataires_create.html'
+
+
+class VacataireDelete(LoginRequiredMixin, DeleteView):
+    model = Vacataire
+    template_name = 'vacations/vacataires_delete.html'
+    success_url = reverse_lazy('vacataires_list')

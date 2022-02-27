@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Détail d'un Vacataire{% endblock %}
+{% block extrahead %}
+{% endblock %}
+{% block titre %}Fiche de {{ object.forname|title }} {{ object.name|upper }}{% endblock %}>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5 text-left">
+                <div class="card  mt-5">
+                    <div class="card-header font-weight-bold">Détail
+                        de {{ object.forname|title }} {{ object.name|upper }}
+                    </div>
+                    <div class="card-body">
+                        <p>Nom : {{ object.name|upper }}</p>
+                        <p>Prénom : {{ object.forname|title }}</p>
+                        {% if object.telmob %}
+                            <p>Mobile : {{ object.telmob }}</p>
+                        {% else %}
+                            <p class="text-danger">Mobile : Non renseigné</p>
+                        {% endif %}
+                        {% if object.email %}
+                            <p>Email : <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+                        {% else %}
+                            <p class="text-danger">Email : Non renseigné</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 text-left">
+                <a href="{% url 'vacations_list' %}" class="btn btn-primary pull-left mt-5"
+                   role="button">Retour</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
