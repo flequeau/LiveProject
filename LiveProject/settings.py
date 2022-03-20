@@ -33,7 +33,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.25','atheinas.fr', 'www.atheinas.fr', 'liveproject.ddns.net']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.25', '192.168.1.34', 'atheinas.fr', 'www.atheinas.fr',
+                 'liveproject.ddns.net']
 
 # Application definition
 
