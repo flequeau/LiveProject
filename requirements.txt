@@ -19,7 +19,6 @@ sqlparse==0.4.2
 supervisor==4.2.2
 webencodings==0.5.1
 wkhtmltopdf==0.2
-xhtml2pdf==0.2.5python manage.py 
-
+xhtml2pdf==0.2.5
 whitenoise~=5.3.0
 openpyxl~=3.0.9
